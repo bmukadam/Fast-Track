@@ -1,6 +1,6 @@
 ### FastTrack - _Get There Faster_
 
-COS 33 Spring 2018
+COS 333 Spring 2018
 
 _“Everyone knows that debugging is twice as hard as writing a program in the first place. So if you're as clever as you can be when you write it, how will you ever debug it?”_ **- Brian W. Kernighan**
 
