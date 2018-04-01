@@ -7,8 +7,8 @@ _“Everyone knows that debugging is twice as hard as writing a program in the f
 ## Team Members
 
 |Abdulghafar Al Tair (fearless leader) atair@princeton.edu|Bilal Mukadam bmukadam@princeton.edu|Mahd Khan mahdk@princeton.edu|
-| :-------------: |:-------------:| :-------------:|
-| ![alt=pic](https://github.com/BidoTair/Fast-Track/blob/master/IMG_0034.JPG) | ![alt=pic1](https://github.com/BidoTair/Fast-Track/blob/master/bilal.jpg)| ![alt=pic2](https://github.com/BidoTair/Fast-Track/blob/master/mahd.jpg) |
+| :-----------------------------: |:-------------:| :-------------:|
+| ![alt=pic](/IMG_0034.JPG) | ![alt=pic1](/bilal.jpg)| ![alt=pic2](/mahd.jpg) |
 
 
 **TA:** Ashley King
