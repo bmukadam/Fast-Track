@@ -4,6 +4,11 @@ COS 333 Spring 2018
 
 _“Everyone knows that debugging is twice as hard as writing a program in the first place. So if you're as clever as you can be when you write it, how will you ever debug it?”_ **- Brian W. Kernighan**
 
+## Link to Project Website
+[Take me there!](https://princetonfasttrack.herokuapp.com/)
+
+
+
 ## Team Members
 
 |Abdulghafar Al Tair (fearless leader) atair@princeton.edu|Bilal Mukadam bmukadam@princeton.edu|Mahd Khan mahdk@princeton.edu|
