@@ -111,7 +111,11 @@ def hello():
 	for data in arrivalestimates.body["data"]:
 		for arrivals in data["arrivals"]:
 			if arrivals["route_id"] in activeroutes:
-				sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
+				if arrivals["route_id"] not in sourceroutetoarrival.keys():
+					if int(arrivals["arrival_at"][11:13]) == int(time[11:13]) - 4:
+						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
+					elif int(arrivals["arrival_at"][11:13]) - (int(time[11:13]) - 4) == 1:
+						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
 	output = ""
 	for stop in destnametoidtable:
 		for route in activeroutes:
