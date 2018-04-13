@@ -2,7 +2,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
  
 #, methods=['GET', 'POST']
-@app.route('/FastTrackPython', methods=['GET', 'POST'])
+@app.route('https://princetonfasttrack.herokuapp.com/FastTrackPython', methods=['GET', 'POST'])
 def hello():
 	#if request.method == 'POST':
 	src = str(request.form['src'])
