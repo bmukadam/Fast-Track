@@ -1,11 +1,11 @@
 
 import cherrypy
+import os
 from jinja2 import Environment, FileSystemLoader
-from flask import Flask
-from flask import request
+#from flask import Flask
+#from flask import request
 env = Environment(loader=FileSystemLoader('html'))
 
-app = Flask(__name__)
  
 #, methods=['GET', 'POST']
 #@app.route('/FastTrackPython', methods=['GET', 'POST'])
@@ -38,5 +38,3 @@ config = {
 
 cherrypy.quickstart(HelloWorld(), '/', config=config)
 
-if __name__ == "__main__":
-    app.run()
