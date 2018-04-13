@@ -7,15 +7,15 @@ app = Flask(__name__)
 @app.route('/FastTrackPython', methods=['GET', 'POST'])
 def hello():
 	#if request.method == 'POST':
-	#src = str(request.form['src'])
-	#dst = str(request.form['dst'])
+	src = str(request.form['src']) 
+	dst = str(request.form['dst'])
 	#output = "Length of src was: " + str(len(src)) + " and recieved data was: " + src + "\n" + 	"Length of dst was: " + str(len(dst)) + " and recieved data was: " + dst
 
 	# 1: find closest bus stops to user
 	mapskey = "AIzaSyDvHgiADUnMOPhrlPWWtHnXpcFXjgUhSyc"
 
 	#a: get lat and long of user
-	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=Friend Center+Princeton+NJ&key=" + mapskey)
+	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + src + "+Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
 
@@ -55,7 +55,7 @@ def hello():
 
 
 	# get stops around user destination
-	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=Frist center+Princeton+NJ&key=" + mapskey)
+	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
 
@@ -112,13 +112,14 @@ def hello():
 		for arrivals in data["arrivals"]:
 			if arrivals["route_id"] in activeroutes:
 				sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
-	
+	output = ""
 	for stop in destnametoidtable:
 		for route in activeroutes:
 			for stopinarray in activeroutes[route]:
 				if stopinarray == stop:
-					output = 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
+					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
+					output = output + '/n'
 					#print output
 	return output
 
