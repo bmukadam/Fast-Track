@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 
-@app.route('/FastTrackPython', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def hello():
 	#if request.method == 'POST':
 	src = str(request.form['src'])
