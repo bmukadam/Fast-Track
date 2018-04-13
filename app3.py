@@ -3,8 +3,8 @@ app = Flask(__name__)
  
 #, methods=['GET', 'POST']
 @app.route('/')
-def hello():
+def index():
 	return render_template('index.html')
  
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
