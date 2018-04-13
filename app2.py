@@ -9,11 +9,12 @@ app = Flask(__name__)
  
 #, methods=['GET', 'POST']
 #@app.route('/FastTrackPython', methods=['GET', 'POST'])
-@cherrypy.expose
-def hello():
-	#if request.method == 'POST':
-	tmpl = env.get_template('index.html')
-	return tmpl.render()
+class HelloWorld(object):
+	@cherrypy.expose
+	def hello():
+		#if request.method == 'POST':
+		tmpl = env.get_template('index.html')
+		return tmpl.render()
 	'''
 	src = str(request.form['src'])
 	dst = str(request.form['dst'])
@@ -22,6 +23,20 @@ def hello():
 
 	#return output
 		#return "Argument recieved"
- 
+
+config = {
+    'global': {
+        'server.socket_host': '0.0.0.0',
+        'server.socket_port': int(os.environ.get('PORT', 5000)),
+    },
+    '/assets': {
+        'tools.staticdir.root': os.path.dirname(os.path.abspath(__file__)),
+        'tools.staticdir.on': True,
+        'tools.staticdir.dir': 'assets',
+    }
+}
+
+cherrypy.quickstart(HelloWorld(), '/', config=config)
+
 if __name__ == "__main__":
     app.run()
