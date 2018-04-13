@@ -119,7 +119,7 @@ def hello():
 				if stopinarray == stop:
 					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
-					output = output + '\n'
+					output = output + '<br>'
 					#print output
 	return output
 
