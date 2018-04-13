@@ -9,3 +9,5 @@ virtualenv==15.2.0
 Werkzeug==0.14.1
 cherrypy==3.8.0
 peewee
+unirest
+sys
