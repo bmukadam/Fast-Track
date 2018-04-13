@@ -36,5 +36,4 @@ config = {
     }
 }
 
-cherrypy.engine.start()
-cherrypy.engine.block()
+cherrypy.quickstart(HelloWorld())
