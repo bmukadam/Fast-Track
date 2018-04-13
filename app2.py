@@ -36,4 +36,5 @@ config = {
     }
 }
 
-cherrypy.quickstart(HelloWorld())
+if __name__ == '__main__':
+	cherrypy.quickstart(HelloWorld(), '/', config=config)
