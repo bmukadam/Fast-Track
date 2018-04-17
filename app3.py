@@ -107,14 +107,19 @@ def hello():
 	)
 
 	time = arrivalestimates.body["generated_on"]
+	hourtime = 0;
+	if (int(time[11:13]) - 4) < 0:
+		hourtime = int(time[11:13]) + 20
+	else:
+		hourtime = int(time[11:13]) - 4
 
 	for data in arrivalestimates.body["data"]:
 		for arrivals in data["arrivals"]:
 			if arrivals["route_id"] in activeroutes:
 				if arrivals["route_id"] not in sourceroutetoarrival.keys():
-					if int(arrivals["arrival_at"][11:13]) == int(time[11:13]) - 4:
+					if int(arrivals["arrival_at"][11:13]) == hourtime:
 						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
-					elif int(arrivals["arrival_at"][11:13]) - (int(time[11:13]) - 4) == 1:
+					if int(arrivals["arrival_at"][11:13]) - hourtime == 1:
 						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
 	output = ""
 	for stop in destnametoidtable:
