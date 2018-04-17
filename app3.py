@@ -125,7 +125,7 @@ def hello():
 	for stop in destnametoidtable:
 		for route in activeroutes:
 			for stopinarray in activeroutes[route]:
-				if stopinarray == stop:
+				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
 					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
 					output = output + '<br>'
