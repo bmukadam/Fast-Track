@@ -130,7 +130,8 @@ def hello():
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
 					output = output + '<br>'
 					#print output
-	return output
+	#return output
+	render_template('index.html', route_results=output)
 
 #, methods=['GET', 'POST']
 @app.route('/')
