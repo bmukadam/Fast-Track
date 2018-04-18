@@ -51,8 +51,6 @@ def hello():
 		inputString += sourcenametoidtable[name] + "%2c"
 	
 
-
-
 	# get stops around user destination
 	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
@@ -108,7 +106,8 @@ def hello():
 					activeroutes[route] = routestostops[route]
 					activeroutetoname[route] = rname
 
-	for routeSegments in routetosegments[optimalRoute]:				
+optimalRoute = activeroutes[0]
+for routeSegments in routetosegments[optimalRoute]:				
 		encodings.append(response3.body["data"][routeSegments[0]])
 
 
