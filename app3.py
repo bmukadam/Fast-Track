@@ -131,7 +131,7 @@ def hello():
 					output = output + '<br>'
 					#print output
 	#return output
-	render_template('index.html', route_results=output)
+	return render_template('index.html', route_results=output)
 
 #, methods=['GET', 'POST']
 @app.route('/')
