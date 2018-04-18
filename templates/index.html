@@ -13,8 +13,11 @@
 			height: 667px;
 			background-color: grey;
 		}
+		
 		#results_body {
-			overflow-y: scroll;
+			height: 400px;
+		    max-height: 400px;
+		    overflow-y: scroll;
 		}
 		/*
 		.col-sm-2 {
@@ -76,9 +79,15 @@
 				</form>
 				<br>
 				<div class="panel panel-default">
-					<div class="panel-heading">Results:</div>
-					<div class="panel-body" id = "results_body">
-						{{ route_results }}
+					<div class="panel-heading" overflow: hidden;>Results:</div>
+					<div class="panel-body" id = "results_body" max-height: 10;overflow-y: scroll;>
+						{% if route_results %} 
+							{{ route_results }}
+						{% else %}
+							<br><br><br><br><br><br><br><br>
+							<br><br><br><br><br><br><br><br>
+							<br><br><br><br><br><br><br><br>
+						{% endif %}
 					</div>
 				</div>
 			</div>
