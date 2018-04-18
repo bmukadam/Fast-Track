@@ -45,7 +45,6 @@ def hello():
 		sourcenametoroutes[names["name"]] = names["routes"]
 		sourceidtonametable[names["stop_id"]] = names["name"]
 
-	
 
 	inputString = ""
 	for name in sourcenametoidtable:
@@ -72,10 +71,18 @@ def hello():
 
 	destnametoidtable = {}
 	for name in response2.body["data"]:
-		destnametoidtable[name["stop_id"]] = name["name"]
+		destidtonametable[name["stop_id"]] = name["name"]
 
 	# build a table with route_id as keys and stops array as value
 	response1 = unirest.get("https://transloc-api-1-2.p.mashape.com/routes.json?agencies=84&callback=call",
+	  headers={
+	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
+	    "Accept": "application/json"
+	  }
+	)
+
+	# get all segments in princeton
+	response3 = unirest.get("https://transloc-api-1-2.p.mashape.com/segments.json?agencies=84&callback=call",
 	  headers={
 	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 	    "Accept": "application/json"
@@ -86,10 +93,13 @@ def hello():
 	activeroutes = {}
 	activeroutetoname = {}
 	activeroutetoroutename = {}
+	routetosegments = {}
+	encodings = []
 	for routes in response1.body["data"]["84"]:
 		if routes["is_active"] == True:
 			routestostops[routes["route_id"]] = routes["stops"]
-			activeroutetoroutename[routes["route_id"]] = routes["long_name"] 
+			activeroutetoroutename[routes["route_id"]] = routes["long_name"]
+			routetosegments["route_id"] = routes["segments"]
 		
 	for route in routestostops:
 		for rname in sourcenametoroutes:
@@ -97,6 +107,9 @@ def hello():
 				if routeinarray == route:
 					activeroutes[route] = routestostops[route]
 					activeroutetoname[route] = rname
+
+	for routeSegments in routetosegments[optimalRoute]:				
+		encodings.append(response3.body["data"][routeSegments[0]])
 
 
 	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
@@ -122,11 +135,11 @@ def hello():
 					if int(arrivals["arrival_at"][11:13]) - hourtime == 1:
 						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
 	output = ""
-	for stop in destnametoidtable:
+	for stop in destidtonametable:
 		for route in activeroutes:
 			for stopinarray in activeroutes[route]:
 				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
-					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
+					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destidtonametable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
 					output = output + '<br>'
 					#print output
