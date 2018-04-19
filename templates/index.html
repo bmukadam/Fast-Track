@@ -60,16 +60,22 @@
 				    <input type="submit">
 				</form>
 			
-				<form action="/FastTrackPython" method="POST">
+				<form>
+					
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input id="usersrcfield" type="text" class="form-control" name="src" placeholder="Choose Starting Point">
+						<input id="usersrcfield" type="text" class="form-control" name="msg" placeholder="Choose Starting Point">
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input id="userdstfield" type="text" class="form-control" name="dst" placeholder="Enter Destination">
+						<input id="userdstfield" type="text" class="form-control" name="msg" placeholder="Enter Destination">
 					</div>
-					<input type="submit" class="btn btn-primary">
+					<form action="/FastTrackPython/asdf" method="post">
+						<button type="button"  class="btn btn-primary">Search</button>
+						<!-- + document.getElementById('usersrcfield').value
+							onclick = "changeText()" -->
+					</form>
+					
 				</form>
 				<br>
 				<div class="panel panel-default">
