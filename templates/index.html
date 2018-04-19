@@ -13,6 +13,12 @@
 			height: 667px;
 			background-color: grey;
 		}
+		
+		#results_body {
+			height: 500px;
+		    max-height: 500px;
+		    overflow-y: scroll;
+		}
 		/*
 		.col-sm-2 {
 			background-color: #DCDCDC;
@@ -47,37 +53,29 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-2">
-				
+
 				<form action="/FastTrackPython" method="POST">
-					<input name="src" placeholder="Choose Starting Point">
-				    <input name="dst" placeholder="Enter Destination">
-				    <input type="submit">
-				</form>
-			
-				<form>
-					
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input id="usersrcfield" type="text" class="form-control" name="msg" placeholder="Choose Starting Point">
+						<input id="usersrcfield" type="text" class="form-control" name="src" placeholder="Choose Starting Point">
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input id="userdstfield" type="text" class="form-control" name="msg" placeholder="Enter Destination">
+						<input id="userdstfield" type="text" class="form-control" name="dst" placeholder="Enter Destination">
 					</div>
-					<form action="/FastTrackPython/asdf" method="post">
-						<button type="button"  class="btn btn-primary">Search</button>
-						<!-- + document.getElementById('usersrcfield').value
-							onclick = "changeText()" -->
-					</form>
-					
+					<input type="submit" class="btn btn-primary">
 				</form>
 				<br>
 				<div class="panel panel-default">
-					<div class="panel-heading">Results:</div>
-					<div class="panel-body" id = "results_body">
-						<br><br><br><br><br><br><br><br>
-						<br><br><br><br><br><br><br><br>
-						<br><br><br><br><br><br><br><br>
+					<div class="panel-heading" overflow: hidden;>Results:</div>
+					<div class="panel-body" id = "results_body" max-height: 10;overflow-y: scroll;>
+						{% if route_results %} 
+							{{ route_results }}
+						{% else %}
+							<br><br><br><br><br><br><br><br>
+							<br><br><br><br><br><br><br><br>
+							<br><br><br><br><br><br><br><br>
+						{% endif %}
 					</div>
 				</div>
 			</div>
