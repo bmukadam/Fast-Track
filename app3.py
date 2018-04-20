@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import unirest
 import sys
 
@@ -7,8 +7,14 @@ app = Flask(__name__)
 @app.route('/FastTrackPython', methods=['GET', 'POST'])
 def hello():
 	#if request.method == 'POST':
-	src = str(request.form['src']) 
-	dst = str(request.form['dst'])
+	returnedcontent = []
+	src = str(request.args.get('src'))
+	dst = str(request.args.get('dst'))
+	polyline_output =  "msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA"
+	returnedcontent.append(polyline_output)
+	#return jsonify(result=output)
+	#src = str(request.form['src']) 
+	#dst = str(request.form['dst'])
 	#output = "Length of src was: " + str(len(src)) + " and recieved data was: " + src + "\n" + 	"Length of dst was: " + str(len(dst)) + " and recieved data was: " + dst
 
 	# 1: find closest bus stops to user
@@ -128,10 +134,13 @@ def hello():
 				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
 					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
-					output = output + '\n\n'
+					returnedcontent.append(output)
+					#output = output + '<br>'
 					#print output
 	#return output
-	return render_template('index.html', route_results=output)
+	#return render_template('index.html', route_results=output)
+	#returnedcontent.append(output)
+	return jsonify(result=returnedcontent)
 
 #, methods=['GET', 'POST']
 @app.route('/')

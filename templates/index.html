@@ -7,6 +7,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type=text/javascript>
+ 	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	</script>
 	<style >
 		#map {
 			width: 100%;
@@ -29,6 +33,61 @@
 	</style>
 </head>
 <body>
+
+	<script type="text/javascript">
+		var hasline = 0;
+		var line;
+		$(document).ready(function(){
+		    $("#calculate").click(function(){
+		    	//alert("Mouse down over p1!");
+		    	if (hasline == 1) {
+		    		line.setMap(null);
+		    		$("#results_body").empty();
+		    	}
+		    	
+		    	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
+			        src: $('input[name="src"]').val(),
+			        dst: $('input[name="dst"]').val()
+			      }, function(data) {
+			      	var div = document.getElementById('results_body');
+			      	for( var i=1; i < data.result.length; i++) {
+			      		div.innerHTML += data.result[i];
+			      		div.innerHTML += "<br><br>";
+			      	}
+			        //$("#results_body").text(data.result[1]);
+					var encoded_data = data.result[0];
+			        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
+			        line = new google.maps.Polyline({
+				        path: decode,
+				        strokeColor: '#00008B',
+				        strokeOpacity: 1.0,
+				        strokeWeight: 4,
+				        zIndex: 3
+				    });
+
+				    line.setMap(map);
+				    hasline = 1;
+			      });
+			      return false;
+		        
+		    });
+		});		
+	</script>
+	<!--
+	<script type=text/javascript>
+	  $(function() {
+	    $('a#calculate').bind('click', function() {
+	      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+	        a: $('input[name="a"]').val(),
+	        b: $('input[name="b"]').val()
+	      }, function(data) {
+	        $("#result").text(data.result);
+	      });
+	      return false;
+	    });
+	  });
+	</script>
+-->
 	<script>
 	function changeText() { 
 	    //id.innerHTML = "Was clicked!";
@@ -54,7 +113,8 @@
 		<div class="row">
 			<div class="col-sm-2">
 
-				<form action="/FastTrackPython" method="POST">
+				<!--<form action="/FastTrackPython" method="POST">-->
+				<form>
 					<div class="input-group">
 						<span class="input-group-addon"></span>
 						<input id="usersrcfield" type="text" class="form-control" name="src" placeholder="Choose Starting Point">
@@ -63,12 +123,14 @@
 						<span class="input-group-addon"></span>
 						<input id="userdstfield" type="text" class="form-control" name="dst" placeholder="Enter Destination">
 					</div>
-					<input type="submit" class="btn btn-primary">
+					<button id=calculate>Submit</button>
+					<!--<input id=calculate type="submit" class="btn btn-primary">-->
 				</form>
 				<br>
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 10;overflow-y: scroll;>
+						<!--
 						{% if route_results %} 
 							{{ route_results }}
 						{% else %}
@@ -76,6 +138,7 @@
 							<br><br><br><br><br><br><br><br>
 							<br><br><br><br><br><br><br><br>
 						{% endif %}
+						-->
 					</div>
 				</div>
 			</div>
@@ -83,12 +146,15 @@
 				<div id="map"></div>
 				
 				<script>
+					var map;
+
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
-				        var map = new google.maps.Map(document.getElementById('map'), {
+				        map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
+				        /*
 				        var encoded_data = 'msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA';
 
 				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
@@ -100,7 +166,7 @@
 					        zIndex: 3
 					    });
 
-					    line.setMap(map);
+					    line.setMap(map);*/
 			      }
 			    </script>
 			    <script async defer
