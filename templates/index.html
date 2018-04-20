@@ -89,10 +89,22 @@
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
+				        var encoded_data = 'msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA';
+
+				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
+				        var line = new google.maps.Polyline({
+					        path: decode,
+					        strokeColor: '#00008B',
+					        strokeOpacity: 1.0,
+					        strokeWeight: 4,
+					        zIndex: 3
+					    });
+
+					    line.setMap(map);
 			      }
 			    </script>
 			    <script async defer
-			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg&callback=initMap">
+			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg&libraries=geometry&callback=initMap">
 			    </script>
 			    <!--
 				<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d12163.367045588777!2d-74.6462761!3d40.345856149999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1523231727703" width="1200" height="650" frameborder="0" style="border:4" allowfullscreen></iframe>

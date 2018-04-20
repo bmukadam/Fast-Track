@@ -128,7 +128,7 @@ def hello():
 				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
 					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
 					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
-					output = output + '<br>'
+					output = output + '\n\n'
 					#print output
 	#return output
 	return render_template('index.html', route_results=output)
