@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import unirest
 import sys
+import polyline
 
 app = Flask(__name__)
 
-def calculateTime(route, stop, data, timeSent):
+def calculateTime(route, stop, data, timeSent):	
 	time = data.body["generated_on"]
 	hourtime = 0;
 	if (int(time[11:13]) - 4) < 0:
@@ -30,8 +31,8 @@ def hello():
 	returnedcontent = []
 	src = str(request.args.get('src'))
 	dst = str(request.args.get('dst'))
-	polyline_output =  "msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA"
-	returnedcontent.append(polyline_output)
+	#polyline_output =  "msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA"
+	#returnedcontent.append(polyline_output)
 	#return jsonify(result=output)
 	#src = str(request.form['src']) 
 	#dst = str(request.form['dst'])
@@ -156,6 +157,9 @@ def hello():
 
 	mintime = 100
 	output = ""
+	bestroute = ''
+	bestsrc = ''
+	bestdst = ''
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			for destname in activeroutetodestname[route]:
@@ -164,15 +168,63 @@ def hello():
 
 				if sourcetime is not None and desttime is not None and desttime < mintime:
 					mintime = desttime
+					bestroute = str(activeroutetoroutename[route])
+					bestsrc = str(sourcename)
+					bestdst = str(destname)
+
 					output = 'Walk to ' + str(sourcename) + ' stop and take bus to ' + str(destname) + ' stop'
 					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
 					output = output + ' total trip time is ' + str(desttime)
 	returnedcontent.append(output)
 					#output = output + '<br>'
 					#print output
-	#return output
-	#return render_template('index.html', route_results=output)
-	#returnedcontent.append(output)
+	finalhash = ''
+	rownum = 0
+	allcoords = []
+	prevcoords = []
+	firstrowofcoords = 1
+	src = bestsrc
+	dst = bestdst
+
+	currindex = 0
+	startindex = -1
+	endindex = -1
+	filename = bestroute + ".csv"
+	fileroute = os.path.join('.', 'Encoded Polylines/' + filename)
+	
+	with open(filename) as csvfile:
+		readCSV = csv.reader(csvfile, delimiter=',')
+		for row in readCSV:
+			if rownum == 0:
+				rownum = 1
+			else:
+				if row[0] == src and startindex == -1:
+					startindex = currindex
+				if row[1] == dst and endindex == -1:
+					endindex = currindex
+				currcoords = polyline.decode(row[2])
+				if firstrowofcoords == 1:
+					firstrowofcoords = 0
+				else:
+					currcoords[0] = prevcoords[len(prevcoords) - 1]
+				prevcoords = currcoords
+				allcoords.append(currcoords)
+				currindex += 1
+	allcoords[len(allcoords) - 1][len(currcoords) - 1] = allcoords[0][0]
+
+	aggregated = []
+
+	if startindex > endindex:
+		for i in range(startindex, len(allcoords)):
+			aggregated += allcoords[i]
+		for i in range(0, endindex+1):
+			aggregated += allcoords[i]
+	else:
+		for i in range(startindex, endindex+1):
+			aggregated += allcoords[i]
+
+	returnedcontent.append(polyline.encode(aggregated))
+
 	return jsonify(result=returnedcontent)
 
 #, methods=['GET', 'POST']
