@@ -49,6 +49,7 @@
 			        src: $('input[name="src"]').val(),
 			        dst: $('input[name="dst"]').val()
 			      }, function(data) {
+			      	alert("Data Length is: " + data.result.length);
 			      	var div = document.getElementById('results_body');
 			      	for( var i=0; i < data.result.length-1; i++) {
 			      		div.innerHTML += data.result[i];
