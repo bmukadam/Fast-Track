@@ -183,7 +183,7 @@ def hello():
 	returnedcontent.append(output)
 					#output = output + '<br>'
 					#print output
-	return jsonify(result=returnedcontent)
+	
 	finalhash = ''
 	rownum = 0
 	allcoords = []
@@ -196,7 +196,7 @@ def hello():
 	startindex = -1
 	endindex = -1
 	filename = bestroute + ".csv"
-	fileroute = os.path.join('.', 'Encoded Polylines/' + filename)
+	fileroute = os.path.join('.', 'New Polylines/' + filename)
 	
 	with open(filename) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
