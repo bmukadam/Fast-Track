@@ -197,13 +197,13 @@ def hello():
 	endindex = -1
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
-	returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
+	#returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
 	#return jsonify(result=returnedcontent)
 
-	with open(filename) as csvfile:
+	with open(fileroute) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
-		returnedcontent[0] = returnedcontent[0] + "    reached hererererer"
-		return jsonify(result=returnedcontent)
+		#returnedcontent[0] = returnedcontent[0] + "    reached hererererer"
+		#return jsonify(result=returnedcontent)
 		for row in readCSV:
 			if rownum == 0:
 				rownum = 1
