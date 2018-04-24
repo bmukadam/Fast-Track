@@ -50,6 +50,7 @@
 			        dst: $('input[name="dst"]').val()
 			      }, function(data) {
 			      	alert("Data Length is: " + data.result.length);
+			      	alert("Data[0] is: " + data.result[0]);
 			      	var div = document.getElementById('results_body');
 			      	for( var i=0; i < data.result.length-1; i++) {
 			      		div.innerHTML += data.result[i];
