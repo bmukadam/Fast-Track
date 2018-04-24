@@ -195,6 +195,7 @@ def hello():
 	currindex = 0
 	startindex = -1
 	endindex = -1
+	bestroute = bestroute.replace('/', ' ')
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
 	#returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
