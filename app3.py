@@ -221,6 +221,7 @@ def hello():
 				currindex += 1
 	allcoords[len(allcoords) - 1][len(currcoords) - 1] = allcoords[0][0]
 
+	return jsonify(result=returnedcontent)
 	aggregated = []
 
 	if startindex > endindex:
