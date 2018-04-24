@@ -33,6 +33,8 @@ def hello():
 	returnedcontent = []
 	src = str(request.args.get('src'))
 	dst = str(request.args.get('dst'))
+	returnedcontent.append('askdjfnasdljfnas,df a,dsf')
+	return jsonify(result=returnedcontent)
 	#polyline_output =  "msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA"
 	#returnedcontent.append(polyline_output)
 	#return jsonify(result=output)
