@@ -197,6 +197,7 @@ def hello():
 	endindex = -1
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
+	return jsonify(result=returnedcontent)
 	
 	with open(filename) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
