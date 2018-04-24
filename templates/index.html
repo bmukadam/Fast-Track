@@ -51,7 +51,7 @@
 			      }, function(data) {
 			      	alert("Data Length is: " + data.result.length);
 			      	alert("Data[0] is: " + data.result[0]);
-			      	alert("Data[1] is: " + data.result[1]);
+			      	//alert("Data[1] is: " + data.result[1]);
 			      	var div = document.getElementById('results_body');
 			      	/*for( var i=0; i < data.result.length-1; i++) {
 			      		div.innerHTML += data.result[i];
@@ -61,6 +61,7 @@
 			      	div.innerHTML += "<br><br>";
 			        //$("#results_body").text(data.result[1]);
 			        
+			        /*
 					var encoded_data = data.result[1];
 			        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
 			        line = new google.maps.Polyline({
@@ -72,7 +73,7 @@
 				    });
 
 				    line.setMap(map);
-				    hasline = 1;
+				    hasline = 1;*/
 			      });
 			      return false;
 		        
