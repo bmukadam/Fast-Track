@@ -117,7 +117,8 @@ def hello():
 
 	routestostops = {}
 	activeroutes = {}
-	activeroutetoname = {}
+	activeroutetosourcename = {}
+	activeroutetodestname = {}
 	activeroutetoroutename = {}
 	for routes in response1.body["data"]["84"]:
 		if routes["is_active"] == True:
@@ -167,7 +168,6 @@ def hello():
 					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
 					output = output + ' total trip time is ' + str(desttime)
 	returnedcontent.append(output)
-					
 					#output = output + '<br>'
 					#print output
 	#return output
