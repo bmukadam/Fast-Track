@@ -197,12 +197,13 @@ def hello():
 	endindex = -1
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
-	returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute)
+	returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
 	#return jsonify(result=returnedcontent)
 
 	with open(filename) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
 		returnedcontent[0] = returnedcontent[0] + "    reached hererererer"
+		return jsonify(result=returnedcontent)
 		for row in readCSV:
 			if rownum == 0:
 				rownum = 1
@@ -221,7 +222,7 @@ def hello():
 				currindex += 1
 	allcoords[len(allcoords) - 1][len(currcoords) - 1] = allcoords[0][0]
 
-	return jsonify(result=returnedcontent)
+	
 	aggregated = []
 
 	if startindex > endindex:
