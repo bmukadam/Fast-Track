@@ -4,6 +4,26 @@ import sys
 
 app = Flask(__name__)
 
+def calculateTime(route, stop, data, timeSent):
+	time = data.body["generated_on"]
+	hourtime = 0;
+	if (int(time[11:13]) - 4) < 0:
+		hourtime = int(time[11:13]) + 20
+	else:
+		hourtime = int(time[11:13]) - 4
+
+	for data in data.body["data"]:
+		if stop == data["stop_id"]:
+			for arrivals in data["arrivals"]:
+				if arrivals["route_id"] == route:
+					minute = 0
+					if int(arrivals["arrival_at"][11:13]) == hourtime:
+						minute = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
+					else: 
+						minute = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
+					if timeSent < minute:
+						return minute
+
 @app.route('/FastTrackPython', methods=['GET', 'POST'])
 def hello():
 	#if request.method == 'POST':
@@ -43,6 +63,7 @@ def hello():
 	sourcenametoroutes = {}
 	sourceidtonametable = {}
 	sourceroutetoarrival = {}
+	destroutetoarrival = {}
 
 	# build some useful tables
 	for names in response.body["data"]:
@@ -76,9 +97,15 @@ def hello():
 	  }
 	)
 
+	destidtonametable = {}
 	destnametoidtable = {}
 	for name in response2.body["data"]:
-		destnametoidtable[name["stop_id"]] = name["name"]
+		destidtonametable[name["stop_id"]] = name["name"]
+		destnametoidtable[name["name"]] = name["stop_id"]
+
+	inputStringDest = ""
+	for name in destnametoidtable:
+		inputStringDest += destnametoidtable[name] + "%2c"
 
 	# build a table with route_id as keys and stops array as value
 	response1 = unirest.get("https://transloc-api-1-2.p.mashape.com/routes.json?agencies=84&callback=call",
@@ -95,14 +122,21 @@ def hello():
 	for routes in response1.body["data"]["84"]:
 		if routes["is_active"] == True:
 			routestostops[routes["route_id"]] = routes["stops"]
-			activeroutetoroutename[routes["route_id"]] = routes["long_name"] 
-		
+			activeroutetoroutename[routes["route_id"]] = routes["long_name"]
+			activeroutetosourcename[routes["route_id"]] = [] 
+			activeroutetodestname[routes["route_id"]] = []
+	
 	for route in routestostops:
-		for rname in sourcenametoroutes:
-			for routeinarray in sourcenametoroutes[rname]:
-				if routeinarray == route:
-					activeroutes[route] = routestostops[route]
-					activeroutetoname[route] = rname
+		for stop in routestostops[route]:
+			for sourcestop in sourceidtonametable:
+				if stop == sourcestop:
+					activeroutetosourcename[route].append(sourceidtonametable[stop])
+
+	for route in routestostops:
+		for stop in routestostops[route]:
+			for sourcestop in destidtonametable:
+				if stop == sourcestop:
+					activeroutetodestname[route].append(destidtonametable[stop])
 
 
 	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
@@ -112,29 +146,28 @@ def hello():
 		}
 	)
 
-	time = arrivalestimates.body["generated_on"]
-	hourtime = 0;
-	if (int(time[11:13]) - 4) < 0:
-		hourtime = int(time[11:13]) + 20
-	else:
-		hourtime = int(time[11:13]) - 4
+	arrivalestimatesdest = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputStringDest[:-3],
+		headers={
+		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
+		"Accept": "application/json"
+		}
+	)
 
-	for data in arrivalestimates.body["data"]:
-		for arrivals in data["arrivals"]:
-			if arrivals["route_id"] in activeroutes:
-				if arrivals["route_id"] not in sourceroutetoarrival.keys():
-					if int(arrivals["arrival_at"][11:13]) == hourtime:
-						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
-					if int(arrivals["arrival_at"][11:13]) - hourtime == 1:
-						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
+	mintime = 100
 	output = ""
-	for stop in destnametoidtable:
-		for route in activeroutes:
-			for stopinarray in activeroutes[route]:
-				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
-					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destnametoidtable[stop] + ' stop'
-					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
-					returnedcontent.append(output)
+	for route in activeroutetosourcename:
+		for sourcename in activeroutetosourcename[route]:
+			for destname in activeroutetodestname[route]:
+				sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
+				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesdest, sourcetime)
+
+				if sourcetime is not None and desttime is not None and desttime < mintime:
+					mintime = desttime
+					output = 'Walk to ' + str(sourcename) + ' stop and take bus to ' + str(destname) + ' stop'
+					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
+					output = output + ' total trip time is ' + str(desttime)
+	returnedcontent.append(output)
+					
 					#output = output + '<br>'
 					#print output
 	#return output
