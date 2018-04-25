@@ -50,13 +50,13 @@ def hello():
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
 
-	lat = str(lat)[:10]
-	longitude = str(longitude)[:10]
+	latsource = str(lat)[:10]
+	longitudesource = str(longitude)[:10]
 
 
 	# get stops around user source
-	response = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + lat 
-		+ "%2C" + longitude + "%7C250", 
+	response = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + latsource 
+		+ "%2C" + longitudesource + "%7C250", 
 		headers={
 	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 	    "Accept": "application/json"
@@ -73,7 +73,7 @@ def hello():
 	# build some useful tables
 	for names in response.body["data"]:
 		sourcenametoidtable[names["name"]] = names["stop_id"]
-		sourcenametolatlongtable[names["name"]] = (names["location"]["lat"], names["location"]["lng"])
+		sourcenametolatlongtable[names["name"]] = str(names["location"]["lat"]) + "," + str(names["location"]["lng"])
 		sourcenametoroutes[names["name"]] = names["routes"]
 		sourceidtonametable[names["stop_id"]] = names["name"]
 
@@ -91,11 +91,11 @@ def hello():
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
 
-	lat = str(lat)[:10]
-	longitude = str(longitude)[:10]
+	latdest = str(lat)[:10]
+	longitudedest = str(longitude)[:10]
 
-	response2 = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + lat 
-		+ "%2C" + longitude + "%7C250", 
+	response2 = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + latdest 
+		+ "%2C" + longitudedest + "%7C250", 
 		headers={
 	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 	    "Accept": "application/json"
@@ -104,9 +104,11 @@ def hello():
 
 	destidtonametable = {}
 	destnametoidtable = {}
+	destnametolatlongtable = {}
 	for name in response2.body["data"]:
 		destidtonametable[name["stop_id"]] = name["name"]
 		destnametoidtable[name["name"]] = name["stop_id"]
+		destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
 
 	inputStringDest = ""
 	for name in destnametoidtable:
@@ -171,15 +173,24 @@ def hello():
 				sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
 				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesdest, sourcetime)
 
-				if sourcetime is not None and desttime is not None and desttime < mintime:
-					mintime = desttime
+				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
+					"&mode=walking&key=" + mapskey)
+
+				googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
+					"&mode=walking&key=" + mapskey)
+
+				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
+				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
+
+				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime:
+					mintime = desttime + walktimedest + walktimesrc
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
 					bestdst = str(destname)
 
-					output = 'Walk to ' + str(sourcename) + ' stop and take bus to ' + str(destname) + ' stop'
+					output = 'Walk to ' + str(sourcename) + ' stop in ' + str(walktimesrc) + ' and take bus to ' + str(destname) + ' stop'
 					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
-					output = output + ' total trip time is ' + str(desttime)
+					output = output + ' total trip time is ' + str(desttime - sourcetime) + " mins walk time is " + str (walktimedest)
 	returnedcontent.append(output)
 					#output = output + '<br>'
 					#print output
