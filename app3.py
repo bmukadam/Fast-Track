@@ -56,7 +56,7 @@ def hello():
 
 	# get stops around user source
 	response = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + lat 
-		+ "%2C" + longitude + "%7C200", 
+		+ "%2C" + longitude + "%7C250", 
 		headers={
 	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 	    "Accept": "application/json"
@@ -95,7 +95,7 @@ def hello():
 	longitude = str(longitude)[:10]
 
 	response2 = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + lat 
-		+ "%2C" + longitude + "%7C200", 
+		+ "%2C" + longitude + "%7C250", 
 		headers={
 	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 	    "Accept": "application/json"
