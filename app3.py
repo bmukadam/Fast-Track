@@ -246,7 +246,16 @@ def hello():
 		for i in range(startindex, endindex+1):
 			aggregated += allcoords[i]
 
-	returnedcontent.append(polyline.encode(aggregated))
+	returnedcontent.append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
+	usercoords = [lat, longitude]
+	returnedcontent.append(usercoords)  #addiing user's current location
+	returnedcontent.append(sourcenametolatlongtable[sourcename])  #addiing location of src stop
+	returnedcontent.append(destnametolatlongtable[destname])  #addiing location of dst stop
+	editedsrc = src.replace(' ', '+')
+	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editedsrc+",+Princeton,+NJ&key=" + mapskey)
+	destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
+	returnedcontent.append(destcoords)
+
 
 	return jsonify(result=returnedcontent)
 
