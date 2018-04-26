@@ -127,20 +127,8 @@
 				    });
 
 				    line.setMap(map);
-				    /*
-				    var selectedMode = "WALKING";
-				    var request = {
-				    	origin: new google.maps.LatLng(data.result[2]),
-				    	destination: new google.maps.LatLng(data.result[3]),
-				    	travelMode: google.maps.TravelMode[selectedMode]
-				    };
-				    directionsService.route(request, function(response, status) {
-					    if (status == 'OK') {
-					      directionsDisplay.setDirections(response);
-					    }
-					  });
 				    hasline = 1;
-			      });*/
+			      });
 			      return false;
 		        
 		    });
@@ -230,18 +218,13 @@
 				
 				<script>
 					var map;
-					//var directionsService;
-  					//var directionsDisplay;
+
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
 				        map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
-				        //directionsService = new google.maps.DirectionsService();
-				        //directionsDisplay = new google.maps.DirectionsRenderer();
-				        //directionsDisplay.setMap(map);
-				        /*
 				        var myMarkers = map.markers;
 				        alert("length of myMarkers: " + myMarkers.length)
 				        var div = document.getElementById('results_body');
