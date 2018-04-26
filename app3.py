@@ -200,8 +200,6 @@ def hello():
 	allcoords = []
 	prevcoords = []
 	firstrowofcoords = 1
-	src = bestsrc
-	dst = bestdst
 
 	currindex = 0
 	startindex = -1
@@ -220,9 +218,9 @@ def hello():
 			if rownum == 0:
 				rownum = 1
 			else:
-				if row[0] == src and startindex == -1:
+				if row[0] == bestsrc and startindex == -1:
 					startindex = currindex
-				if row[1] == dst and endindex == -1:
+				if row[1] == bestdst and endindex == -1:
 					endindex = currindex
 				currcoords = polyline.decode(row[2])
 				if firstrowofcoords == 1:
@@ -251,7 +249,7 @@ def hello():
 	returnedcontent.append(usercoords)  #addiing user's current location
 	returnedcontent.append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
 	returnedcontent.append(destnametolatlongtable[bestdst])  #addiing location of dst stop
-	editeddst = bestdst.replace(' ', '+')
+	editeddst = dst.replace(' ', '+')
 	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
 	destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
 	returnedcontent.append(destcoords)
