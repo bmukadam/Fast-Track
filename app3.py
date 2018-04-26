@@ -200,8 +200,7 @@ def hello():
 	allcoords = []
 	prevcoords = []
 	firstrowofcoords = 1
-	src = bestsrc
-	dst = bestdst
+
 
 	currindex = 0
 	startindex = -1
@@ -220,9 +219,9 @@ def hello():
 			if rownum == 0:
 				rownum = 1
 			else:
-				if row[0] == src and startindex == -1:
+				if row[0] == bestsrc and startindex == -1:
 					startindex = currindex
-				if row[1] == dst and endindex == -1:
+				if row[1] == bestdst and endindex == -1:
 					endindex = currindex
 				currcoords = polyline.decode(row[2])
 				if firstrowofcoords == 1:
