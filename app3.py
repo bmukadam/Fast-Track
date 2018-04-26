@@ -249,10 +249,10 @@ def hello():
 	returnedcontent.append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
 	usercoords = [lat, longitude]
 	returnedcontent.append(usercoords)  #addiing user's current location
-	returnedcontent.append(sourcenametolatlongtable[sourcename])  #addiing location of src stop
-	returnedcontent.append(destnametolatlongtable[destname])  #addiing location of dst stop
-	editedsrc = src.replace(' ', '+')
-	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editedsrc+",+Princeton,+NJ&key=" + mapskey)
+	returnedcontent.append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
+	returnedcontent.append(destnametolatlongtable[bestdst])  #addiing location of dst stop
+	editeddst = dst.replace(' ', '+')
+	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
 	destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
 	returnedcontent.append(destcoords)
 
