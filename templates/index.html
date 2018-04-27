@@ -235,20 +235,7 @@
 				      		div.innerHTML += "<br><br>";
 			      		}
 
-						var x = document.getElementById("results_bodys");
-
-						function getLocation() {
-						    if (navigator.geolocation) {
-						        navigator.geolocation.getCurrentPosition(showPosition);
-						    } else { 
-						        x.innerHTML = "Geolocation is not supported by this browser.";
-						    }
-						}
-
-						function showPosition(position) {
-							userlat = position.coords.latitude;
-							userlong = position.coords.longitude
-						}
+						
 				        /*
 				        var encoded_data = 'msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA';
 
@@ -263,6 +250,20 @@
 
 					    line.setMap(map);*/
 			      }
+		      		var x = document.getElementById("results_bodys");
+
+					function getLocation() {
+					    if (navigator.geolocation) {
+					        navigator.geolocation.getCurrentPosition(showPosition);
+					    } else { 
+					        x.innerHTML = "Geolocation is not supported by this browser.";
+					    }
+					}
+
+					function showPosition(position) {
+						userlat = position.coords.latitude;
+						userlong = position.coords.longitude
+					}
 			    </script>
 			    <script async defer
 			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg&libraries=geometry&callback=initMap">
