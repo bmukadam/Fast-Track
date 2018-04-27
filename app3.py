@@ -49,6 +49,8 @@ def hello():
 	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + src + "+Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
+	origlat = lat
+	origlongitude = longitude
 
 	latsource = str(lat)[:10]
 	longitudesource = str(longitude)[:10]
@@ -245,7 +247,7 @@ def hello():
 			aggregated += allcoords[i]
 
 	returnedcontent.append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
-	usercoords = [lat, longitude]
+	usercoords = [origlat, origlongitude]
 	returnedcontent.append(usercoords)  #addiing user's current location
 	returnedcontent.append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
 	returnedcontent.append(destnametolatlongtable[bestdst])  #addiing location of dst stop
