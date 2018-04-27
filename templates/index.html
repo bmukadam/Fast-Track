@@ -79,7 +79,31 @@
 	<script type="text/javascript">
 		var hasline = 0;
 		var line;
+		//var userlat;
+	    //var userlong;
+	    //var x = document.getElementById("results_body");
+
+
+		
+
+		
 		$(document).ready(function(){
+		    /*if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(showPosition);
+		    } else { 
+		        x.innerHTML = "Geolocation is not supported by this browser.";
+		    }
+		    function showPosition(position) {
+		    x.innerHTML = "Latitude: " + position.coords.latitude + 
+		    "<br>Longitude: " + position.coords.longitude;
+		}*/
+			//getLocation();
+			var userlat;
+			var userlong;
+			navigator.geolocation.getCurrentPosition(function(position) {
+			  userlat = position.coords.latitude;
+			  userlong = position.coords.longitude;
+			});
 		    $("#calculate").click(function(){
 		    	//alert("Mouse down over p1!");
 		    	if (hasline == 1) {
@@ -94,7 +118,7 @@
 			      	//alert("Data Length is: " + data.result.length);
 			      	//alert("Data[0] is: " + data.result[0]);
 			      	//alert("Data[1] is: " + data.result[1]);
-			      	var div = document.getElementById('results_body');
+			      	
 			      	/*for( var i=0; i < data.result.length-1; i++) {
 			      		div.innerHTML += data.result[i];
 			      		div.innerHTML += "<br><br>";
@@ -215,11 +239,25 @@
 			</div>
 			<div class="col-sm-10">
 				<div id="map"></div>
+
+				
 				
 				<script>
 					var map;
-					var userlat;
-				    var userlong;
+					
+					/*
+					function getLocation() {
+					    if (navigator.geolocation) {
+					        navigator.geolocation.getCurrentPosition(showPosition);
+					    } else { 
+					        x.innerHTML = "Geolocation is not supported by this browser.";
+					    }
+					}
+
+					function showPosition(position) {
+						userlat = position.coords.latitude;
+						userlong = position.coords.longitude;
+					}*/
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
 				        map = new google.maps.Map(document.getElementById('map'), {
@@ -250,20 +288,7 @@
 
 					    line.setMap(map);*/
 			      }
-		      		var x = document.getElementById("results_bodys");
 
-					function getLocation() {
-					    if (navigator.geolocation) {
-					        navigator.geolocation.getCurrentPosition(showPosition);
-					    } else { 
-					        x.innerHTML = "Geolocation is not supported by this browser.";
-					    }
-					}
-
-					function showPosition(position) {
-						userlat = position.coords.latitude;
-						userlong = position.coords.longitude
-					}
 			    </script>
 			    <script async defer
 			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg&libraries=geometry&callback=initMap">
@@ -275,6 +300,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<script type="text/javascript">
 
