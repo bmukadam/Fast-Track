@@ -102,7 +102,7 @@
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "user curr location: " + data.result[2];
+			      	div.innerHTML += "user curr location: " + userlat + ", " + userlong;
 			      	div.innerHTML += "<br><br>";
 
 			      	div.innerHTML += "location of src stop: " + data.result[3];
@@ -218,7 +218,8 @@
 				
 				<script>
 					var map;
-
+					var userlat;
+				    var userlong;
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
 				        map = new google.maps.Map(document.getElementById('map'), {
@@ -226,12 +227,28 @@
 				          	center: uluru
 				        });
 				        var myMarkers = map.markers;
+				        
 				        alert("length of myMarkers: " + myMarkers.length)
 				        var div = document.getElementById('results_body');
 				        for( var i=0; i < myMarkers.length-1; i++) {
 				      		div.innerHTML += myMarkers[i];
 				      		div.innerHTML += "<br><br>";
 			      		}
+
+						var x = document.getElementById("results_bodys");
+
+						function getLocation() {
+						    if (navigator.geolocation) {
+						        navigator.geolocation.getCurrentPosition(showPosition);
+						    } else { 
+						        x.innerHTML = "Geolocation is not supported by this browser.";
+						    }
+						}
+
+						function showPosition(position) {
+							userlat = position.coords.latitude;
+							userlong = position.coords.longitude
+						}
 				        /*
 				        var encoded_data = 'msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA';
 
