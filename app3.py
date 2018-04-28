@@ -184,7 +184,7 @@ def hello():
 				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime:
+				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime and walktimesrc <= sourcetime:
 					mintime = desttime + walktimedest + walktimesrc
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
@@ -193,6 +193,8 @@ def hello():
 					output = 'Walk to ' + str(sourcename) + ' stop in ' + str(walktimesrc) + ' and take bus to ' + str(destname) + ' stop'
 					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
 					output = output + ' total trip time is ' + str(desttime - sourcetime) + " mins walk time is " + str (walktimedest)
+				#else:
+				#	output = "The bus will take: " 
 	returnedcontent.append(output)
 					#output = output + '<br>'
 					#print output
