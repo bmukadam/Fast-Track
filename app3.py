@@ -190,9 +190,9 @@ def hello():
 					bestsrc = str(sourcename)
 					bestdst = str(destname)
 
-					output = 'Walk to ' + str(sourcename) + ' stop in ' + str(walktimesrc) + ' and take bus to ' + str(destname) + ' stop'
-					output = output + ' time for bus to come is ' + str(sourcetime) + ' route name ' + activeroutetoroutename[route]
-					output = output + ' total trip time is ' + str(desttime - sourcetime) + " mins walk time is " + str (walktimedest)
+					output = 'Bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.'
+					output = output + ' Route name is ' + activeroutetoroutename[route]
+					output = output + 'Trip time from source to dest stop is ' + str(desttime - sourcetime) + " walk time from bus stop to dest is " + str (walktimedest)
 				#else:
 				#	output = "The bus will take: " 
 	returnedcontent.append(output)
