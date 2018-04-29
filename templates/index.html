@@ -13,7 +13,25 @@
  	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
 	<style >
+		#feedbackform {
+		    color: white;
+		    font-size: 20px;
+		    animation-name: example;
+		    animation-duration: 1s;
+		    animation-iteration-count: infinite;
+		}
 
+		@keyframes example {
+		    from {color: red;}
+		    to {color: white;}
+		}
+		@media (min-width: 768px) {
+		  .navbar-nav.navbar-center {
+		    position: absolute;
+		    left: 50%;
+		    transform: translatex(-50%);
+		  }
+		}
 		#map {
 			width: 100%;
 			height: 667px;
@@ -191,16 +209,26 @@
 	</script>
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="navbar navbar-inverse">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="https://bidotair.github.io/Fast-Track/">FastTrack</a>
-					</div>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#"><span class="glyphicon glyphicon-user"></span>Username here</a></li>
-						<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
-					</ul>
-				</div>
+			<nav class="navbar navbar-inverse" role="navigation">
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			    </button>    
+			  </div>
+			  <div class="navbar-collapse collapse">
+			    <ul class="nav navbar-nav">
+			        <li><a href="https://bidotair.github.io/Fast-Track/">FastTrack</a></li>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-center">
+			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>Username here</a></li>
+					<li><a href="#">About FastTrack</a></li>
+				</ul>
+			  </div>
 			</nav>
 		</div>
 		<div class="row">
@@ -225,13 +253,7 @@
 					</div>
 					<button id=calculate>Submit</button>
 				</form>-->
-				<br>
-				<div class="panel panel-default">
-					<div class="panel-heading" overflow: hidden;> <strong> Please help us make this a better site:</div>
-					<br>
-					<a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2"><center>Leave your anonymous feedback</a>				
-				</div>
-				<br>
+
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
