@@ -7,11 +7,19 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="form.js"></script>
 
 	<script type=text/javascript>
  	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
 	<style >
+
+		.form-container {
+		background-color: #fff;
+	    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 20px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+	    border-radius: 8px;	
+	    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+		}
 		#map {
 			width: 100%;
 			height: 667px;
@@ -196,7 +204,7 @@
 					</div>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#"><span class="glyphicon glyphicon-user"></span>Username here</a></li>
-						<li><a href="#">About FastTrack</a></li>
+						<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -227,7 +235,7 @@
 				<br>
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
-					<div class="panel-body" id = "results_body" max-height: 10;overflow-y: scroll;>
+					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<!--
 						{% if route_results %} 
 							{{ route_results }}
@@ -239,7 +247,50 @@
 						-->
 					</div>
 				</div>
-			</div>
+				<div class="container">
+            <div class="row " style="margin-top: 0px">
+                <div class="col-md-6 col-md-offset-3 form-container">
+                    <h2>Feedback</h2> 
+                    <p> Please provide your feedback below: </p>
+                    <form role="form" method="post" id="reused_form">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label>How do you rate your overall experience?</label>
+                                <p>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="experience" id="radio_experience" value="bad" >
+                                        Bad 
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="experience" id="radio_experience" value="average" >
+                                        Average 
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="experience" id="radio_experience" value="good" >
+                                        Good 
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="comments"> Comments:</label>
+                                <textarea class="form-control" type="textarea" name="comments" id="comments" placeholder="Your Comments" maxlength="6000" rows="7"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button type="submit" class="btn btn-lg btn-warning btn-block" >Post </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="success_message" style="width:100%; height:100%; display:none; "> <h3>Posted your feedback successfully!</h3> </div>
+                    <div id="error_message" style="width:100%; height:100%; display:none; "> <h3>Error</h3> Sorry there was an error sending your form. </div>
+                </div>
+            </div>
+        </div>
+
+            </div>
 			<div class="col-sm-10">
 				<div id="map"></div>
 
