@@ -192,7 +192,7 @@ def hello():
 
 					output = 'Bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.'
 					output = output + ' Route name is ' + activeroutetoroutename[route]
-					output = output + 'Trip time from source to dest stop is ' + str(desttime - sourcetime) + " walk time from bus stop to dest is " + str (walktimedest)
+					output = output + ' Trip time from source to dest stop is ' + str(desttime - sourcetime) + " walk time from bus stop to dest is " + str (walktimedest)
 				#else:
 				#	output = "The bus will take: " 
 	returnedcontent.append(output)
