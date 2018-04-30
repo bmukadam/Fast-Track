@@ -181,9 +181,9 @@
   					directionsDisplay.setMap(map);
   					directionsDisplay2.setMap(map);
   					var org1 = new google.maps.LatLng (userlat, userlong);
-  					var dst1 = new google.maps.LatLng (data.result[3]);
-  					var org2 = new google.maps.LatLng (data.result[4]);
-  					var dst2 = new google.maps.LatLng (data.result[5]);
+  					var dst1 = new google.maps.LatLng (parseFloat(data.result[3].split(",")[0]), parseFloat(data.result[3].split(",")[1]));
+  					var org2 = new google.maps.LatLng (parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1]));
+  					var dst2 = new google.maps.LatLng (parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[1]));
 
 					directionsService.route({
 					origin: org1,
