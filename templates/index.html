@@ -200,6 +200,7 @@
 				    line.setMap(map);
 					
 					var directionsService = new google.maps.DirectionsService;
+					var directionsService2 = new google.maps.DirectionsService;
 				  var directionsDisplay = new google.maps.DirectionsRenderer;
 				  var directionsDisplay2 = new google.maps.DirectionsRenderer;
 				  directionsDisplay.setMap(map);
@@ -212,26 +213,28 @@
 				    destination: dst,
 				    travelMode: 'WALKING'
 				  }, function(response, status) {
-				    if (status === 'OK') {
+				  	directionsDisplay.setDirections(response);
+				    /*if (status === 'OK') {
 				      directionsDisplay.setDirections(response);
 				    } else {
 				      window.alert('Directions request failed due to ' + status);
-				    }
+				    }*/
 				  });
 					
 				  var org2 = new google.maps.LatLng (40.350619,-74.652013);
 				  var dst2 = new google.maps.LatLng (40.352672, -74.649951);
 				  
-				  directionsService.route({
+				  directionsService2.route({
 				    origin: org2,
 				    destination: dst2,
 				    travelMode: 'WALKING'
 				  }, function(response, status) {
-				    if (status === 'OK') {
+				  	directionsDisplay2.setDirections(response);
+				    /*if (status === 'OK') {
 				      directionsDisplay2.setDirections(response);
 				    } else {
 				      window.alert('Directions request failed due to ' + status);
-				    }
+				    }*/
 				  });
 					
 
