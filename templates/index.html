@@ -152,11 +152,17 @@
 
 			      	div.innerHTML += "location of src stop: " + data.result[3];
 			      	div.innerHTML += "<br><br>";
+			      	div.innerHTML += parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]);
+			      	div.innerHTML += "<br><br>";
 
 			      	div.innerHTML += "location of dst stop: " + data.result[4];
 			      	div.innerHTML += "<br><br>";
+			      	div.innerHTML += parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]);
+			      	div.innerHTML += "<br><br>";
 
 			      	div.innerHTML += "location of ultimate dest: " + data.result[5];
+			      	div.innerHTML += "<br><br>";
+			      	div.innerHTML += parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]);
 			      	div.innerHTML += "<br><br>";
 
 			      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
@@ -175,6 +181,7 @@
 
 				    line.setMap(map);
 
+				    /*
         			var directionsService = new google.maps.DirectionsService;
   					var directionsDisplay = new google.maps.DirectionsRenderer;
   					var directionsDisplay2 = new google.maps.DirectionsRenderer;
@@ -207,7 +214,7 @@
 					} else {
 					  window.alert('Directions request failed due to ' + status);
 					}
-					});
+					});*/
 		        
 				    hasline = 1;
 			      });
