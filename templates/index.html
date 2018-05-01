@@ -213,7 +213,9 @@
 				    destination: dst,
 				    travelMode: 'WALKING'
 				  }, function(response, status) {
-				  	directionsDisplay.setDirections(response);
+				  	div.innerHTML += "response1: " + response;
+				  	div.innerHTML += "<br><br>";
+				  	//directionsDisplay.setDirections(response);
 				    /*if (status === 'OK') {
 				      directionsDisplay.setDirections(response);
 				    } else {
@@ -229,7 +231,9 @@
 				    destination: dst2,
 				    travelMode: 'WALKING'
 				  }, function(response, status) {
-				  	directionsDisplay2.setDirections(response);
+				  	div.innerHTML += "response2: " + response;
+				  	div.innerHTML += "<br><br>";
+				  	//directionsDisplay2.setDirections(response);
 				    /*if (status === 'OK') {
 				      directionsDisplay2.setDirections(response);
 				    } else {
