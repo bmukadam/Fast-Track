@@ -284,43 +284,43 @@
 				    hasline = 1;
 			      });
 			      return false;
-		        
+		     	  var directionsService = new google.maps.DirectionsService;
+				  var directionsDisplay = new google.maps.DirectionsRenderer;
+				  var directionsDisplay2 = new google.maps.DirectionsRenderer;
+				  directionsDisplay.setMap(map);
+				  directionsDisplay2.setMap(map);
+				  
+				  var org = new google.maps.LatLng (40.346717399999996, -74.6568772);
+				  var dst = new google.maps.LatLng (40.346324,-74.654067);
+				  directionsService.route({
+				    origin: org,
+				    destination: dst,
+				    travelMode: 'WALKING'
+				  }, function(response, status) {
+				    if (status === 'OK') {
+				      directionsDisplay.setDirections(response);
+				    } else {
+				      window.alert('Directions request failed due to ' + status);
+				    }
+				  });
+					
+				  var org2 = new google.maps.LatLng (40.340404,-74.656789);
+				  var dst2 = new google.maps.LatLng (40.341862,-74.659039);
+				  
+				  directionsService.route({
+				    origin: org2,
+				    destination: dst2,
+				    travelMode: 'WALKING'
+				  }, function(response, status) {
+				    if (status === 'OK') {
+				      directionsDisplay2.setDirections(response);
+				    } else {
+				      window.alert('Directions request failed due to ' + status);
+				    }
+				  });	   
 		    });
 		});	
-		  var directionsService = new google.maps.DirectionsService;
-		  var directionsDisplay = new google.maps.DirectionsRenderer;
-		  var directionsDisplay2 = new google.maps.DirectionsRenderer;
-		  directionsDisplay.setMap(map);
-		  directionsDisplay2.setMap(map);
-		  
-		  var org = new google.maps.LatLng (40.346717399999996, -74.6568772);
-		  var dst = new google.maps.LatLng (40.346324,-74.654067);
-		  directionsService.route({
-		    origin: org,
-		    destination: dst,
-		    travelMode: 'WALKING'
-		  }, function(response, status) {
-		    if (status === 'OK') {
-		      directionsDisplay.setDirections(response);
-		    } else {
-		      window.alert('Directions request failed due to ' + status);
-		    }
-		  });
-			
-		  var org2 = new google.maps.LatLng (40.340404,-74.656789);
-		  var dst2 = new google.maps.LatLng (40.341862,-74.659039);
-		  
-		  directionsService.route({
-		    origin: org2,
-		    destination: dst2,
-		    travelMode: 'WALKING'
-		  }, function(response, status) {
-		    if (status === 'OK') {
-		      directionsDisplay2.setDirections(response);
-		    } else {
-		      window.alert('Directions request failed due to ' + status);
-		    }
-		  });	
+
 
 	</script>
 	<!--
