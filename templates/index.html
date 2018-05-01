@@ -181,8 +181,40 @@
 
 				    line.setMap(map);
 
-				    
-        			var directionsService = new google.maps.DirectionsService;
+				        var directionsService = new google.maps.DirectionsService;
+  						var directionsDisplay = new google.maps.DirectionsRenderer;
+  						var directionsDisplay2 = new google.maps.DirectionsRenderer;
+  						directionsDisplay.setMap(map);
+  						directionsDisplay2.setMap(map);
+  						var org1 = new google.maps.LatLng (40.35063999999999, -74.6519929);
+  						var dst1 = new google.maps.LatLng (40.346324,-74.654067);
+  						var org2 = new google.maps.LatLng (40.348286, -74.657667);
+  						var dst2 = new google.maps.LatLng (40.348711, -74.663020);
+
+						directionsService.route({
+						origin: org1,
+						destination: dst1,
+						travelMode: 'WALKING'
+						}, function(response, status) {
+						if (status === 'OK') {
+						  directionsDisplay.setDirections(response);
+						} else {
+						  window.alert('Directions request failed due to ' + status);
+						}
+						});
+
+						directionsService.route({
+						origin: org2,
+						destination: dst2,
+						travelMode: 'WALKING'
+						}, function(response, status) {
+						if (status === 'OK') {
+						  directionsDisplay2.setDirections(response);
+						} else {
+						  window.alert('Directions request failed due to ' + status);
+						}
+						});
+        			/*var directionsService = new google.maps.DirectionsService;
   					var directionsDisplay = new google.maps.DirectionsRenderer;
   					var directionsDisplay2 = new google.maps.DirectionsRenderer;
   					directionsDisplay.setMap(map);
@@ -214,7 +246,7 @@
 					} else {
 					  window.alert('Directions request failed due to ' + status);
 					}
-					});
+					});*/
 		        
 				    hasline = 1;
 			      });
