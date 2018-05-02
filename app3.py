@@ -199,7 +199,11 @@ def hello():
 	returnedcontent.append(output)
 					#output = output + '<br>'
 					#print output
-	
+					
+	if output.split(" ")[0] == "Sorry":
+		return jsonify(result=returnedcontent)
+
+
 	finalhash = ''
 	rownum = 0
 	allcoords = []
