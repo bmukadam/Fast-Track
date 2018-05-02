@@ -143,9 +143,11 @@
 		    	//alert("Mouse down over p1!");
 		    	if (hasline == 1) {
 		    		line.setMap(null);
+		    		directionsDisplay.setMap(null);
+					directionsDisplay2.setMap(null);
 					$("#results_body").contents().filter(function(){
 					    return (this.nodeType == 3);
-					}).remove();
+					}).empty();
 		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
