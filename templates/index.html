@@ -187,6 +187,7 @@
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
+			      	div.innerHTML += "The bus will take the route plotted in blue. You should walk along the red routes."
 			      	if (!data.result[0].startsWith("Sorry")) {
 
 			      		console.log("user curr location: " + userlat + ", " + userlong);
