@@ -85,6 +85,21 @@
 		  background-color: DodgerBlue !important; 
 		  color: #ffffff; 
 		}
+		.loader {
+			display: none;
+		    border: 16px solid #f3f3f3; /* Light grey */
+		    border-top: 16px solid #3498db; /* Blue */
+		    border-radius: 50%;
+		    width: 120px;
+		    height: 120px;
+		    animation: spin 2s linear infinite;
+		}
+
+		@keyframes spin {
+		    0% { transform: rotate(0deg); }
+		    100% { transform: rotate(360deg); }
+		}
+
 		/*
 		.col-sm-2 {
 			background-color: #DCDCDC;
@@ -130,6 +145,7 @@
 		    		line.setMap(null);
 		    		$("#results_body").empty();
 		    	}
+		    	$("loaderelement").show();
 		    	
 		    	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
 			        src: $('input[name="src"]').val(),
@@ -143,6 +159,7 @@
 			      		div.innerHTML += data.result[i];
 			      		div.innerHTML += "<br><br>";
 			      	}*/
+			      	$("loaderelement").hide();
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
@@ -385,6 +402,7 @@
 				    <input id="myInput" type="text" name="src" placeholder="Choose Starting Point">
 				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination">
 				    <button id=calculate>Submit</button>
+				    
 				  </div>			  
 				</form>
 
@@ -404,6 +422,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
+						<div class="loader" id = "loaderelement"></div>
 					</div>
 				</div>
 
