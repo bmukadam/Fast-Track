@@ -141,15 +141,17 @@
 			  userlat = position.coords.latitude;
 			  userlong = position.coords.longitude;
 			});
+			var origloaderhtml = document.getElementById("results_body").innerHTML;
 		    $("#calculate").click(function(){
 		    	//alert("Mouse down over p1!");
 		    	if (hasline == 1) {
 		    		line.setMap(null);
 		    		directionsDisplay.setMap(null);
 					directionsDisplay2.setMap(null);
-					$("#results_body").contents().filter(function(){
+					/*$("#results_body").contents().filter(function(){
 					    return (this.nodeType == 3);
-					}).remove();
+					}).remove();*/
+					document.getElementById("results_body").innerHTML = origloaderhtml;
 		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
