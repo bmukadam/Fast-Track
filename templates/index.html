@@ -126,6 +126,7 @@
 		var line;
 		var directionsDisplay;
 		var directionsDisplay;
+		var markers = [];
 		//var userlat;
 	    //var userlong;
 	    //var x = document.getElementById("results_body");
@@ -163,6 +164,9 @@
 					    return (this.nodeType == 3);
 					}).remove();*/
 					document.getElementById("results_body").innerHTML = origloaderhtml;
+					for(i=0; i<markers.length; i++){
+					        markers[i].setMap(null);
+					    }
 		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
@@ -269,6 +273,19 @@
 					      window.alert('Directions request failed due to ' + status);
 					    }
 					  });
+
+					var marker = new google.maps.Marker({
+					    position: new google.maps.LatLng(userlat, userlong),
+					    label: 'Current Location',
+					    title: 'Current Location',
+					    map:map
+					});
+					var marker2 = new google.maps.Marker({
+					    position: new google.maps.LatLng(parseFloat(data.result[3].split(",")[0]), parseFloat(data.result[3].split(",")[1])),
+					    label: data.result[6],
+					    title: data.result[6],
+					    map:map
+					});
 						
 					  var org2 = new google.maps.LatLng (parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1]));
 					  var dst2 = new google.maps.LatLng (parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[1]));
@@ -287,9 +304,23 @@
 					  });
 			      	}
 
+			      	var marker3 = new google.maps.Marker({
+					    position: new google.maps.LatLng(parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1])),
+					    label: data.result[7],
+					    title: data.result[7],
+					    map:map
+					});
+					var marker4 = new google.maps.Marker({
+					    position: new google.maps.LatLng(parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[1])),
+					    label: document.getElementById('myInput2').value,
+					    title: document.getElementById('myInput2').value,
+					    map:map
+					})
 
-					
-		        
+					markers.push(marker);
+		        	markers.push(marker2);
+		        	markers.push(marker3);
+		        	markers.push(marker4);
 				    hasline = 1;
 			      });
 			      return false;

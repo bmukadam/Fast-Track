@@ -260,6 +260,8 @@ def hello():
 	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
 	destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
 	returnedcontent.append(destcoords)
+	returnedcontent.append(str(sourcename) + " Stop")
+	returnedcontent.append(str(destname)  + " Stop")
 
 
 	return jsonify(result=returnedcontent)
