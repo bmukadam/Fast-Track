@@ -79,14 +79,11 @@ def hello():
 		sourcenametoroutes[names["name"]] = names["routes"]
 		sourceidtonametable[names["stop_id"]] = names["name"]
 
-	
 
 	inputString = ""
 	for name in sourcenametoidtable:
 		inputString += sourcenametoidtable[name] + "%2c"
 	
-
-
 
 	# get stops around user destination
 	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "Princeton+NJ&key=" + mapskey)
@@ -124,18 +121,29 @@ def hello():
 	  }
 	)
 
+	# get all segments in princeton
+	response3 = unirest.get("https://transloc-api-1-2.p.mashape.com/segments.json?agencies=84&callback=call",
+	  headers={
+	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
+	    "Accept": "application/json"
+	  }
+	)
+
 	routestostops = {}
 	activeroutes = {}
 	activeroutetosourcename = {}
 	activeroutetodestname = {}
 	activeroutetoroutename = {}
+	routetosegments = {}
+	encodings = []
 	for routes in response1.body["data"]["84"]:
 		if routes["is_active"] == True:
 			routestostops[routes["route_id"]] = routes["stops"]
 			activeroutetoroutename[routes["route_id"]] = routes["long_name"]
 			activeroutetosourcename[routes["route_id"]] = [] 
 			activeroutetodestname[routes["route_id"]] = []
-	
+			routetosegments["route_id"] = routes["segments"]
+      
 	for route in routestostops:
 		for stop in routestostops[route]:
 			for sourcestop in sourceidtonametable:
@@ -148,6 +156,10 @@ def hello():
 			for sourcestop in destidtonametable:
 				if stop == sourcestop:
 					activeroutetodestname[route].append(destidtonametable[stop])
+
+optimalRoute = activeroutes[0]
+for routeSegments in routetosegments[optimalRoute]:				
+		encodings.append(response3.body["data"][routeSegments[0]])
 
 
 	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
@@ -163,7 +175,6 @@ def hello():
 		"Accept": "application/json"
 		}
 	)
-
 
 	mintime = 100
 	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
@@ -198,6 +209,23 @@ def hello():
 				#	output = "The bus will take: " 
 	returnedcontent.append(output)
 					#output = output + '<br>'
+    
+	for data in arrivalestimates.body["data"]:
+		for arrivals in data["arrivals"]:
+			if arrivals["route_id"] in activeroutes:
+				if arrivals["route_id"] not in sourceroutetoarrival.keys():
+					if int(arrivals["arrival_at"][11:13]) == hourtime:
+						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16])
+					if int(arrivals["arrival_at"][11:13]) - hourtime == 1:
+						sourceroutetoarrival[arrivals["route_id"]] = int (arrivals["arrival_at"][14:16]) - int(time[14:16]) + 60
+	output = ""
+	for stop in destidtonametable:
+		for route in activeroutes:
+			for stopinarray in activeroutes[route]:
+				if stopinarray == stop and str(route) in sourceroutetoarrival.keys():
+					output = output + 'Walk to ' + activeroutetoname[route] + ' stop and take bus to ' + destidtonametable[stop] + ' stop'
+					output = output + ' average time is ' + str(sourceroutetoarrival[str(route)]) + ' route name ' + activeroutetoroutename[route]
+					output = output + '<br>'
 					#print output
 					
 	if output.split(" ")[0] == "Sorry":
