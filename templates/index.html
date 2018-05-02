@@ -145,7 +145,7 @@
 		    		line.setMap(null);
 		    		$("#results_body").empty();
 		    	}
-		    	$("loaderelement").show();
+		    	$("#loaderelement").show();
 		    	
 		    	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
 			        src: $('input[name="src"]').val(),
@@ -159,7 +159,7 @@
 			      		div.innerHTML += data.result[i];
 			      		div.innerHTML += "<br><br>";
 			      	}*/
-			      	$("loaderelement").hide();
+			      	$("#loaderelement").hide();
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
