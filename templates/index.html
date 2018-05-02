@@ -159,183 +159,107 @@
 			      		div.innerHTML += data.result[i];
 			      		div.innerHTML += "<br><br>";
 			      	}*/
-			      	//$("#loaderelement").hide();
+			      	$("#loaderelement").hide();
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
+			      	if (!data.result[0].startsWith("Sorry")) {
 
-			      	/*div.innerHTML += "user curr location: " + userlat + ", " + userlong;
-			      	div.innerHTML += "<br><br>";
+			      		div.innerHTML += "user curr location: " + userlat + ", " + userlong;
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "location of src stop: " + data.result[3];
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "location of src stop: " + data.result[3];
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "location of dst stop: " + data.result[4];
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "location of dst stop: " + data.result[4];
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "location of ultimate dest: " + data.result[5];
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "location of ultimate dest: " + data.result[5];
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "type of userlat and userlong: " + typeof userlat + " " + typeof userlong;
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of userlat and userlong: " + typeof userlat + " " + typeof userlong;
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "type of dataresult[3] and extracted content[0]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[0]) + " " + parseFloat(data.result[3].split(",")[0]);
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += "type of dataresult[3] and extracted content[1]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[1]) + " " + parseFloat(data.result[3].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of dataresult[3] and extracted content[0]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[0]) + " " + parseFloat(data.result[3].split(",")[0]);
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of dataresult[3] and extracted content[1]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[1]) + " " + parseFloat(data.result[3].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "type of dataresult[4] and extracted content[0]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[0]) + " " + parseFloat(data.result[4].split(",")[0]);
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += "type of dataresult[4] and extracted content[1]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[1]) + " " + parseFloat(data.result[4].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of dataresult[4] and extracted content[0]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[0]) + " " + parseFloat(data.result[4].split(",")[0]);
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of dataresult[4] and extracted content[1]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[1]) + " " + parseFloat(data.result[4].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]);
-			      	div.innerHTML += "<br><br>";
-			      	div.innerHTML += "type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]);
-			      	div.innerHTML += "<br><br>";*/
+				      	div.innerHTML += "type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]);
+				      	div.innerHTML += "<br><br>";
+				      	div.innerHTML += "type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]);
+				      	div.innerHTML += "<br><br>";
 
-			      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
-			        //$("#results_body").text(data.result[1]);
-			        
-			        
-					/*var encoded_data = data.result[1];
-			        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
-			        line = new google.maps.Polyline({
-				        path: decode,
-				        strokeColor: '#00008B',
-				        strokeOpacity: 1.0,
-				        strokeWeight: 4,
-				        zIndex: 3
-				    });
+				      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
+				        //$("#results_body").text(data.result[1]);
+				        
+				        
+						var encoded_data = data.result[1];
+				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
+				        line = new google.maps.Polyline({
+					        path: decode,
+					        strokeColor: '#00008B',
+					        strokeOpacity: 1.0,
+					        strokeWeight: 4,
+					        zIndex: 3
+					    });
 
-				    line.setMap(map);
-					
-					var directionsService = new google.maps.DirectionsService;
-					var directionsService2 = new google.maps.DirectionsService;
-				  var directionsDisplay = new google.maps.DirectionsRenderer;
-				  var directionsDisplay2 = new google.maps.DirectionsRenderer;
-				  directionsDisplay.setMap(map);
-				  directionsDisplay2.setMap(map);
-	
-  				  var org = new google.maps.LatLng (40.346717399999996, -74.6568772);
-				  var dst = new google.maps.LatLng (40.348329,-74.6553);
-				  directionsService.route({
-				    origin: org,
-				    destination: dst,
-				    travelMode: 'WALKING'
-				  }, function(response, status) {
-				  	directionsDisplay.setDirections(response);
-				    if (status === 'OK') {
-				      directionsDisplay.setDirections(response);
-				    } else {
-				      window.alert('Directions request failed due to ' + status);
-				    }
-				  });
-					
-				  var org2 = new google.maps.LatLng (40.350619,-74.652013);
-				  var dst2 = new google.maps.LatLng (40.352672, -74.649951);
-				  
-				  directionsService2.route({
-				    origin: org2,
-				    destination: dst2,
-				    travelMode: 'WALKING'
-				  }, function(response, status) {
-				  	div.innerHTML += "response2: " + response;
-				  	div.innerHTML += "<br><br>";
-				  	directionsDisplay2.setDirections(response);
-				    if (status === 'OK') {
-				      directionsDisplay2.setDirections(response);
-				    } else {
-				      window.alert('Directions request failed due to ' + status);
-				    }
-				  });*/
-					
-
-				        /*var directionsService = new google.maps.DirectionsService;
-  						var directionsDisplay = new google.maps.DirectionsRenderer;
-  						var directionsDisplay2 = new google.maps.DirectionsRenderer;
-  						directionsDisplay.setMap(map);
-  						directionsDisplay2.setMap(map);*/
-
-
-  						/*var org1 = new google.maps.LatLng (userlat , userlong);
-  						var v1 = parseFloat(data.result[3].split(",")[0]);
-  						var v2 = parseFloat(data.result[3].split(",")[1]);
-  						var dst1 = new google.maps.LatLng (v1 , v2);
-  						v1 = parseFloat(data.result[4].split(",")[0]);
-  						v2 = parseFloat(data.result[4].split(",")[1]);
-  						var org2 = new google.maps.LatLng (v1 , v2);
-  						v1 = parseFloat(data.result[5].split(",")[0]);
-  						v2 = parseFloat(data.result[5].split(",")[1]);
-  						var dst2 = new google.maps.LatLng (v1 , v2);
-						*/
-
-  						/*var org1 = new google.maps.LatLng (40.346717399999996, -74.6568772);
-  						var dst1 = new google.maps.LatLng (40.346324, -74.654067);
-  						var org2 = new google.maps.LatLng (40.340404, -74.656789);
-  						var dst2 = new google.maps.LatLng (40.341862, -74.659039);
-						directionsService.route({
-						origin: org1,
-						destination: dst1,
-						travelMode: 'WALKING'
-						}, function(response, status) {
-						if (status === 'OK') {
-						  directionsDisplay.setDirections(response);
-						} else {
-						  window.alert('Directions request failed due to ' + status);
-						}
-						});
-
-						directionsService.route({
-						origin: org2,
-						destination: dst2,
-						travelMode: 'WALKING'
-						}, function(response, status) {
-						if (status === 'OK') {
-						  directionsDisplay2.setDirections(response);
-						} else {
-						  window.alert('Directions request failed due to ' + status);
-						}
-						});*/
-        			/*var directionsService = new google.maps.DirectionsService;
-  					var directionsDisplay = new google.maps.DirectionsRenderer;
-  					var directionsDisplay2 = new google.maps.DirectionsRenderer;
-  					directionsDisplay.setMap(map);
-  					directionsDisplay2.setMap(map);
-  					var org1 = new google.maps.LatLng (40.346717399999996, -74.6568772);
-  					var dst1 = new google.maps.LatLng (40.346324,-74.654067);
-  					var org2 = new google.maps.LatLng (40.344414,-74.657047);
-  					var dst2 = new google.maps.LatLng (40.3456097,-74.6587961);
+					    line.setMap(map);
+						
+						var directionsService = new google.maps.DirectionsService;
+						var directionsService2 = new google.maps.DirectionsService;
+					  var directionsDisplay = new google.maps.DirectionsRenderer;
+					  var directionsDisplay2 = new google.maps.DirectionsRenderer;
+					  directionsDisplay.setMap(map);
+					  directionsDisplay2.setMap(map);
 		
-					directionsService.route({
-					origin: org1,
-					destination: dst1,
-					travelMode: 'WALKING'
-					}, function(response, status) {
-					if (status === 'OK') {
-					  directionsDisplay.setDirections(response);
-					} else {
-					  window.alert('Directions request failed due to ' + status);
-					}
-					});
+	  				  var org = new google.maps.LatLng (40.346717399999996, -74.6568772);
+					  var dst = new google.maps.LatLng (40.348329,-74.6553);
+					  directionsService.route({
+					    origin: org,
+					    destination: dst,
+					    travelMode: 'WALKING'
+					  }, function(response, status) {
+					  	directionsDisplay.setDirections(response);
+					    if (status === 'OK') {
+					      directionsDisplay.setDirections(response);
+					    } else {
+					      window.alert('Directions request failed due to ' + status);
+					    }
+					  });
+						
+					  var org2 = new google.maps.LatLng (40.350619,-74.652013);
+					  var dst2 = new google.maps.LatLng (40.352672, -74.649951);
+					  
+					  directionsService2.route({
+					    origin: org2,
+					    destination: dst2,
+					    travelMode: 'WALKING'
+					  }, function(response, status) {
+					  	div.innerHTML += "response2: " + response;
+					  	div.innerHTML += "<br><br>";
+					  	directionsDisplay2.setDirections(response);
+					    if (status === 'OK') {
+					      directionsDisplay2.setDirections(response);
+					    } else {
+					      window.alert('Directions request failed due to ' + status);
+					    }
+					  });
+			      	}
 
-					directionsService.route({
-					origin: org2,
-					destination: dst2,
-					travelMode: 'WALKING'
-					}, function(response, status) {
-					if (status === 'OK') {
-					  directionsDisplay2.setDirections(response);
-					} else {
-					  window.alert('Directions request failed due to ' + status);
-					}
-					});*/
+
+					
 		        
 				    hasline = 1;
 			      });
