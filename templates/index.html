@@ -22,7 +22,7 @@
 		}
 
 		@keyframes example {
-		    from {color: red;}
+		    from {color: Cyan;}
 		    to {color: white;}
 		}
 		@media (min-width: 768px) {
@@ -143,7 +143,10 @@
 		    	//alert("Mouse down over p1!");
 		    	if (hasline == 1) {
 		    		line.setMap(null);
-		    		$("#results_body").empty();
+					$("#results_body").contents().filter(function(){
+					    return (this.nodeType == 3);
+					}).remove();
+		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
 		    	
@@ -307,14 +310,14 @@
 			  </div>
 			  <div class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
-			        <li><a href="https://bidotair.github.io/Fast-Track/">FastTrack</a></li>
+			        <li><a href="https://princetonfasttrack.herokuapp.com/">FastTrack</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-center">
 			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span>Username here</a></li>
-					<li><a href="#">About FastTrack</a></li>
+					<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
 				</ul>
 			  </div>
 			</nav>
