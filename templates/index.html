@@ -185,41 +185,27 @@
 			      	div.innerHTML += "<br><br>";
 			      	if (!data.result[0].startsWith("Sorry")) {
 
-			      		div.innerHTML += "user curr location: " + userlat + ", " + userlong;
-				      	div.innerHTML += "<br><br>";
+			      		console.log("user curr location: " + userlat + ", " + userlong);
 
-				      	div.innerHTML += "location of src stop: " + data.result[3];
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("location of src stop: " + data.result[3]);
+				      	console.log(parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]));
 
-				      	div.innerHTML += "location of dst stop: " + data.result[4];
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("location of dst stop: " + data.result[4]);
+				      	console.log(parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]));
 
-				      	div.innerHTML += "location of ultimate dest: " + data.result[5];
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("location of ultimate dest: " + data.result[5]);
+				      	console.log(parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]));
 
-				      	div.innerHTML += "type of userlat and userlong: " + typeof userlat + " " + typeof userlong;
-				      	div.innerHTML += "<br><br>";
+				      	console.log("type of userlat and userlong: " + typeof userlat + " " + typeof userlong);
 
-				      	div.innerHTML += "type of dataresult[3] and extracted content[0]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[0]) + " " + parseFloat(data.result[3].split(",")[0]);
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += "type of dataresult[3] and extracted content[1]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[1]) + " " + parseFloat(data.result[3].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("type of dataresult[3] and extracted content[0]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[0]) + " " + parseFloat(data.result[3].split(",")[0]));
+				      	console.log("type of dataresult[3] and extracted content[1]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[1]) + " " + parseFloat(data.result[3].split(",")[1]));
 
-				      	div.innerHTML += "type of dataresult[4] and extracted content[0]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[0]) + " " + parseFloat(data.result[4].split(",")[0]);
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += "type of dataresult[4] and extracted content[1]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[1]) + " " + parseFloat(data.result[4].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("type of dataresult[4] and extracted content[0]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[0]) + " " + parseFloat(data.result[4].split(",")[0]));
+				      	console.log("type of dataresult[4] and extracted content[1]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[1]) + " " + parseFloat(data.result[4].split(",")[1]));
 
-				      	div.innerHTML += "type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]);
-				      	div.innerHTML += "<br><br>";
-				      	div.innerHTML += "type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]);
-				      	div.innerHTML += "<br><br>";
+				      	console.log("type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]));
+				      	console.log("type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]));
 
 				      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
 				        //$("#results_body").text(data.result[1]);
@@ -357,7 +343,6 @@
 			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>Username here</a></li>
 					<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
 				</ul>
 			  </div>
