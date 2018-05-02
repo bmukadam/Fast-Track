@@ -224,10 +224,34 @@
 
 					    line.setMap(map);
 						
+						var lineSymbol = {
+						  path: 'M 0,-1 0,1',
+						  strokeOpacity: 1,
+						  scale: 4
+						};
+
 						directionsService = new google.maps.DirectionsService;
 						directionsService2 = new google.maps.DirectionsService;
-					  var directionsDisplay = new google.maps.DirectionsRenderer;
-					  var directionsDisplay2 = new google.maps.DirectionsRenderer;
+					  var directionsDisplay = new google.maps.DirectionsRenderer({
+					  	polylineOptions: {
+					  		strokeColor: "red",
+							icons: [{
+							icon: lineSymbol,
+							offset: '0',
+							repeat: '20px'
+							}]
+					  	}
+					  });
+					  var directionsDisplay2 = new google.maps.DirectionsRenderer({
+					  	polylineOptions: {
+					  		strokeColor: "red",
+							icons: [{
+							icon: lineSymbol,
+							offset: '0',
+							repeat: '20px'
+							}]
+					  	}
+					  });
 					  directionsDisplay.setMap(map);
 					  directionsDisplay2.setMap(map);
 		
