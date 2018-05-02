@@ -227,8 +227,8 @@
 					  directionsDisplay.setMap(map);
 					  directionsDisplay2.setMap(map);
 		
-	  				  var org = new google.maps.LatLng (40.346717399999996, -74.6568772);
-					  var dst = new google.maps.LatLng (40.348329,-74.6553);
+	  				  var org = new google.maps.LatLng (userlat, userlong);
+					  var dst = new google.maps.LatLng (parseFloat(data.result[3].split(",")[0]), parseFloat(data.result[3].split(",")[0]));
 					  directionsService.route({
 					    origin: org,
 					    destination: dst,
@@ -242,8 +242,8 @@
 					    }
 					  });
 						
-					  var org2 = new google.maps.LatLng (40.350619,-74.652013);
-					  var dst2 = new google.maps.LatLng (40.352672, -74.649951);
+					  var org2 = new google.maps.LatLng (parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[0]));
+					  var dst2 = new google.maps.LatLng (parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[0]));
 					  
 					  directionsService2.route({
 					    origin: org2,
