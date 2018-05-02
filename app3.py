@@ -142,6 +142,7 @@ def hello():
 				if stop == sourcestop:
 					activeroutetosourcename[route].append(sourceidtonametable[stop])
 
+
 	for route in routestostops:
 		for stop in routestostops[route]:
 			for sourcestop in destidtonametable:
@@ -165,10 +166,11 @@ def hello():
 
 
 	mintime = 100
-	output = ""
+	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
 	bestroute = ''
 	bestsrc = ''
 	bestdst = ''
+
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			for destname in activeroutetodestname[route]:
@@ -190,9 +192,8 @@ def hello():
 					bestsrc = str(sourcename)
 					bestdst = str(destname)
 
-					output = 'Bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.'
-					output = output + ' Route name is ' + activeroutetoroutename[route]
-					output = output + ' Trip time from source to dest stop is ' + str(desttime - sourcetime) + " walk time from bus stop to dest is " + str (walktimedest)
+					output =  activeroutetoroutename[route] + ' bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.' + '<br>'
+					output = output + 'Trip time from source stop to dest stop is ' + str(desttime - sourcetime) + " mins and walk time from bus stop to dest is " + str (walktimedest)
 				#else:
 				#	output = "The bus will take: " 
 	returnedcontent.append(output)
