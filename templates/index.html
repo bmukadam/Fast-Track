@@ -114,6 +114,8 @@
 	<script type="text/javascript">
 		var hasline = 0;
 		var line;
+		var directionsService;
+		var directionsService2;
 		//var userlat;
 	    //var userlong;
 	    //var x = document.getElementById("results_body");
@@ -147,7 +149,7 @@
 					directionsDisplay2.setMap(null);
 					$("#results_body").contents().filter(function(){
 					    return (this.nodeType == 3);
-					}).empty();
+					}).remove();
 		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
@@ -222,8 +224,8 @@
 
 					    line.setMap(map);
 						
-						var directionsService = new google.maps.DirectionsService;
-						var directionsService2 = new google.maps.DirectionsService;
+						directionsService = new google.maps.DirectionsService;
+						directionsService2 = new google.maps.DirectionsService;
 					  var directionsDisplay = new google.maps.DirectionsRenderer;
 					  var directionsDisplay2 = new google.maps.DirectionsRenderer;
 					  directionsDisplay.setMap(map);
