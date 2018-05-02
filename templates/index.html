@@ -159,12 +159,12 @@
 			      		div.innerHTML += data.result[i];
 			      		div.innerHTML += "<br><br>";
 			      	}*/
-			      	$("#loaderelement").hide();
+			      	//$("#loaderelement").hide();
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
 
-			      	div.innerHTML += "user curr location: " + userlat + ", " + userlong;
+			      	/*div.innerHTML += "user curr location: " + userlat + ", " + userlong;
 			      	div.innerHTML += "<br><br>";
 
 			      	div.innerHTML += "location of src stop: " + data.result[3];
@@ -198,13 +198,13 @@
 			      	div.innerHTML += "type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]);
 			      	div.innerHTML += "<br><br>";
 			      	div.innerHTML += "type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]);
-			      	div.innerHTML += "<br><br>";
+			      	div.innerHTML += "<br><br>";*/
 
 			      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
 			        //$("#results_body").text(data.result[1]);
 			        
 			        
-					var encoded_data = data.result[1];
+					/*var encoded_data = data.result[1];
 			        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
 			        line = new google.maps.Polyline({
 				        path: decode,
@@ -254,7 +254,7 @@
 				    } else {
 				      window.alert('Directions request failed due to ' + status);
 				    }
-				  });
+				  });*/
 					
 
 				        /*var directionsService = new google.maps.DirectionsService;
