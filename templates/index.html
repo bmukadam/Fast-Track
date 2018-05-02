@@ -114,8 +114,8 @@
 	<script type="text/javascript">
 		var hasline = 0;
 		var line;
-		var directionsService;
-		var directionsService2;
+		var directionsDisplay;
+		var directionsDisplay;
 		//var userlat;
 	    //var userlong;
 	    //var x = document.getElementById("results_body");
@@ -230,9 +230,9 @@
 						  scale: 4
 						};
 
-						directionsService = new google.maps.DirectionsService;
-						directionsService2 = new google.maps.DirectionsService;
-					  var directionsDisplay = new google.maps.DirectionsRenderer({
+						var directionsService = new google.maps.DirectionsService;
+						var directionsService2 = new google.maps.DirectionsService;
+					   directionsDisplay = new google.maps.DirectionsRenderer({
 					  	polylineOptions: {
 					  		strokeColor: "red",
 							icons: [{
@@ -242,7 +242,7 @@
 							}]
 					  	}
 					  });
-					  var directionsDisplay2 = new google.maps.DirectionsRenderer({
+					   directionsDisplay2 = new google.maps.DirectionsRenderer({
 					  	polylineOptions: {
 					  		strokeColor: "red",
 							icons: [{
