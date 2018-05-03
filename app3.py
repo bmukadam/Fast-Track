@@ -43,8 +43,7 @@ def hello():
 	#output = "Length of src was: " + str(len(src)) + " and recieved data was: " + src + "\n" + 	"Length of dst was: " + str(len(dst)) + " and recieved data was: " + dst
 
 	# 1: find closest bus stops to user
-	mapskey = "AIzaSyDvHgiADUnMOPhrlPWWtHnXpcFXjgUhSyc"
-
+	mapskey = "AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg"
 	#a: get lat and long of user
 	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + src + "+Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
@@ -171,14 +170,15 @@ def hello():
 
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
+			
+			googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
+					"&mode=walking&key=" + mapskey)
+
 			for destname in activeroutetodestname[route]:
 				sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
 				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesdest, sourcetime)
 
 				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
-					"&mode=walking&key=" + mapskey)
-
-				googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
 					"&mode=walking&key=" + mapskey)
 
 				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
