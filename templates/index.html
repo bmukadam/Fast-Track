@@ -158,6 +158,7 @@
 			      	div.innerHTML += data.result[0];
 			      	div.innerHTML += "<br><br>";
 			      	
+			      	//ensure that routes are only plotted if plotting info is returned
 			      	if (!data.result[0].startsWith("Sorry")) {
 			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the red routes."
 
