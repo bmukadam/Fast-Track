@@ -125,10 +125,23 @@
 			//getLocation();
 			var userlat;
 			var userlong;
-			navigator.geolocation.getCurrentPosition(function(position) {
-			  userlat = position.coords.latitude;
-			  userlong = position.coords.longitude;
-			} { enableHighAccuracy: true});
+			
+			var options = {
+			  enableHighAccuracy: true,
+			  timeout: 5000,
+			  maximumAge: 0
+			};
+
+			navigator.geolocation.getCurrentPosition(success, error, options);
+
+			function error(err) {
+			  console.warn(`ERROR(${err.code}): ${err.message}`);
+			}
+
+			function success(pos) {
+			  userlat = pos.coords.latitude;
+			  userlong = pos.coords.longitude;
+			}
 			var origloaderhtml = document.getElementById("results_body").innerHTML;
 			var random;
 		    $("#calculate").click(function(){
