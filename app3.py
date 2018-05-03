@@ -45,9 +45,17 @@ def hello():
 	# 1: find closest bus stops to user
 	mapskey = "AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg"
 	#a: get lat and long of user
-	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + src + "+Princeton+NJ&key=" + mapskey)
-	lat = location.body["results"][0]["geometry"]["location"]["lat"]
-	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
+	lat = ''
+	longitude = ''
+	
+	if src.startswith("usercoordsused"):
+		coords = src[14:]
+		lat, longitude = coords.split(',')
+	else:
+		location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + src + "+Princeton+NJ&key=" + mapskey)
+		lat = location.body["results"][0]["geometry"]["location"]["lat"]
+		longitude = location.body["results"][0]["geometry"]["location"]["lng"]
+		
 	origlat = lat
 	origlongitude = longitude
 

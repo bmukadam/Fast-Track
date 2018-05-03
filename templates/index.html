@@ -163,9 +163,18 @@
 		    		//$("#results_body").empty();
 		    	}
 		    	$("#loaderelement").show();
-		    	
+		    	var srcval;
+	    		if (myInput.val() == "Use My Location")
+	    		{
+	    			srcval = "usercoordsused" + str(userlat) + "," +str(userlong);
+	    		}
+	    		else
+	    		{
+	    			srcval = $('input[name="src"]').val()
+	    		}
 		    	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
-			        src: $('input[name="src"]').val(),
+
+			        src: srcval,
 			        dst: $('input[name="dst"]').val()
 			      }, function(data) {
 
@@ -356,7 +365,7 @@
 			<div class="col-sm-2">
 				<form autocomplete="off" >
 				  <div class="autocomplete" style="width:200px;">
-				    <input id="myInput" type="text" name="src" placeholder="Choose Starting Point">
+				    <input id="myInput" type="text" name="src" placeholder="Use My Location">
 				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination">
 				    <button id=calculate>Submit</button>
 				    
