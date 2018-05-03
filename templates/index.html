@@ -128,7 +128,7 @@
 			navigator.geolocation.getCurrentPosition(function(position) {
 			  userlat = position.coords.latitude;
 			  userlong = position.coords.longitude;
-			});
+			} { enableHighAccuracy: true});
 			var origloaderhtml = document.getElementById("results_body").innerHTML;
 			var random;
 		    $("#calculate").click(function(){
