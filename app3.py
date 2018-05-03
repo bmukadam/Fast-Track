@@ -184,8 +184,8 @@ def hello():
 				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime and walktimesrc <= sourcetime:
-					mintime = desttime + walktimedest + walktimesrc
+				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc + sourcetime < mintime:
+					mintime = desttime + walktimedest + walktimesrc + sourcetime
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
 					bestdst = str(destname)
