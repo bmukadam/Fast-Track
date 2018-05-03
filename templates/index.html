@@ -110,13 +110,6 @@
 		    100% { transform: rotate(360deg); }
 		}
 
-		/*
-		.col-sm-2 {
-			background-color: #DCDCDC;
-		}
-		body {
-			background-color: #DCDCDC;
-		}*/
 	</style>
 </head>
 <body>
@@ -127,24 +120,8 @@
 		var directionsDisplay;
 		var directionsDisplay;
 		var markers = [];
-		//var userlat;
-	    //var userlong;
-	    //var x = document.getElementById("results_body");
 
-
-		
-
-		
 		$(document).ready(function(){
-		    /*if (navigator.geolocation) {
-		        navigator.geolocation.getCurrentPosition(showPosition);
-		    } else { 
-		        x.innerHTML = "Geolocation is not supported by this browser.";
-		    }
-		    function showPosition(position) {
-		    x.innerHTML = "Latitude: " + position.coords.latitude + 
-		    "<br>Longitude: " + position.coords.longitude;
-		}*/
 			//getLocation();
 			var userlat;
 			var userlong;
@@ -175,14 +152,7 @@
 			        src: $('input[name="src"]').val(),
 			        dst: $('input[name="dst"]').val()
 			      }, function(data) {
-			      	//alert("Data Length is: " + data.result.length);
-			      	//alert("Data[0] is: " + data.result[0]);
-			      	//alert("Data[1] is: " + data.result[1]);
-			      	
-			      	/*for( var i=0; i < data.result.length-1; i++) {
-			      		div.innerHTML += data.result[i];
-			      		div.innerHTML += "<br><br>";
-			      	}*/
+
 			      	$("#loaderelement").hide();
 			      	var div = document.getElementById('results_body');
 			      	div.innerHTML += data.result[0];
@@ -212,9 +182,6 @@
 				      	console.log("type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]));
 				      	console.log("type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]));
 
-				      	//div.innerHTML += "length of array of info: " + str(len(data.resultlength));
-				        //$("#results_body").text(data.result[1]);
-				        
 				        
 						var encoded_data = data.result[1];
 				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
@@ -305,9 +272,7 @@
 					      window.alert('Directions request failed due to ' + status);
 					    }
 					  });
-			      	}
-
-			      	var marker3 = new google.maps.Marker({
+					  var marker3 = new google.maps.Marker({
 					    position: new google.maps.LatLng(parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1])),
 					    label: data.result[7],
 					    title: data.result[7],
@@ -325,6 +290,10 @@
 		        	markers.push(marker3);
 		        	markers.push(marker4);
 				    hasline = 1;
+
+			      	}
+
+			      	
 			      });
 			      return false;
 		     	  	   
@@ -333,26 +302,9 @@
 
 
 	</script>
-	<!--
-	<script type=text/javascript>
-	  $(function() {
-	    $('a#calculate').bind('click', function() {
-	      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-	        a: $('input[name="a"]').val(),
-	        b: $('input[name="b"]').val()
-	      }, function(data) {
-	        $("#result").text(data.result);
-	      });
-	      return false;
-	    });
-	  });
-	</script>
--->
-
 
 	<script>
 	function changeText() { 
-	    //id.innerHTML = "Was clicked!";
 	    var sourcetxt = document.getElementById('usersrcfield').value
 	    var desttxt = document.getElementById('userdstfield').value
 	    document.getElementById('results_body').innerHTML = sourcetxt + desttxt
@@ -392,19 +344,6 @@
 				  </div>			  
 				</form>
 
-				<!--<form action="/FastTrackPython" method="POST">
-				<form autocomplete="off">
-					<div class="input-group">
-						<span class="input-group-addon"></span>
-						<input id="usersrcfield" type="text" class="form-control" name="src" placeholder="Choose Starting Point">
-					</div>
-					<div class="input-group">
-						<span class="input-group-addon"></span>
-						<input id="userdstfield" type="text" class="form-control" name="dst" placeholder="Enter Destination">
-					</div>
-					<button id=calculate>Submit</button>
-				</form>-->
-
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
@@ -420,89 +359,19 @@
 				
 				<script>
 					var map;
-					
-					/*
-					function getLocation() {
-					    if (navigator.geolocation) {
-					        navigator.geolocation.getCurrentPosition(showPosition);
-					    } else { 
-					        x.innerHTML = "Geolocation is not supported by this browser.";
-					    }
-					}
 
-					function showPosition(position) {
-						userlat = position.coords.latitude;
-						userlong = position.coords.longitude;
-					}*/
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
 				        map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
-				        
-				        /*var directionsService = new google.maps.DirectionsService;
-  						var directionsDisplay = new google.maps.DirectionsRenderer;
-  						var directionsDisplay2 = new google.maps.DirectionsRenderer;
-  						directionsDisplay.setMap(map);
-  						directionsDisplay2.setMap(map);
-  						var org1 = new google.maps.LatLng (40.35063999999999, -74.6519929);
-  						var dst1 = new google.maps.LatLng (40.346324,-74.654067);
-  						var org2 = new google.maps.LatLng (40.348286, -74.657667);
-  						var dst2 = new google.maps.LatLng (40.348711, -74.663020);
-
-						directionsService.route({
-						origin: org1,
-						destination: dst1,
-						travelMode: 'WALKING'
-						}, function(response, status) {
-						if (status === 'OK') {
-						  directionsDisplay.setDirections(response);
-						} else {
-						  window.alert('Directions request failed due to ' + status);
-						}
-						});
-
-						directionsService.route({
-						origin: org2,
-						destination: dst2,
-						travelMode: 'WALKING'
-						}, function(response, status) {
-						if (status === 'OK') {
-						  directionsDisplay2.setDirections(response);
-						} else {
-						  window.alert('Directions request failed due to ' + status);
-						}
-						});
-				        var myMarkers = map.markers;
-				        
-				        alert("length of myMarkers: " + myMarkers.length)
-				        var div = document.getElementById('results_body');
-				        for( var i=0; i < myMarkers.length-1; i++) {
-				      		div.innerHTML += myMarkers[i];
-				      		div.innerHTML += "<br><br>";
-			      		}
-				        var encoded_data = 'msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA';
-
-				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
-				        var line = new google.maps.Polyline({
-					        path: decode,
-					        strokeColor: '#00008B',
-					        strokeOpacity: 1.0,
-					        strokeWeight: 4,
-					        zIndex: 3
-					    });
-
-					    line.setMap(map);*/
 			      }
 
 			    </script>
 			    <script async defer
 			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg&libraries=geometry&callback=initMap">
 			    </script>
-			    <!--
-				<iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d12163.367045588777!2d-74.6462761!3d40.345856149999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1523231727703" width="1200" height="650" frameborder="0" style="border:4" allowfullscreen></iframe>
-			-->
 				<br>
 			</div>
 		</div>
