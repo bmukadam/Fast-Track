@@ -145,7 +145,10 @@
 			var origloaderhtml = document.getElementById("results_body").innerHTML;
 			var random;
 		    $("#calculate").click(function(){
+		    	var div = document.getElementById('results_body');
+			    div.innerHTML = ""
 		    	//alert("Mouse down over p1!");
+
 		    	if (hasline == 1) {
 		    		line.setMap(null);
 		    		directionsDisplay.setMap(null);
@@ -325,6 +328,7 @@
 	    document.getElementById('results_body').innerHTML = sourcetxt + desttxt
 	}
 	</script>
+
 	<div class="container-fluid">
 		<div class="row">
 			<nav class="navbar navbar-inverse" role="navigation">
