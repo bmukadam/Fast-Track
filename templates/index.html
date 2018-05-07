@@ -185,7 +185,7 @@
 			      	
 			      	//ensure that routes are only plotted if plotting info is returned
 			      	if (!data.result[0].startsWith("Sorry")) {
-			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the red routes."
+			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the purple route to reach the source bus stop. Then walk along the yellow route to reach your final destination."
 
 			      		console.log("user curr location: " + userlat + ", " + userlong);
 
@@ -508,7 +508,7 @@ rendererOptions2 = {
 	        currentFocus--;
 	        /*and and make the current item more visible:*/
 	        addActive(x);
-	      } else if (e.keyCode == 13) {
+	      } else if (e.keyCode == 13 || e.keyCode == 9) {
 	        /*If the ENTER key is pressed, prevent the form from being submitted,*/
 	        e.preventDefault();
 	        if (currentFocus > -1) {
