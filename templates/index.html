@@ -222,15 +222,38 @@
 
 					    line.setMap(map);
 						
-						var lineSymbol = {
+						/*var lineSymbol = {
 						  path: 'M 0,-1 0,1',
 						  strokeOpacity: 1,
 						  scale: 4
+						};*/
+						
+						var lineSymbol = {
+						    path: google.maps.SymbolPath.CIRCLE,
+						    fillOpacity: 1,
+						    scale: 3
 						};
 
-						var directionsService = new google.maps.DirectionsService;
-						var directionsService2 = new google.maps.DirectionsService;
-					   directionsDisplay = new google.maps.DirectionsRenderer({
+polylineOptionsActual = new google.maps.Polyline({
+    strokeColor: '#9f98FF',
+    //strokeWeight: 5,
+    strokeOpacity: 0,
+    icons: [{
+      icon: lineSymbol,
+      offset: '0',
+      repeat: '10px'
+    }]
+});
+rendererOptions = {
+    map: map,
+    suppressMarkers: true,
+    polylineOptions: polylineOptionsActual
+};
+						var directionsService = new google.maps.DirectionsService();
+						var directionsService2 = new google.maps.DirectionsService();
+						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+						directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions);
+					   /*directionsDisplay = new google.maps.DirectionsRenderer({
 					   	suppressMarkers: true,
 					  	polylineOptions: {
 					  		strokeColor: "red",
@@ -252,7 +275,9 @@
 							repeat: '20px'
 							}]
 					  	}
-					  });
+					  });*/
+
+
 					  directionsDisplay.setMap(map);
 					  directionsDisplay2.setMap(map);
 		
