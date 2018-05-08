@@ -383,7 +383,7 @@
 
 <script type="text/javascript">
 	//starts tutor
-	$("#starttutorial").click(function() {
+	function starttutorial() {
 		window.alert("in herere!!!");
 		
 	  introJs().setOptions({
@@ -422,7 +422,7 @@
 	  }).oncomplete(function(){
 	    //console.log(this, arguments, 'oncomplete');
 	  }).start();
-	});	
+	};	
 </script>
 
 	<div class="container-fluid">
@@ -443,7 +443,7 @@
 			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			    	<li><a id = "starttutorial" href="#">FastTrack Tutorial</a></li>
+			    	<li><a href="#" onclick=starttutorial();>FastTrack Tutorial</a></li>
 					<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
 				</ul>
 			  </div>
