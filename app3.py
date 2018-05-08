@@ -114,7 +114,7 @@ def hello():
 			destnametoidtable[name["name"]] = name["stop_id"]
 			destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
 	
-	inputString = ""
+	inputStringDest = ""
 	for name in destnametoidtable:
 		inputStringDest += destnametoidtable[name] + "%2c"
 
