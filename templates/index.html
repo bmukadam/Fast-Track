@@ -148,7 +148,8 @@
 		    	var div = document.getElementById('results_body');
 			    //div.innerHTML = ""
 		    	//alert("Mouse down over p1!");
-
+		    document.getElementById("results_body").innerHTML = origloaderhtml;
+		    
 		    	if (hasline == 1) {
 		    		line.setMap(null);
 		    		directionsDisplay.setMap(null);
@@ -156,7 +157,7 @@
 					/*$("#results_body").contents().filter(function(){
 					    return (this.nodeType == 3);
 					}).remove();*/
-					document.getElementById("results_body").innerHTML = origloaderhtml;
+					
 					for(i=0; i<markers.length; i++){
 					        markers[i].setMap(null);
 					    }
@@ -185,7 +186,7 @@
 			      	
 			      	//ensure that routes are only plotted if plotting info is returned
 			      	if (!data.result[0].startsWith("Sorry")) {
-			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the purple route to reach the source bus stop. Then walk along the yellow route to reach your final destination."
+			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the purple route to reach the source bus stop. Then walk along the green route to reach your final destination."
 
 			      		console.log("user curr location: " + userlat + ", " + userlong);
 
@@ -234,37 +235,37 @@
 						    scale: 3
 						};
 
-polylineOptionsActual = new google.maps.Polyline({
-    strokeColor: '#9f98FF',
-    //strokeWeight: 5,
-    strokeOpacity: 0,
-    icons: [{
-      icon: lineSymbol,
-      offset: '0',
-      repeat: '10px'
-    }]
-});
-rendererOptions = {
-    map: map,
-    suppressMarkers: true,
-    polylineOptions: polylineOptionsActual
-};
+						polylineOptionsActual = new google.maps.Polyline({
+						    strokeColor: '#9f98FF',
+						    //strokeWeight: 5,
+						    strokeOpacity: 0,
+						    icons: [{
+						      icon: lineSymbol,
+						      offset: '0',
+						      repeat: '10px'
+						    }]
+						});
+						rendererOptions = {
+						    map: map,
+						    suppressMarkers: true,
+						    polylineOptions: polylineOptionsActual
+						};
 
-polylineOptionsActual2 = new google.maps.Polyline({
-    strokeColor: 'yellow',
-    //strokeWeight: 5,
-    strokeOpacity: 0,
-    icons: [{
-      icon: lineSymbol,
-      offset: '0',
-      repeat: '10px'
-    }]
-});
-rendererOptions2 = {
-    map: map,
-    suppressMarkers: true,
-    polylineOptions: polylineOptionsActual2
-};
+						polylineOptionsActual2 = new google.maps.Polyline({
+						    strokeColor: 'green',
+						    //strokeWeight: 5,
+						    strokeOpacity: 0,
+						    icons: [{
+						      icon: lineSymbol,
+						      offset: '0',
+						      repeat: '10px'
+						    }]
+						});
+						rendererOptions2 = {
+						    map: map,
+						    suppressMarkers: true,
+						    polylineOptions: polylineOptionsActual2
+						};
 						var directionsService = new google.maps.DirectionsService;
 						var directionsService2 = new google.maps.DirectionsService;
 						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
