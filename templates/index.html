@@ -415,6 +415,12 @@
 	      intro: "After using our app, please leave us your anonymous feedback!"
 	    }
 	  ]
+	  }).onchange(function(){
+	    console.log(this, arguments, 'onchange');
+	  }).onexit(function(){
+	    console.log(this, arguments, 'onexit');
+	  }).oncomplete(function(){
+	    console.log(this, arguments, 'oncomplete');
 	  }).start();
 	};	
 </script>
