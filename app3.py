@@ -115,7 +115,7 @@ def hello():
 	
 
 	for name in destnametoidtable:
-		inputString += destnametoidtable[name] + "%2c"
+		inputStringDest += destnametoidtable[name] + "%2c"
 
 	
 
@@ -204,7 +204,6 @@ def hello():
 
 					output =  activeroutetoroutename[route] + ' bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.' + '<br>'
 					output = output + 'Trip time from source stop to dest stop is ' + str(desttime - sourcetime) + " mins and walk time from bus stop to dest is " + str (walktimedest)
-				
 	returnedcontent.append(output)
 					
     
