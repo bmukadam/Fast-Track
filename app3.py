@@ -36,8 +36,8 @@ def hello():
 	
 	returnedcontent = []
 	# src and dest are received from index.html
-	src = str(request.args.get('src'))
-	dst = str(request.args.get('dst'))
+	src = "Frist Center"
+	dst = "Friend Center"
 	
 	# 1: find closest bus stops to user
 	mapskey = "AIzaSyDpp8voCHf0PvvD46oNJUQCj4xxhvXcN9U"
@@ -176,6 +176,9 @@ def hello():
 				if stop == sourcestop and route in activeroutetodestname.keys():					
 					activeroutetodestname[route].append(destidtonametable[stop])
 
+	walkingtimeSource = {}
+	walkingtimeDest = {}
+
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
@@ -290,3 +293,4 @@ def index():
  
 if __name__ == "__main__":
  	app.run(debug=True)
+ 	
