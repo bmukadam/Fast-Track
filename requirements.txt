@@ -11,3 +11,5 @@ cherrypy==3.8.0
 peewee
 unirest
 polyline
+shapely
+json

@@ -4,9 +4,13 @@ import sys
 import polyline
 import csv
 import os
+import json
+from shapely import geometry
 
 app = Flask(__name__)
 
+# Function that is used to calculate arrival estimate when given routename, stopname, jsondata, timesent is used to determine if timeestimate to destination
+# is greater than time estimate to source
 def calculateTime(route, stop, data, timeSent):	
 	time = data.body["generated_on"]
 	hourtime = 0;
@@ -29,19 +33,12 @@ def calculateTime(route, stop, data, timeSent):
 
 @app.route('/FastTrackPython', methods=['GET', 'POST'])
 def hello():
-	#if request.method == 'POST':
+	
 	returnedcontent = []
+	# src and dest are received from index.html
 	src = str(request.args.get('src'))
 	dst = str(request.args.get('dst'))
-	#returnedcontent.append('askdjfnasdljfnas,df a,dsf')
 	
-	#polyline_output =  "msguFphsfMpEjWdQ}LdGmEhFkDlB{AlC}B??w@cBk@u@cA_AwB}A]Y}@gAYc@a@_AMa@UeA"
-	#returnedcontent.append(polyline_output)
-	#return jsonify(result=output)
-	#src = str(request.form['src']) 
-	#dst = str(request.form['dst'])
-	#output = "Length of src was: " + str(len(src)) + " and recieved data was: " + src + "\n" + 	"Length of dst was: " + str(len(dst)) + " and recieved data was: " + dst
-
 	# 1: find closest bus stops to user
 	mapskey = "AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg"
 	#a: get lat and long of user
@@ -63,28 +60,28 @@ def hello():
 	longitudesource = str(longitude)[:10]
 
 
-	# get stops around user source
-	response = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + latsource 
-		+ "%2C" + longitudesource + "%7C250", 
-		headers={
-	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
-	    "Accept": "application/json"
-	  }
-	)
+	with open("stops.json") as json_file:
+	 	stops = json.load(json_file)
 
-	sourcenametoidtable = {}
+	with open("routes.json") as json_file:
+	 	routes = json.load(json_file)
+
+	sourcenametoidtable = {} 
 	sourcenametolatlongtable = {}
-	sourcenametoroutes = {}
 	sourceidtonametable = {}
 	sourceroutetoarrival = {}
-	destroutetoarrival = {}
+
+	point1 = geometry.Point(float(lat), float(longitude))
+	circle_buffer = point1.buffer(0.004)
 
 	# build some useful tables
-	for names in response.body["data"]:
-		sourcenametoidtable[names["name"]] = names["stop_id"]
-		sourcenametolatlongtable[names["name"]] = str(names["location"]["lat"]) + "," + str(names["location"]["lng"])
-		sourcenametoroutes[names["name"]] = names["routes"]
-		sourceidtonametable[names["stop_id"]] = names["name"]
+	for names in stops["data"]:
+		point2 = geometry.Point(float(names["location"]["lat"]), float(names["location"]["lng"]))
+		if point2.within(circle_buffer):
+			sourcenametoidtable[names["name"]] = names["stop_id"]
+			sourcenametolatlongtable[names["name"]] = str(names["location"]["lat"]) + "," + str(names["location"]["lng"])
+			sourcenametoroutes[names["name"]] = names["routes"]
+			sourceidtonametable[names["stop_id"]] = names["name"]
 
 
 	inputString = ""
@@ -100,33 +97,27 @@ def hello():
 	latdest = str(lat)[:10]
 	longitudedest = str(longitude)[:10]
 
-	response2 = unirest.get("https://transloc-api-1-2.p.mashape.com/stops.json?agencies=84&callback=call&geo_area=" + latdest 
-		+ "%2C" + longitudedest + "%7C250", 
-		headers={
-	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
-	    "Accept": "application/json"
-	  }
-	)
+	
+
+	point3 = geometry.Point(float(lat), float(longitude))
+	circle_buffer = point3.buffer(0.004)
 
 	destidtonametable = {}
 	destnametoidtable = {}
 	destnametolatlongtable = {}
-	for name in response2.body["data"]:
-		destidtonametable[name["stop_id"]] = name["name"]
-		destnametoidtable[name["name"]] = name["stop_id"]
-		destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
 
-	inputStringDest = ""
+	for name in stops["data"]:
+		point4 = geometry.Point(float(name["location"]["lat"]), float(name["location"]["lng"]))
+		if point4.within(circle_buffer):
+			destidtonametable[name["stop_id"]] = name["name"]
+			destnametoidtable[name["name"]] = name["stop_id"]
+			destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
+	
+
 	for name in destnametoidtable:
-		inputStringDest += destnametoidtable[name] + "%2c"
+		inputString += destnametoidtable[name] + "%2c"
 
-	# build a table with route_id as keys and stops array as value
-	response1 = unirest.get("https://transloc-api-1-2.p.mashape.com/routes.json?agencies=84&callback=call",
-	  headers={
-	    "X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
-	    "Accept": "application/json"
-	  }
-	)
+	
 
 
 	routestostops = {}
@@ -135,19 +126,28 @@ def hello():
 	activeroutetodestname = {}
 	activeroutetoroutename = {}
 
-	for routes in response1.body["data"]["84"]:
-		if routes["is_active"] == True:
-			routestostops[routes["route_id"]] = routes["stops"]
-			activeroutetoroutename[routes["route_id"]] = routes["long_name"]
-			activeroutetosourcename[routes["route_id"]] = [] 
-			activeroutetodestname[routes["route_id"]] = []
-      
+	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
+		headers={
+		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
+		"Accept": "application/json"
+		}
+	)
+
+	
+	for arrivals in arrivalestimates.body["data"]:
+		for allroutes in routes["data"]["84"]:
+			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in routestostops.keys():
+				
+				routestostops[allroutes["route_id"]] = allroutes["stops"]
+				activeroutetoroutename[allroutes["route_id"]] = allroutes["long_name"]
+				activeroutetosourcename[allroutes["route_id"]] = [] 
+				activeroutetodestname[allroutes["route_id"]] = []
+
 	for route in routestostops:
 		for stop in routestostops[route]:
 			for sourcestop in sourceidtonametable:
 				if stop == sourcestop:
 					activeroutetosourcename[route].append(sourceidtonametable[stop])
-
 
 	for route in routestostops:
 		for stop in routestostops[route]:
@@ -156,25 +156,13 @@ def hello():
 					activeroutetodestname[route].append(destidtonametable[stop])
 
 
-	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
-		headers={
-		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
-		"Accept": "application/json"
-		}
-	)
-
-	arrivalestimatesdest = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputStringDest[:-3],
-		headers={
-		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
-		"Accept": "application/json"
-		}
-	)
-
-	mintime = 100
+	mintime = 10000
 	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
 	bestroute = ''
 	bestsrc = ''
 	bestdst = ''
+
+	# algorith in here: For every active route match source stops and dest stops along that route and then choose best route based on shortest time
 
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
@@ -184,7 +172,7 @@ def hello():
 
 			for destname in activeroutetodestname[route]:
 				sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
-				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesdest, sourcetime)
+				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimates, sourcetime)
 
 				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
 					"&mode=walking&key=" + mapskey)
@@ -192,7 +180,7 @@ def hello():
 				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc + sourcetime < mintime:
+				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime:
 					mintime = desttime + walktimedest + walktimesrc + sourcetime
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
@@ -200,10 +188,9 @@ def hello():
 
 					output =  activeroutetoroutename[route] + ' bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.' + '<br>'
 					output = output + 'Trip time from source stop to dest stop is ' + str(desttime - sourcetime) + " mins and walk time from bus stop to dest is " + str (walktimedest)
-				#else:
-				#	output = "The bus will take: " 
+				
 	returnedcontent.append(output)
-					#output = output + '<br>'
+					
     
 					
 	if output.split(" ")[0] == "Sorry":
