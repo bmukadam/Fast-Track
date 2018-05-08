@@ -70,6 +70,7 @@ def hello():
 	sourcenametolatlongtable = {}
 	sourceidtonametable = {}
 	sourceroutetoarrival = {}
+	sourcenametoroutes = {}
 
 	point1 = geometry.Point(float(lat), float(longitude))
 	circle_buffer = point1.buffer(0.004)
@@ -113,7 +114,7 @@ def hello():
 			destnametoidtable[name["name"]] = name["stop_id"]
 			destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
 	
-
+	inputString = ""
 	for name in destnametoidtable:
 		inputStringDest += destnametoidtable[name] + "%2c"
 
