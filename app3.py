@@ -66,14 +66,15 @@ def hello():
 	with open("routes.json") as json_file:
 	 	routes = json.load(json_file)
 
-	sourcenametoidtable = {} 
+	sourcenametoidtable = {}
 	sourcenametolatlongtable = {}
+	sourcenametoroutes = {}
 	sourceidtonametable = {}
 	sourceroutetoarrival = {}
-	sourcenametoroutes = {}
+	destroutetoarrival = {}
 
 	point1 = geometry.Point(float(lat), float(longitude))
-	circle_buffer = point1.buffer(0.004)
+	circle_buffer = point1.buffer(0.003)
 
 	# build some useful tables
 	for names in stops["data"]:
@@ -88,20 +89,22 @@ def hello():
 	inputString = ""
 	for name in sourcenametoidtable:
 		inputString += sourcenametoidtable[name] + "%2c"
+		
+		
 	
 
+
+
 	# get stops around user destination
-	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "Princeton+NJ&key=" + mapskey)
+	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "+Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
 	longitude = location.body["results"][0]["geometry"]["location"]["lng"]
 
 	latdest = str(lat)[:10]
 	longitudedest = str(longitude)[:10]
 
-	
-
 	point3 = geometry.Point(float(lat), float(longitude))
-	circle_buffer = point3.buffer(0.004)
+	circle_buffer = point3.buffer(0.003)
 
 	destidtonametable = {}
 	destnametoidtable = {}
@@ -113,19 +116,21 @@ def hello():
 			destidtonametable[name["stop_id"]] = name["name"]
 			destnametoidtable[name["name"]] = name["stop_id"]
 			destnametolatlongtable[name["name"]] = str(name["location"]["lat"]) + "," + str(name["location"]["lng"])
-	
+
 	inputStringDest = ""
 	for name in destnametoidtable:
 		inputStringDest += destnametoidtable[name] + "%2c"
-
-	
-
+		
 
 	routestostops = {}
 	activeroutes = {}
 	activeroutetosourcename = {}
 	activeroutetodestname = {}
 	activeroutetoroutename = {}
+
+
+					
+
 
 	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
 		headers={
@@ -172,32 +177,28 @@ def hello():
 					activeroutetodestname[route].append(destidtonametable[stop])
 
 
-	mintime = 10000
+	mintime = 1000
 	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
-	bestroute = ''
-	bestsrc = ''
-	bestdst = ''
-
-	# algorith in here: For every active route match source stops and dest stops along that route and then choose best route based on shortest time
-
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
-			
+			sourcetime =    calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
 			googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
 					"&mode=walking&key=" + mapskey)
-			sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
-
 			for destname in activeroutetodestname[route]:
-				
-				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimates, sourcetime)
 
+				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesDest, sourcetime)
+				
 				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
 					"&mode=walking&key=" + mapskey)
 
+
+				
 				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-				if sourcetime is not None and desttime is not None and desttime + walktimedest + walktimesrc < mintime:
+				
+				# walktimesrc + walktimedest + sourcetime + desttime > totalwalktime
+				if sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < mintime:
 					mintime = desttime + walktimedest + walktimesrc + sourcetime
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
@@ -206,6 +207,7 @@ def hello():
 					output =  activeroutetoroutename[route] + ' bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.' + '<br>'
 					output = output + 'Trip time from source stop to dest stop is ' + str(desttime - sourcetime) + " mins and walk time from bus stop to dest is " + str (walktimedest)
 	returnedcontent.append(output)
+	
 					
     
 					
@@ -283,4 +285,4 @@ def index():
 	return render_template('index.html')
  
 if __name__ == "__main__":
-    app.run(debug=True)
+ 	app.run(debug=True)
