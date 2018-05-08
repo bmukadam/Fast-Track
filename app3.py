@@ -133,26 +133,41 @@ def hello():
 		}
 	)
 
+	arrivalestimatesDest = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputStringDest[:-3],
+		headers={
+		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
+		"Accept": "application/json"
+		}
+	)
+
+
 	
 	for arrivals in arrivalestimates.body["data"]:
 		for allroutes in routes["data"]["84"]:
 			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in routestostops.keys():
-				
 				routestostops[allroutes["route_id"]] = allroutes["stops"]
 				activeroutetoroutename[allroutes["route_id"]] = allroutes["long_name"]
-				activeroutetosourcename[allroutes["route_id"]] = [] 
+				activeroutetosourcename[allroutes["route_id"]] = []
 				activeroutetodestname[allroutes["route_id"]] = []
+
+	for arrivals in arrivalestimatesDest.body["data"]:
+		for allroutes in routes["data"]["84"]:
+			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in routestostops.keys():
+				routestostops[allroutes["route_id"]] = allroutes["stops"]
+				activeroutetoroutename[allroutes["route_id"]] = allroutes["long_name"]
+				activeroutetodestname[allroutes["route_id"]] = []
+				activeroutetosourcename[allroutes["route_id"]] = []
 
 	for route in routestostops:
 		for stop in routestostops[route]:
 			for sourcestop in sourceidtonametable:
-				if stop == sourcestop:
+				if stop == sourcestop and route in activeroutetosourcename.keys():
 					activeroutetosourcename[route].append(sourceidtonametable[stop])
 
 	for route in routestostops:
 		for stop in routestostops[route]:
 			for sourcestop in destidtonametable:
-				if stop == sourcestop:
+				if stop == sourcestop and route in activeroutetodestname.keys():					
 					activeroutetodestname[route].append(destidtonametable[stop])
 
 
@@ -169,9 +184,10 @@ def hello():
 			
 			googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
 					"&mode=walking&key=" + mapskey)
+			sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
 
 			for destname in activeroutetodestname[route]:
-				sourcetime = calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
+				
 				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimates, sourcetime)
 
 				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
