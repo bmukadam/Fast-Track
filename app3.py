@@ -40,7 +40,7 @@ def hello():
 	dst = str(request.args.get('dst'))
 	
 	# 1: find closest bus stops to user
-	mapskey = "AIzaSyC945tXFFzfa2r839092cdeRYDR_MFGceg"
+	mapskey = "AIzaSyDpp8voCHf0PvvD46oNJUQCj4xxhvXcN9U"
 	#a: get lat and long of user
 	lat = ''
 	longitude = ''
@@ -176,27 +176,31 @@ def hello():
 				if stop == sourcestop and route in activeroutetodestname.keys():					
 					activeroutetodestname[route].append(destidtonametable[stop])
 
+	for route in activeroutetosourcename:
+		for sourcename in activeroutetosourcename[route]:
+			googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
+					"&mode=walking&key=" + mapskey)
+			walkingtimeSource[sourcename] = int (googlewalking.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
+
+	for route in activeroutetodestname:
+		for destname in activeroutetodestname[route]:
+			googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
+					"&mode=walking&key=" + mapskey)
+			walkingtimeDest[destname] = int (googlewalking.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
+
 
 	mintime = 1000
 	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			sourcetime =    calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
-			googlewalkingsource = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
-					"&mode=walking&key=" + mapskey)
+			
 			for destname in activeroutetodestname[route]:
 
 				desttime = calculateTime(route,destnametoidtable[destname],arrivalestimatesDest, sourcetime)
-				
-				googlewalkingdest = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + destnametolatlongtable[destname] + "&destinations=" + latdest +"," + longitudedest + 
-					"&mode=walking&key=" + mapskey)
+				walktimedest = walkingtimeDest[destname]
+				walktimesrc = walkingtimeSource[sourcename]
 
-
-				
-				walktimedest = int (googlewalkingdest.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
-				walktimesrc = int (googlewalkingsource.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
-
-				
 				# walktimesrc + walktimedest + sourcetime + desttime > totalwalktime
 				if sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < mintime:
 					mintime = desttime + walktimedest + walktimesrc + sourcetime
