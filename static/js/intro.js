@@ -4,41 +4,6 @@
  *
  * Copyright (C) 2017 Afshin Mehrabani (@afshinmeh)
  */
-function initIntro() {
-var intro = introJs();
-	  intro.setOptions({
-	  steps: [
-	    { 
-	      intro: "Welcome to the FastTrack tutorial!"
-	    },
-	    {
-	      element: '#myInput',
-	      intro: "If you want to use your current location, leave this field blank. Otherwise, type where you would like your trip to begin (tip: use arrow keys to interact with autocomplete",
-	      position: 'right'
-	    },
-	    {
-	      element: '#myInput2',
-	      intro: "Type the location you want your trip to end.",
-	      position: 'right'
-	    },
-	    {
-	      element: '#results_body',
-	      intro: 'Results will show you up to four possible routes that will be ordered in increasing trip-completion time. Click on each route to get more info. The best route is plotted by default',
-	      position: 'right'
-	    },
-	    {
-	      element: '#map',
-	      intro: "The routes will be displayed here!"
-	    },
-	    {
-	      element: '#feedbackform',
-	      intro: "After using our app, please leave us your anonymous feedback!"
-	    }
-	  ]
-	  });
-		intro.start();
-}
-
 (function(f) {
     if (typeof exports === "object" && typeof module !== "undefined") {
         module.exports = f();
