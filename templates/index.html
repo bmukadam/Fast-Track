@@ -69,6 +69,13 @@
 		    max-height: 500px;
 		    overflow-y: scroll;
 		}
+		#resultsbtn1, #resultsbtn1li1, #resultsbtn1li2, #resultsbtn1li3, #resultsbtn2, #resultsbtn2li1, #resultsbtn2li2, #resultsbtn2li3, #resultsbtn3, #resultsbtn3li1, #resultsbtn3li2, #resultsbtn3li3 {
+			display: none;
+		}
+		/*["", "", "", "resultsbtn1li3"],
+			["", "", "resultsbtn2li2", "resultsbtn2li3"], 
+			["", "", "resultsbtn3li2", "resultsbtn3li3"]];*/
+
 		.autocomplete {
 		  /*the container must be positioned relative:*/
 		  position: relative;
@@ -136,6 +143,7 @@
 		var directionsDisplay;
 		var directionsDisplay;
 		var markers = [];
+		var googlemapsgeneratedplots = [];
 
 		$(document).ready(function(){
 			//getLocation();
@@ -160,6 +168,11 @@
 			}
 			var origloaderhtml = document.getElementById("results_body").innerHTML;
 			var random;
+			var resultsids = [
+			["resultsbtn1", "resultsbtn1li1", "resultsbtn1li2", "resultsbtn1li3"],
+			["resultsbtn2", "resultsbtn2li1", "resultsbtn2li2", "resultsbtn2li3"], 
+			["resultsbtn3", "resultsbtn3li1", "resultsbtn3li2", "resultsbtn3li3"]];
+
 		    $("#calculate").click(function(){
 		    	var div = document.getElementById('results_body');
 			    //div.innerHTML = ""
@@ -196,12 +209,300 @@
 			      }, function(data) {
 
 			      	$("#loaderelement").hide();
+			      	console.log(data.result);
+			      	return;
+			      	
 			      	var div = document.getElementById('results_body');
-			      	div.innerHTML += data.result[0];
-			      	div.innerHTML += "<br><br>";
+			      	if (data.result[0][0].startsWith("Sorry"))
+			      	{
+			      		// plot only the walking route
+			      		div.innerHTML += data.result[0][0]
+			      		var currlist = data.result[1];
+			      		var time = currlist[1];
+	      				var destcoords = currlist[2];
+	      				var message = "Walk from your current location to " + srcval;
+
+	      				document.getElementById(resultsids[0]).innerHTML = "Only Walking ("+time+")";
+	      				document.getElementById(resultsids[0][0]).innerHTML = message;
+	      				document.getElementById(resultsids[0]).style.display = "block";
+	      				document.getElementById(resultsids[0][0]).style.display = "block";
+	      				var lineSymbol = {
+						    path: google.maps.SymbolPath.CIRCLE,
+						    fillOpacity: 1,
+						    scale: 3
+						};
+
+						polylineOptionsActual = new google.maps.Polyline({
+						    strokeColor: 'grey',
+						    strokeOpacity: 0,
+						    icons: [{
+						      icon: lineSymbol,
+						      offset: '0',
+						      repeat: '10px'
+						    }]
+						});
+						rendererOptions = {
+						    map: map,
+						    suppressMarkers: true,
+						    polylineOptions: polylineOptionsActual
+						};
+
+						var directionsService = new google.maps.DirectionsService;
+						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+						directionsDisplay.setMap(map);
+
+						var org = new google.maps.LatLng (userlat, userlong);
+						var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
+						directionsService.route({
+						    origin: org,
+						    destination: dst,
+						    travelMode: 'WALKING'
+						  }, function(response, status) {
+						  	directionsDisplay.setDirections(response);
+						    if (status === 'OK') {
+						      directionsDisplay.setDirections(response);
+						    } else {
+						      window.alert('Directions request failed due to ' + status);
+						    }
+						  });
+
+						var marker = new google.maps.Marker({
+						    position: new google.maps.LatLng(userlat, userlong),
+						    label: 'Current Location',
+						    title: 'Current Location',
+						    map:map
+						});
+
+						var marker2 = new google.maps.Marker({
+						    position: new google.maps.LatLng(parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1])),
+						    label: $('input[name="dst"]').val(),
+						    title: $('input[name="dst"]').val(),
+						    map:map
+						});
+						//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+						googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
+						//directionsDisplay.set('directions', null);
+
+			      	}
+			      	else
+			      	{
+			      		for (var i = 0, size = data.result.length; i < size ; i++)
+			      		{
+			      			var currlist = data.result[i];
+			      			if (currlist[0].startsWith("walking route"))
+			      			{
+			      				var time = currlist[1];
+			      				var destcoords = currlist[2];
+			      				var message = "Walk from your current location to " + srcval;
+			      				document.getElementById(resultsids[i]).innerHTML = "Only Walking ("+time+")";
+			      				document.getElementById(resultsids[i][0]).innerHTML = message;
+			      				document.getElementById(resultsids[i]).style.display = "block";
+			      				document.getElementById(resultsids[i][0]).style.display = "block";
+
+				      			var lineSymbol = {
+								    path: google.maps.SymbolPath.CIRCLE,
+								    fillOpacity: 1,
+								    scale: 3
+								};
+
+								polylineOptionsActual = new google.maps.Polyline({
+								    strokeColor: 'grey',
+								    strokeOpacity: 0,
+								    icons: [{
+								      icon: lineSymbol,
+								      offset: '0',
+								      repeat: '10px'
+								    }]
+								});
+								rendererOptions = {
+								    map: map,
+								    suppressMarkers: true,
+								    polylineOptions: polylineOptionsActual
+								};
+
+								var directionsService = new google.maps.DirectionsService;
+								directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+								directionsDisplay.setMap(map);
+
+								var org = new google.maps.LatLng (userlat, userlong);
+								var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
+								directionsService.route({
+								    origin: org,
+								    destination: dst,
+								    travelMode: 'WALKING'
+								  }, function(response, status) {
+								  	directionsDisplay.setDirections(response);
+								    if (status === 'OK') {
+								      directionsDisplay.setDirections(response);
+								    } else {
+								      window.alert('Directions request failed due to ' + status);
+								    }
+								  });
+
+								var marker = new google.maps.Marker({
+								    position: new google.maps.LatLng(userlat, userlong),
+								    label: 'Current Location',
+								    title: 'Current Location',
+								    map:map
+								});
+
+								var marker2 = new google.maps.Marker({
+								    position: new google.maps.LatLng(parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1])),
+								    label: $('input[name="dst"]').val(),
+								    title: $('input[name="dst"]').val(),
+								    map:map
+								});
+								//googlemapsgeneratedplots.push([marker, marker2]);
+								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+								googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
+			      			}
+			      			else
+			      			{
+			      				var msg1 = currlist[0];
+			      				var msg2 = currlist[1];
+			      				var msg3 = currlist[2];
+			      				var hashedpolyline = currlist[3];
+			      				var srcstopcoords = currlist[4];
+			      				var dststopcoords = currlist[5];
+			      				var finaldststopcoords = currlist[6]; 
+			      				var srcstopname =currlist[7];
+			      				var dststopname =currlist[8];
+			      				var total_time = currlist[9];
+			      				document.getElementById(resultsids[i]).innerHTML = "Bus Route Time: ("+time+")";
+			      				document.getElementById(resultsids[i][0]).innerHTML = msg1;
+			      				document.getElementById(resultsids[i][1]).innerHTML = msg2;
+			      				document.getElementById(resultsids[i][2]).innerHTML = msg3;
+			      				document.getElementById(resultsids[i]).style.display = "block";
+			      				document.getElementById(resultsids[i][0]).style.display = "block";
+			      				document.getElementById(resultsids[i][1]).style.display = "block";
+			      				document.getElementById(resultsids[i][2]).style.display = "block";
+
+			      				/*PLOTS THE BUS POLYLINE*/
+			      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
+						        line = new google.maps.Polyline({
+							        path: decode,
+							        strokeColor: '#00008B',
+							        strokeOpacity: 1.0,
+							        strokeWeight: 4,
+							        zIndex: 3
+							    });
+							    line.setMap(map);
+
+							    /*PLOTS THE WALKING ROUTE FROM THE USER'S CURRENT LOCATION TO THE SRC BUS STOP*/
+							    var lineSymbol = {
+								    path: google.maps.SymbolPath.CIRCLE,
+								    fillOpacity: 1,
+								    scale: 3
+								};
+
+								polylineOptionsActual = new google.maps.Polyline({
+								    strokeColor: 'orange',
+								    strokeOpacity: 0,
+								    icons: [{
+								      icon: lineSymbol,
+								      offset: '0',
+								      repeat: '10px'
+								    }]
+								});
+								rendererOptions = {
+								    map: map,
+								    suppressMarkers: true,
+								    polylineOptions: polylineOptionsActual
+								};
+
+								polylineOptionsActual2 = new google.maps.Polyline({
+								    strokeColor: 'green',
+								    strokeOpacity: 0,
+								    icons: [{
+								      icon: lineSymbol,
+								      offset: '0',
+								      repeat: '10px'
+								    }]
+								});
+								rendererOptions2 = {
+								    map: map,
+								    suppressMarkers: true,
+								    polylineOptions: polylineOptionsActual2
+								};
+								var directionsService = new google.maps.DirectionsService;
+								var directionsService2 = new google.maps.DirectionsService;
+								directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+								directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
+
+							  	directionsDisplay.setMap(map);
+							  	directionsDisplay2.setMap(map);
+				
+			  				  	var org = new google.maps.LatLng (userlat, userlong);
+							  	var dst = new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1]));
+
+							  	directionsService.route({
+							    	origin: org,
+							    	destination: dst,
+							    	travelMode: 'WALKING'
+							 	 }, function(response, status) {
+							  		directionsDisplay.setDirections(response);
+							  	  if (status === 'OK') {
+							  	    directionsDisplay.setDirections(response);
+							  	  } else {
+							   	   window.alert('Directions request failed due to ' + status);
+							   	 }
+							 	});
+
+							 	var marker = new google.maps.Marker({
+								    position: new google.maps.LatLng(userlat, userlong),
+								    label: 'Current Location',
+								    title: 'Current Location',
+								    map:map
+								});
+
+								var marker2 = new google.maps.Marker({
+								    position: new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1])),
+								    label: srcstopname,
+								    title: srcstopname,
+								    map:map
+								});	
+
+								/*PLOTS THE WALKING ROUTE FROM THE DST BUS STOP TO THE USER'S FINAL LOCATION*/
+								var org2 = new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1]));
+								var dst2 = new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1]));
+
+								directionsService2.route({
+								  origin: org2,
+								  destination: dst2,
+								  travelMode: 'WALKING'
+								}, function(response, status) {
+								  	directionsDisplay2.setDirections(response);
+								  if (status === 'OK') {
+								    directionsDisplay2.setDirections(response);
+								  } else {
+								    window.alert('Directions request failed due to ' + status);
+								  }
+								});
+
+								var marker3 = new google.maps.Marker({
+								  position: new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1])),
+								  label: dststopname,
+								  title: dststopname,
+								  map:map
+								});		
+
+								var marker4 = new google.maps.Marker({
+								  position: new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1])),
+								  label: document.getElementById('myInput2').value,
+								  title: document.getElementById('myInput2').value,
+								  map:map
+								});
+								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], [directionsDisplay, directionsDisplay2], [line]]);					
+			      			}
+			      		}
+			      	}
+
+			      	//div.innerHTML += data.result[0];
+			      	//div.innerHTML += "<br><br>";
 			      	
 			      	//ensure that routes are only plotted if plotting info is returned
-			      	if (!data.result[0].startsWith("Sorry")) {
+			      	/*if (!data.result[0].startsWith("Sorry")) {
 			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the orange route to reach the source bus stop. Then walk along the green route to reach your final destination."
 
 			      		console.log("user curr location: " + userlat + ", " + userlong);
@@ -239,11 +540,6 @@
 
 					    line.setMap(map);
 						
-						/*var lineSymbol = {
-						  path: 'M 0,-1 0,1',
-						  strokeOpacity: 1,
-						  scale: 4
-						};*/
 						
 						var lineSymbol = {
 						    path: google.maps.SymbolPath.CIRCLE,
@@ -253,7 +549,6 @@
 
 						polylineOptionsActual = new google.maps.Polyline({
 						    strokeColor: 'orange',
-						    //strokeWeight: 5,
 						    strokeOpacity: 0,
 						    icons: [{
 						      icon: lineSymbol,
@@ -286,30 +581,6 @@
 						var directionsService2 = new google.maps.DirectionsService;
 						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 						directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
-					   /*directionsDisplay = new google.maps.DirectionsRenderer({
-					   	suppressMarkers: true,
-					  	polylineOptions: {
-					  		strokeColor: "red",
-							icons: [{
-							icon: lineSymbol,
-							offset: '50%',
-							repeat: '20px'
-							}]
-					  	}
-					  });
-					   directionsDisplay2 = new google.maps.DirectionsRenderer({
-					   	suppressMarkers: true,
-					  	polylineOptions: {
-
-					  		strokeColor: "green",
-							icons: [{
-							icon: lineSymbol,
-							offset: '50%',
-							repeat: '20px'
-							}]
-					  	}
-					  });*/
-
 
 					  directionsDisplay.setMap(map);
 					  directionsDisplay2.setMap(map);
@@ -376,9 +647,9 @@
 		        	markers.push(marker4);
 				    hasline = 1;
 
-			      	}
+			      	}*/
 			      });
-			      return false;
+			      //return false;
 		    });
 		});	
 
@@ -434,6 +705,57 @@
 	};	
 </script>
 
+<script type="text/javascript">
+	function resultsbtn1function(buttonnum)
+	{
+		//plot elements in buttonnum subarray of googlemapsgeneratedplots
+		var firstsubarray = googlemapsgeneratedplots[buttonnum];
+		var elemname = "#collapseExample"+buttonnum;
+		if ($(elemname).hasClass('in'))
+		{
+			//hide markers:
+			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
+			{
+				firstsubarray[0][i].setVisible(false);	
+			}
+
+			//hide directions display:
+			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
+			{
+				firstsubarray[1][i].setMap(null);	
+			}
+
+			//hide polyline:
+			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
+			{
+				firstsubarray[2][i].setMap(null);	
+			}
+			//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+			//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
+		}
+		else
+		{
+			//plot markers:
+			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
+			{
+				firstsubarray[0][i].setVisible(true);	
+			}
+
+			//plot directions display:
+			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
+			{
+				firstsubarray[1][i].setMap(map);	
+			}
+
+			//plot polyline:
+			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
+			{
+				firstsubarray[2][i].setMap(map);	
+			}
+		}
+	}
+</script>
+
 	<div class="container-fluid">
 		<div class="row">
 			<nav class="navbar navbar-inverse" role="navigation">
@@ -473,8 +795,35 @@
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
+						<div class="collapse" id="collapseExample1">
+							<ul class="list-group">
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn1li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn1li2">d squid. Nihil anim keffiyeh helvetica, craft</li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn1li3">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
+							</ul>
+						</div>
+
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)">Block level button</button>
+						<div class="collapse" id="collapseExample2">
+							<ul class="list-group">
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn2li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn2li2">d squid. Nihil anim keffiyeh helvetica, craft</li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn2li3">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
+							</ul>
+						</div>
+
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample3" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)">Block level button</button>
+						<div class="collapse" id="collapseExample3">
+							<ul class="list-group">
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn3li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn3li2">d squid. Nihil anim keffiyeh helvetica, craft</li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn3li3">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
+							</ul>
+						</div>
 					</div>
 				</div>
+
 
             </div>
 			<div class="col-sm-10">
