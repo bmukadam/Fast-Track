@@ -325,43 +325,43 @@
 			      				document.getElementById(resultsids[i][0]).style.display = "block";
 			      				document.getElementById(resultsids[i][1]).style.display = "block";
 
-			      				var lineSymbol = {
-								    path: google.maps.SymbolPath.CIRCLE,
-								    fillOpacity: 1,
-								    scale: 3
-								};
+			     //  				var lineSymbol = {
+								//     path: google.maps.SymbolPath.CIRCLE,
+								//     fillOpacity: 1,
+								//     scale: 3
+								// };
 
-								polylineOptionsActual = new google.maps.Polyline({
-								    strokeColor: 'grey',
-								    strokeOpacity: 0,
-								    icons: [{
-								      icon: lineSymbol,
-								      offset: '0',
-								      repeat: '10px'
-								    }]
-								});
+								// polylineOptionsActual = new google.maps.Polyline({
+								//     strokeColor: 'grey',
+								//     strokeOpacity: 0,
+								//     icons: [{
+								//       icon: lineSymbol,
+								//       offset: '0',
+								//       repeat: '10px'
+								//     }]
+								// });
 
-								rendererOptions = {
-								    map: map,
-								    suppressMarkers: true,
-								    polylineOptions: polylineOptionsActual
-								};
+								// rendererOptions = {
+								//     map: map,
+								//     suppressMarkers: true,
+								//     polylineOptions: polylineOptionsActual
+								// };
 
-								var directionsService = new google.maps.DirectionsService;
-								directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-								directionsDisplay.setMap(map);
+								// var directionsService = new google.maps.DirectionsService;
+								// directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+								walkingdirectionsDisplay.setMap(map);
 
 								var org = new google.maps.LatLng (userlat, userlong);
 								var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
 
-								directionsService.route({
+								directionsService5.route({
 								    origin: org,
 								    destination: dst,
 								    travelMode: 'WALKING'
 								  }, function(response, status) {
-								  	directionsDisplay.setDirections(response);
+								  	walkingdirectionsDisplay.setDirections(response);
 								    if (status === 'OK') {
-								      directionsDisplay.setDirections(response);
+								      walkingdirectionsDisplay.setDirections(response);
 								    } else {
 								      window.alert('Directions request failed due to ' + status);
 								    }
