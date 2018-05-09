@@ -191,9 +191,24 @@ def hello():
 					"&mode=walking&key=" + mapskey)
 			walkingtimeDest[destname] = int (googlewalking.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
+	googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + latsource +"," + longitudesource + "&destinations=" + latdest +"," + longitudedest + 
+					"&mode=walking&key=" + mapskey)
+	walkingtotal = int (googlewalking.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-	mintime = 1000
-	output = "Sorry there are no optimal busses right now. Time to stretch your legs!"
+	#orange then blue then green
+	besttime = 1000
+	secondbesttime = 1000
+	returnedcontent.append([])
+	returnedcontent.append([])
+	if len(activeroutetoroutename) == 1:
+		returnedcontent[0].append("Sorry there are no busses running right now. Time to stretch your legs!")
+	else:
+		returnedcontent[0].append("Sorry there are no busses that connect you to your destination. Try another location!")
+	returnedcontent[0].append("")
+	returnedcontent[0].append("")
+	returnedcontent[1].append("")
+	returnedcontent[1].append("")
+	returnedcontent[1].append("")
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			sourcetime =    calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
@@ -205,20 +220,31 @@ def hello():
 				walktimesrc = walkingtimeSource[sourcename]
 
 				# walktimesrc + walktimedest + sourcetime + desttime > totalwalktime
-				if sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < mintime:
-					mintime = desttime + walktimedest + walktimesrc + sourcetime
+				if sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < besttime:
+					besttime = walktimesrc+ walktimedest + desttime
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
 					bestdst = str(destname)
+					returnedcontent[0][0] = "1. Walk along yellow route for " + str(walktimesrc) + " mins. Bus will arrive to stop in " + str(sourcetime) + " mins." + '<br>'
+					returnedcontent[0][1] = "2. Take " + str(activeroutetoroutename[route]) + " bus along blue route for " + str(desttime - sourcetime) + " mins." + '<br>'
+					returnedcontent[0][2] = "3. Walk along green route for " + str(walktimedest) + " mins to reach your final destination"
 
-					output =  activeroutetoroutename[route] + ' bus will arrive to ' + str(sourcename) +' stop in ' + str(sourcetime) + ' mins, you will be dropped off at ' + str(destname) + ' stop.' + '<br>'
-					output = output + 'Trip time from source stop to dest stop is ' + str(desttime - sourcetime) + " mins and walk time from bus stop to dest is " + str (walktimedest)
-	returnedcontent.append(output)
-	
-					
-    
-					
-	if output.split(" ")[0] == "Sorry":
+				elif sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < secondbesttime:
+					secondbesttime = walktimesrc + walktimedest + desttime 
+					secondbestroute = str(activeroutetoroutename[route])
+					secondbestsrc = str(sourcename)
+					secondbestdst = str(destname)
+					returnedcontent[1][0] =  "1. Walk along yellow route for " + str(walktimesrc) + " mins. Bus will arrive to stop in " + str(sourcetime) + " mins." + '<br>'
+					returnedcontent[1][1] =  "2. Take " + str(activeroutetoroutename[route]) + " bus along blue route for " + str(desttime - sourcetime) + " mins." + '<br>'
+					returnedcontent[1][2] =  "3. Walk along green route for " + str(walktimedest) + " mins to reach your final destination"
+						
+	if returnedcontent[0][0].split(" ")[0] == "Sorry":
+		del returnedcontent[1]
+		returnedcontent.append(["walking route"])
+		returnedcontent[1].append(walkingtotal)
+		returnedcontent[1].append(latdest +"," + longitudedest )
+		print returnedcontent
+		return
 		return jsonify(result=returnedcontent)
 
 
@@ -271,18 +297,102 @@ def hello():
 		for i in range(startindex, endindex+1):
 			aggregated += allcoords[i]
 
-	returnedcontent.append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
-	usercoords = [origlat, origlongitude]
-	returnedcontent.append(usercoords)  #addiing user's current location
-	returnedcontent.append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
-	returnedcontent.append(destnametolatlongtable[bestdst])  #addiing location of dst stop
-	editeddst = dst.replace(' ', '+')
-	destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
-	destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
-	returnedcontent.append(destcoords)
-	returnedcontent.append(str(sourcename) + " Stop")
-	returnedcontent.append(str(destname)  + " Stop")
+	returnedcontent[0].append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
 
+
+	returnedcontent[0].append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
+	returnedcontent[0].append(destnametolatlongtable[bestdst])  #addiing location of dst stop
+	# editeddst = dst.replace(' ', '+')
+	# destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
+	# destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
+	returnedcontent[0].append(latdest +"," + longitudedest )
+	returnedcontent[0].append(str(bestsrc) + " Stop")
+	returnedcontent[0].append(str(bestdst)  + " Stop")
+	returnedcontent[0].append(str(besttime))
+
+	if (returnedcontent[1][0] != ""):
+		finalhash = ''
+		rownum = 0
+		allcoords = []
+		prevcoords = []
+		firstrowofcoords = 1
+
+		currindex = 0
+		startindex = -1
+		endindex = -1
+		secondbestroute = secondbestroute.replace('/', ' ')
+		filename = secondbestroute + ".csv"
+		fileroute = os.path.join('.', 'New Polylines/' + filename)
+		#returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
+		#return jsonify(result=returnedcontent)
+
+		with open(fileroute) as csvfile:
+			readCSV = csv.reader(csvfile, delimiter=',')
+			#returnedcontent[0] = returnedcontent[0] + "    reached hererererer"
+			#return jsonify(result=returnedcontent)
+			for row in readCSV:
+				if rownum == 0:
+					rownum = 1
+				else:
+					if row[0] == bestsrc and startindex == -1:
+						startindex = currindex
+					if row[1] == bestdst and endindex == -1:
+						endindex = currindex
+					currcoords = polyline.decode(row[2])
+					if firstrowofcoords == 1:
+						firstrowofcoords = 0
+					else:
+						currcoords[0] = prevcoords[len(prevcoords) - 1]
+					prevcoords = currcoords
+					allcoords.append(currcoords)
+					currindex += 1
+		allcoords[len(allcoords) - 1][len(currcoords) - 1] = allcoords[0][0]
+
+		
+		aggregated = []
+
+		if startindex > endindex:
+			for i in range(startindex, len(allcoords)):
+				aggregated += allcoords[i]
+			for i in range(0, endindex+1):
+				aggregated += allcoords[i]
+		else:
+			for i in range(startindex, endindex+1):
+				aggregated += allcoords[i]
+
+		returnedcontent[1].append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
+
+
+		returnedcontent[1].append(sourcenametolatlongtable[secondbestsrc])  #addiing location of src stop
+		returnedcontent[1].append(destnametolatlongtable[secondbestdst])  #addiing location of dst stop
+		# editeddst = dst.replace(' ', '+')
+		# destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
+		# destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
+		returnedcontent[1].append(latdest +"," + longitudedest)
+		returnedcontent[1].append(str(secondbestsrc) + " Stop")
+		returnedcontent[1].append(str(secondbestdst)  + " Stop")
+		returnedcontent[1].append(str(secondbesttime))
+
+		returnedcontent.append(["walking route"])
+		returnedcontent[2].append(walkingtotal)
+		returnedcontent[2].append(latdest +"," + longitudedest )
+	else:
+		del returnedcontent[1]
+		returnedcontent.append(["walking route"])
+		returnedcontent[1].append(walkingtotal)
+		returnedcontent[1].append(latdest +"," + longitudedest )
+
+
+	if float(returnedcontent[len(returnedcontent) - 1][1]) < float(returnedcontent[0][9]):
+		print "here"
+		temp = returnedcontent[0]
+		del returnedcontent[0]
+		returnedcontent.insert(0, returnedcontent[len(returnedcontent) - 1])
+		if len(returnedcontent) == 3:
+			returnedcontent.insert(len(returnedcontent) - 2, temp)
+		else:
+			returnedcontent.insert(len(returnedcontent) - 1, temp)
+		del returnedcontent[len(returnedcontent) - 1]
 
 	return jsonify(result=returnedcontent)
 
