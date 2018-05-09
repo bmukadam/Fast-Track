@@ -2477,14 +2477,9 @@
       }
       return this;
     },
-    onskip: function(providedCallback) {
-      if (typeof (providedCallback) === 'function') {
-        this._introSkipCallback = providedCallback;
-      } else {
-        throw new Error('Provided callback for onskip was not a function.');
-      }
-      return this;
+    onskip: function () {
     },
+      
     onbeforeexit: function(providedCallback) {
       if (typeof (providedCallback) === 'function') {
         this._introBeforeExitCallback = providedCallback;
