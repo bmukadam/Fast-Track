@@ -148,6 +148,68 @@
 			["resultsbtn3", "resultsbtn3li1", "resultsbtn3li2", "resultsbtn3li3"]
 		];
 
+		var lineSymbol = {
+		    path: google.maps.SymbolPath.CIRCLE,
+		    fillOpacity: 1,
+		    scale: 3
+		};
+		polylineOptionsActual = new google.maps.Polyline({
+		    strokeColor: 'orange',
+		    strokeOpacity: 0,
+		    icons: [{
+		      icon: lineSymbol,
+		      offset: '0',
+		      repeat: '10px'
+		    }]
+		});
+		rendererOptions = {
+		    map: map,
+		    suppressMarkers: true,
+		    polylineOptions: polylineOptionsActual
+		};
+
+		polylineOptionsActual2 = new google.maps.Polyline({
+		    strokeColor: 'green',
+		    strokeOpacity: 0,
+		    icons: [{
+		      icon: lineSymbol,
+		      offset: '0',
+		      repeat: '10px'
+		    }]
+		});
+		rendererOptions2 = {
+		    map: map,
+		    suppressMarkers: true,
+		    polylineOptions: polylineOptionsActual2
+		};
+
+		polylineOptionsActual3 = new google.maps.Polyline({
+		    strokeColor: 'grey',
+		    strokeOpacity: 0,
+		    icons: [{
+		      icon: lineSymbol,
+		      offset: '0',
+		      repeat: '10px'
+		    }]
+		});
+		rendererOptionswalk = {
+		    map: map,
+		    suppressMarkers: true,
+		    polylineOptions: polylineOptionsActual3
+		};
+
+		var directionsService = new google.maps.DirectionsService;
+		var directionsService2 = new google.maps.DirectionsService;
+		var directionsService3 = new google.maps.DirectionsService;
+		var directionsService4 = new google.maps.DirectionsService;
+		var directionsService5 = new google.maps.DirectionsService;
+		
+		directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+		directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
+		directionsDisplay3 = new google.maps.DirectionsRenderer(rendererOptions);
+		directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions2);
+		walkingdirectionsDisplay = new google.maps.DirectionsRenderer(rendererOptionswalk);
+
 		$(document).ready(function(){
 			//getLocation();
 			var userlat;
@@ -302,7 +364,7 @@
 			      				var srcstopname =currlist[7];
 			      				var dststopname =currlist[8];
 			      				var total_time = currlist[9];
-			      				document.getElementById(resultsids[i][0]).innerHTML = "Bus Route Time: ("+time+")";
+			      				document.getElementById(resultsids[i][0]).innerHTML = "Bus Route Time: ("+total_time+")";
 			      				document.getElementById(resultsids[i][1]).innerHTML = msg1;
 			      				document.getElementById(resultsids[i][2]).innerHTML = msg2;
 			      				document.getElementById(resultsids[i][3]).innerHTML = msg3;
