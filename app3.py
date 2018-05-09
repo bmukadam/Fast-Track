@@ -229,6 +229,7 @@ def hello():
 					secondbestroute = bestroute
 					secondbestsrc = bestsrc
 					secondbestdst = bestdst
+
 					returnedcontent[1][0] = returnedcontent[0][0]
 					returnedcontent[1][1] = returnedcontent[0][1]
 					returnedcontent[1][2] = returnedcontent[0][2]
@@ -320,7 +321,7 @@ def hello():
 	returnedcontent[0].append(str(bestdst)  + " Stop")
 	returnedcontent[0].append(str(besttime))
 
-	if (returnedcontent[1][0] != ""):
+	if (!returnedcontent[1][0].startswith("Sorry there are no busses")):
 		finalhash = ''
 		rownum = 0
 		allcoords = []
