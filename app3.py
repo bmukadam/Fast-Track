@@ -234,7 +234,7 @@ def hello():
 					secondbestroute = str(activeroutetoroutename[route])
 					secondbestsrc = str(sourcename)
 					secondbestdst = str(destname)
-					returnedcontent[1][0] =  "1. Walk along yellow route for " str(walktimesrc) + " mins to reach "+ str(sourcename) + " stop. Bus will arrive to stop in " + str(sourcetime) + " mins." + '<br>'
+					returnedcontent[1][0] =  "1. Walk along yellow route for " +  str(walktimesrc) + " mins to reach "+ str(sourcename) + " stop. Bus will arrive to stop in " + str(sourcetime) + " mins." + '<br>'
 					returnedcontent[1][1] =  "2. Take " + str(activeroutetoroutename[route]) + " bus along blue route for " + str(desttime - sourcetime) + " mins and will drop you off at " + str(destname) + " stop."
 					returnedcontent[1][2] =  "3. Walk along green route for " + str(walktimedest) + " mins to reach your final destination"
 						
