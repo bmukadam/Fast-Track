@@ -210,8 +210,27 @@
 			      	console.log(data.result);
 			      	return;
 			      	var div = document.getElementById('results_body');
-			      	div.innerHTML += data.result[0];
-			      	div.innerHTML += "<br><br>";
+			      	if (data.result[0][0].startsWith("Sorry"))
+			      	{
+
+			      	}
+			      	else
+			      	{
+			      		for (var i = 0, size = data.result.length; i < size ; i++)
+			      		{
+			      			var currlist = data.result[i];
+			      			if (currlist[0].startsWith("walking route"))
+			      			{
+			      				console.log("list " + i.toString() + " starts with walking	route");
+			      			}
+			      			else
+			      			{
+			      				console.log("list " + i.toString() + " starts with walking	route");
+			      			}
+			      		}
+			      	}
+			      	//div.innerHTML += data.result[0];
+			      	//div.innerHTML += "<br><br>";
 			      	
 			      	//ensure that routes are only plotted if plotting info is returned
 			      	/*if (!data.result[0].startsWith("Sorry")) {
