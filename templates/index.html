@@ -386,7 +386,7 @@
 
 	function starttutorial() {
 		var intro = introJs();
-	  intro.setOptions({
+	  /*intro.setOptions({
 	  steps: [
 	    { 
 	      intro: "Welcome to the FastTrack tutorial!"
@@ -415,7 +415,7 @@
 	      intro: "After using our app, please leave us your anonymous feedback!"
 	    }
 	  ]
-	  });
+	  }); */
 		intro.start();
 	};	
 </script>
@@ -430,12 +430,12 @@
 			      <span class="icon-bar"></span>
 			    </button>    
 			  </div>
-			  <div class="navbar-collapse collapse">
+			  <div class="navbar-collapse collapse"  data-step="1" data-intro="text step 1">
 			    <ul class="nav navbar-nav">
 			        <li><a id = "step1" href="https://princetonfasttrack.herokuapp.com/">FastTrack</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-center">
-			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
+			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform"  data-step="6" data-intro="text step 6">Click to leave your anonymous feedback!</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			    	<li><a href="#" onclick=starttutorial();>FastTrack Tutorial</a></li>
@@ -448,8 +448,8 @@
 			<div class="col-sm-2">
 				<form autocomplete="off" >
 				  <div class="autocomplete" style="width:200px;">
-				    <input id="myInput" type="text" name="src" placeholder="Use My Location">
-				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination">
+				    <input id="myInput" type="text" name="src" placeholder="Use My Location"  data-step="2" data-intro="text step 2">
+				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination"  data-step="3" data-intro="text step 3">
 				    <button id=calculate>Submit</button>
 				    
 				  </div>			  
@@ -457,14 +457,14 @@
 
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
-					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
+					<div class="panel-body" id = "results_body"  data-step="4" data-intro="text step 4" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
 					</div>
 				</div>
 
             </div>
 			<div class="col-sm-10">
-				<div id="map"></div>
+				<div id="map"  data-step="5" data-intro="text step 5"></div>
 
 				
 				
