@@ -225,10 +225,10 @@
 			      				var time = currlist[1];
 			      				var destcoords = currlist[2];
 			      				var message = "Walk from your current location to " + srcval;
-			      				document.getElementById(resultsids[i]).innerHTML = "Only Walking ("+time+")";
-			      				document.getElementById(resultsids[i][0]).innerHTML = message;
-			      				document.getElementById(resultsids[i]).style.display = "block";
+			      				document.getElementById(resultsids[i][0]).innerHTML = "Only Walking ("+time+")";
+			      				document.getElementById(resultsids[i][1]).innerHTML = message;
 			      				document.getElementById(resultsids[i][0]).style.display = "block";
+			      				document.getElementById(resultsids[i][1]).style.display = "block";
 
 			      				var lineSymbol = {
 								    path: google.maps.SymbolPath.CIRCLE,
