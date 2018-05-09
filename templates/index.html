@@ -301,6 +301,12 @@
 					directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions2);
 					walkingdirectionsDisplay = new google.maps.DirectionsRenderer(rendererOptionswalk);
 
+					var alldirectionsServices = [directionsService, directionsService2, directionsService3, directionsService4];
+
+					var alldirectionsDisplay = [directionsDisplay, directionsDisplay2, directionsDisplay3, directionsDisplay4];
+
+					var routeplottingindex = 0;
+
 			      	$("#loaderelement").hide();
 			      	console.log(data.result);
 			      	var div = document.getElementById('results_body');
@@ -325,30 +331,6 @@
 			      				document.getElementById(resultsids[i][0]).style.display = "block";
 			      				document.getElementById(resultsids[i][1]).style.display = "block";
 
-			     //  				var lineSymbol = {
-								//     path: google.maps.SymbolPath.CIRCLE,
-								//     fillOpacity: 1,
-								//     scale: 3
-								// };
-
-								// polylineOptionsActual = new google.maps.Polyline({
-								//     strokeColor: 'grey',
-								//     strokeOpacity: 0,
-								//     icons: [{
-								//       icon: lineSymbol,
-								//       offset: '0',
-								//       repeat: '10px'
-								//     }]
-								// });
-
-								// rendererOptions = {
-								//     map: map,
-								//     suppressMarkers: true,
-								//     polylineOptions: polylineOptionsActual
-								// };
-
-								// var directionsService = new google.maps.DirectionsService;
-								// directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 								walkingdirectionsDisplay.setMap(map);
 
 								var org = new google.maps.LatLng (userlat, userlong);
@@ -418,7 +400,7 @@
 							    line.setMap(map);
 
 							    /*PLOTS THE WALKING ROUTE FROM THE USER'S CURRENT LOCATION TO THE SRC BUS STOP*/
-							    var lineSymbol = {
+							    /*var lineSymbol = {
 								    path: google.maps.SymbolPath.CIRCLE,
 								    fillOpacity: 1,
 								    scale: 3
@@ -456,22 +438,31 @@
 								var directionsService = new google.maps.DirectionsService;
 								var directionsService2 = new google.maps.DirectionsService;
 								directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-								directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
+								directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);*/
 
-							  	directionsDisplay.setMap(map);
-							  	directionsDisplay2.setMap(map);
+								
+
+
+								directionsServicefirst = alldirectionsServices[routeplottingindex];
+								directionsdisplayfirst = alldirectionsDisplay[routeplottingindex++];
+
+								directionsServicesec = alldirectionsServices[routeplottingindex];
+								directionsdisplaysec = alldirectionsDisplay[routeplottingindex++];
+
+							  	directionsdisplayfirst.setMap(map);
+							  	directionsdisplaysec.setMap(map);
 				
 			  				  	var org = new google.maps.LatLng (userlat, userlong);
 							  	var dst = new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1]));
 
-							  	directionsService.route({
+							  	directionsServicefirst.route({
 							    	origin: org,
 							    	destination: dst,
 							    	travelMode: 'WALKING'
 							 	 }, function(response, status) {
-							  		directionsDisplay.setDirections(response);
+							  		directionsdisplayfirst.setDirections(response);
 							  	  if (status === 'OK') {
-							  	    directionsDisplay.setDirections(response);
+							  	    directionsdisplayfirst.setDirections(response);
 							  	  } else {
 							   	   window.alert('Directions request failed due to ' + status);
 							   	 }
@@ -495,14 +486,14 @@
 								var org2 = new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1]));
 								var dst2 = new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1]));
 
-								directionsService2.route({
+								directionsServicesec.route({
 								  origin: org2,
 								  destination: dst2,
 								  travelMode: 'WALKING'
 								}, function(response, status) {
-								  	directionsDisplay2.setDirections(response);
+								  	directionsdisplaysec.setDirections(response);
 								  if (status === 'OK') {
-								    directionsDisplay2.setDirections(response);
+								    directionsdisplaysec.setDirections(response);
 								  } else {
 								    window.alert('Directions request failed due to ' + status);
 								  }
@@ -523,162 +514,12 @@
 								});
 
 								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
-								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], [directionsDisplay, directionsDisplay2], [line]]);
+								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], [directionsdisplayfirst, directionsdisplaysec], [line]]);
 
 			      			}
 			      		}
 			      	}
 			      	return;
-			      	//div.innerHTML += data.result[0];
-			      	//div.innerHTML += "<br><br>";
-			      	
-			      	//ensure that routes are only plotted if plotting info is returned
-			      	/*if (!data.result[0].startsWith("Sorry")) {
-			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the orange route to reach the source bus stop. Then walk along the green route to reach your final destination."
-
-			      		console.log("user curr location: " + userlat + ", " + userlong);
-
-				      	console.log("location of src stop: " + data.result[3]);
-				      	console.log(parseFloat(data.result[3].split(",")[0]) + "," + parseFloat(data.result[3].split(",")[1]));
-
-				      	console.log("location of dst stop: " + data.result[4]);
-				      	console.log(parseFloat(data.result[4].split(",")[0]) + "," + parseFloat(data.result[4].split(",")[1]));
-
-				      	console.log("location of ultimate dest: " + data.result[5]);
-				      	console.log(parseFloat(data.result[5].split(",")[0]) + "," + parseFloat(data.result[5].split(",")[1]));
-
-				      	console.log("type of userlat and userlong: " + typeof userlat + " " + typeof userlong);
-
-				      	console.log("type of dataresult[3] and extracted content[0]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[0]) + " " + parseFloat(data.result[3].split(",")[0]));
-				      	console.log("type of dataresult[3] and extracted content[1]: " + typeof data.result[3] + " " + typeof parseFloat(data.result[3].split(",")[1]) + " " + parseFloat(data.result[3].split(",")[1]));
-
-				      	console.log("type of dataresult[4] and extracted content[0]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[0]) + " " + parseFloat(data.result[4].split(",")[0]));
-				      	console.log("type of dataresult[4] and extracted content[1]: " + typeof data.result[4] + " " + typeof parseFloat(data.result[4].split(",")[1]) + " " + parseFloat(data.result[4].split(",")[1]));
-
-				      	console.log("type of dataresult[5] and extracted content[0]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[0]) + " " + parseFloat(data.result[5].split(",")[0]));
-				      	console.log("type of dataresult[5] and extracted content[1]: " + typeof data.result[5] + " " + typeof parseFloat(data.result[5].split(",")[1]) + " " + parseFloat(data.result[5].split(",")[1]));
-
-				        
-						var encoded_data = data.result[1];
-				        var decode = google.maps.geometry.encoding.decodePath(encoded_data);
-				        line = new google.maps.Polyline({
-					        path: decode,
-					        strokeColor: '#00008B',
-					        strokeOpacity: 1.0,
-					        strokeWeight: 4,
-					        zIndex: 3
-					    });
-
-					    line.setMap(map);
-
-						var lineSymbol = {
-						    path: google.maps.SymbolPath.CIRCLE,
-						    fillOpacity: 1,
-						    scale: 3
-						};
-
-						polylineOptionsActual = new google.maps.Polyline({
-						    strokeColor: 'orange',
-						    //strokeWeight: 5,
-						    strokeOpacity: 0,
-						    icons: [{
-						      icon: lineSymbol,
-						      offset: '0',
-						      repeat: '10px'
-						    }]
-						});
-						rendererOptions = {
-						    map: map,
-						    suppressMarkers: true,
-						    polylineOptions: polylineOptionsActual
-						};
-
-						polylineOptionsActual2 = new google.maps.Polyline({
-						    strokeColor: 'green',
-						    //strokeWeight: 5,
-						    strokeOpacity: 0,
-						    icons: [{
-						      icon: lineSymbol,
-						      offset: '0',
-						      repeat: '10px'
-						    }]
-						});
-						rendererOptions2 = {
-						    map: map,
-						    suppressMarkers: true,
-						    polylineOptions: polylineOptionsActual2
-						};
-						var directionsService = new google.maps.DirectionsService;
-						var directionsService2 = new google.maps.DirectionsService;
-						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-						directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
-
-					  directionsDisplay.setMap(map);
-					  directionsDisplay2.setMap(map);
-		
-	  				  var org = new google.maps.LatLng (userlat, userlong);
-					  var dst = new google.maps.LatLng (parseFloat(data.result[3].split(",")[0]), parseFloat(data.result[3].split(",")[1]));
-					  directionsService.route({
-					    origin: org,
-					    destination: dst,
-					    travelMode: 'WALKING'
-					  }, function(response, status) {
-					    if (status === 'OK') {
-					      directionsDisplay.setOptions({ preserveViewport: true });
-					      directionsDisplay.setDirections(response);
-					    } else {
-					      window.alert('Directions request failed due to ' + status);
-					    }
-					  });
-
-					var marker = new google.maps.Marker({
-					    position: new google.maps.LatLng(userlat, userlong),
-					    label: 'Current Location',
-					    title: 'Current Location',
-					    map:map
-					});
-					var marker2 = new google.maps.Marker({
-					    position: new google.maps.LatLng(parseFloat(data.result[3].split(",")[0]), parseFloat(data.result[3].split(",")[1])),
-					    label: data.result[6],
-					    title: data.result[6],
-					    map:map
-					});
-						
-					  var org2 = new google.maps.LatLng (parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1]));
-					  var dst2 = new google.maps.LatLng (parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[1]));
-					  
-					  directionsService2.route({
-					    origin: org2,
-					    destination: dst2,
-					    travelMode: 'WALKING'
-					  }, function(response, status) {
-					    if (status === 'OK') {
-					      directionsDisplay2.setOptions({ preserveViewport: true });
-					      directionsDisplay2.setDirections(response);
-					    } else {
-					      window.alert('Directions request failed due to ' + status);
-					    }
-					  });
-					  var marker3 = new google.maps.Marker({
-					    position: new google.maps.LatLng(parseFloat(data.result[4].split(",")[0]), parseFloat(data.result[4].split(",")[1])),
-					    label: data.result[7],
-					    title: data.result[7],
-					    map:map
-					});
-					var marker4 = new google.maps.Marker({
-					    position: new google.maps.LatLng(parseFloat(data.result[5].split(",")[0]), parseFloat(data.result[5].split(",")[1])),
-					    label: document.getElementById('myInput2').value,
-					    title: document.getElementById('myInput2').value,
-					    map:map
-					})
-
-					markers.push(marker);
-		        	markers.push(marker2);
-		        	markers.push(marker3);
-		        	markers.push(marker4);
-				    hasline = 1;
-
-			      	}*/
 			      });
 			      return false;
 		    });
