@@ -243,8 +243,6 @@ def hello():
 		returnedcontent.append(["walking route"])
 		returnedcontent[1].append(walkingtotal)
 		returnedcontent[1].append(latdest +"," + longitudedest )
-		print returnedcontent
-		return
 		return jsonify(result=returnedcontent)
 
 
@@ -384,7 +382,6 @@ def hello():
 
 
 	if float(returnedcontent[len(returnedcontent) - 1][1]) < float(returnedcontent[0][9]):
-		print "here"
 		temp = returnedcontent[0]
 		del returnedcontent[0]
 		returnedcontent.insert(0, returnedcontent[len(returnedcontent) - 1])
