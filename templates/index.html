@@ -208,7 +208,6 @@
 
 			      	$("#loaderelement").hide();
 			      	console.log(data.result);
-			      	return;
 			      	var div = document.getElementById('results_body');
 			      	if (data.result[0][0].startsWith("Sorry"))
 			      	{
@@ -229,6 +228,7 @@
 			      			}
 			      		}
 			      	}
+			      	return;
 			      	//div.innerHTML += data.result[0];
 			      	//div.innerHTML += "<br><br>";
 			      	
