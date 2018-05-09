@@ -209,6 +209,10 @@ def hello():
 	returnedcontent[1].append("")
 	returnedcontent[1].append("")
 	returnedcontent[1].append("")
+
+	bestroute = ""
+	bestsrc = ""
+	bestdst = ""
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			sourcetime =    calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
