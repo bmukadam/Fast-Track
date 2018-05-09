@@ -73,7 +73,7 @@
 		#resultsbtn1, #resultsbtn1li1, #resultsbtn1li2, #resultsbtn1li3, #resultsbtn2, #resultsbtn2li1, #resultsbtn2li2, #resultsbtn2li3, #resultsbtn3, #resultsbtn3li1, #resultsbtn3li2, #resultsbtn3li3 {
 			display: none;
 		}
-		
+
 		.autocomplete {
 		  /*the container must be positioned relative:*/
 		  position: relative;
@@ -141,6 +141,12 @@
 		var directionsDisplay;
 		var directionsDisplay;
 		var markers = [];
+		var googlemapsgeneratedplots = [];
+		var resultsids = [
+			["resultsbtn1", "resultsbtn1li1", "resultsbtn1li2", "resultsbtn1li3"],
+			["resultsbtn2", "resultsbtn2li1", "resultsbtn2li2", "resultsbtn2li3"], 
+			["resultsbtn3", "resultsbtn3li1", "resultsbtn3li2", "resultsbtn3li3"]
+		];
 
 		$(document).ready(function(){
 			//getLocation();
@@ -171,19 +177,18 @@
 		    	//alert("Mouse down over p1!");
 		    document.getElementById("results_body").innerHTML = origloaderhtml;
 
-		    	if (hasline == 1) {
+		    	/*if (hasline == 1) {
 		    		line.setMap(null);
 		    		directionsDisplay.setMap(null);
 					directionsDisplay2.setMap(null);
-					/*$("#results_body").contents().filter(function(){
-					    return (this.nodeType == 3);
-					}).remove();*/
+
 					
 					for(i=0; i<markers.length; i++){
 					        markers[i].setMap(null);
 					    }
 		    		//$("#results_body").empty();
-		    	}
+		    	}*/
+
 		    	$("#loaderelement").show();
 
 		    	var srcval;
@@ -209,7 +214,7 @@
 			      	div.innerHTML += "<br><br>";
 			      	
 			      	//ensure that routes are only plotted if plotting info is returned
-			      	if (!data.result[0].startsWith("Sorry")) {
+			      	/*if (!data.result[0].startsWith("Sorry")) {
 			      		div.innerHTML += "The bus will take the route plotted in blue. You should walk along the orange route to reach the source bus stop. Then walk along the green route to reach your final destination."
 
 			      		console.log("user curr location: " + userlat + ", " + userlong);
@@ -246,13 +251,7 @@
 					    });
 
 					    line.setMap(map);
-						
-						/*var lineSymbol = {
-						  path: 'M 0,-1 0,1',
-						  strokeOpacity: 1,
-						  scale: 4
-						};*/
-						
+
 						var lineSymbol = {
 						    path: google.maps.SymbolPath.CIRCLE,
 						    fillOpacity: 1,
@@ -294,30 +293,6 @@
 						var directionsService2 = new google.maps.DirectionsService;
 						directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 						directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
-					   /*directionsDisplay = new google.maps.DirectionsRenderer({
-					   	suppressMarkers: true,
-					  	polylineOptions: {
-					  		strokeColor: "red",
-							icons: [{
-							icon: lineSymbol,
-							offset: '50%',
-							repeat: '20px'
-							}]
-					  	}
-					  });
-					   directionsDisplay2 = new google.maps.DirectionsRenderer({
-					   	suppressMarkers: true,
-					  	polylineOptions: {
-
-					  		strokeColor: "green",
-							icons: [{
-							icon: lineSymbol,
-							offset: '50%',
-							repeat: '20px'
-							}]
-					  	}
-					  });*/
-
 
 					  directionsDisplay.setMap(map);
 					  directionsDisplay2.setMap(map);
@@ -384,7 +359,7 @@
 		        	markers.push(marker4);
 				    hasline = 1;
 
-			      	}
+			      	}*/
 			      });
 			      return false;
 		    });
