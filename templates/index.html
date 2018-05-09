@@ -176,71 +176,7 @@
 
 		$(document).ready(function(){
 
-			lineSymbol = {
-			    path: google.maps.SymbolPath.CIRCLE,
-			    fillOpacity: 1,
-			    scale: 3
-			};
-
-			polylineOptionsActual = new google.maps.Polyline({
-			    strokeColor: 'orange',
-			    strokeOpacity: 0,
-			    icons: [{
-			      icon: lineSymbol,
-			      offset: '0',
-			      repeat: '10px'
-			    }]
-			});
-
-			rendererOptions = {
-			    map: map,
-			    suppressMarkers: true,
-			    polylineOptions: polylineOptionsActual
-			};
-
-			polylineOptionsActual2 = new google.maps.Polyline({
-			    strokeColor: 'green',
-			    strokeOpacity: 0,
-			    icons: [{
-			      icon: lineSymbol,
-			      offset: '0',
-			      repeat: '10px'
-			    }]
-			});
-
-			rendererOptions2 = {
-			    map: map,
-			    suppressMarkers: true,
-			    polylineOptions: polylineOptionsActual2
-			};
-
-			polylineOptionsActual3 = new google.maps.Polyline({
-			    strokeColor: 'grey',
-			    strokeOpacity: 0,
-			    icons: [{
-			      icon: lineSymbol,
-			      offset: '0',
-			      repeat: '10px'
-			    }]
-			});
-
-			rendererOptionswalk = {
-			    map: map,
-			    suppressMarkers: true,
-			    polylineOptions: polylineOptionsActual3
-			};
-
-			directionsService = new google.maps.DirectionsService;
-			directionsService2 = new google.maps.DirectionsService;
-			directionsService3 = new google.maps.DirectionsService;
-			directionsService4 = new google.maps.DirectionsService;
-			directionsService5 = new google.maps.DirectionsService;
-
-			directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-			directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
-			directionsDisplay3 = new google.maps.DirectionsRenderer(rendererOptions);
-			directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions2);
-			walkingdirectionsDisplay = new google.maps.DirectionsRenderer(rendererOptionswalk);
+			
 
 			//getLocation();
 			var userlat;
@@ -298,6 +234,72 @@
 			        src: srcval,
 			        dst: $('input[name="dst"]').val()
 			      }, function(data) {
+
+			      	lineSymbol = {
+					    path: google.maps.SymbolPath.CIRCLE,
+					    fillOpacity: 1,
+					    scale: 3
+					};
+
+					polylineOptionsActual = new google.maps.Polyline({
+					    strokeColor: 'orange',
+					    strokeOpacity: 0,
+					    icons: [{
+					      icon: lineSymbol,
+					      offset: '0',
+					      repeat: '10px'
+					    }]
+					});
+
+					rendererOptions = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual
+					};
+
+					polylineOptionsActual2 = new google.maps.Polyline({
+					    strokeColor: 'green',
+					    strokeOpacity: 0,
+					    icons: [{
+					      icon: lineSymbol,
+					      offset: '0',
+					      repeat: '10px'
+					    }]
+					});
+
+					rendererOptions2 = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual2
+					};
+
+					polylineOptionsActual3 = new google.maps.Polyline({
+					    strokeColor: 'grey',
+					    strokeOpacity: 0,
+					    icons: [{
+					      icon: lineSymbol,
+					      offset: '0',
+					      repeat: '10px'
+					    }]
+					});
+
+					rendererOptionswalk = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual3
+					};
+
+					directionsService = new google.maps.DirectionsService;
+					directionsService2 = new google.maps.DirectionsService;
+					directionsService3 = new google.maps.DirectionsService;
+					directionsService4 = new google.maps.DirectionsService;
+					directionsService5 = new google.maps.DirectionsService;
+
+					directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+					directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
+					directionsDisplay3 = new google.maps.DirectionsRenderer(rendererOptions);
+					directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions2);
+					walkingdirectionsDisplay = new google.maps.DirectionsRenderer(rendererOptionswalk);
 
 			      	$("#loaderelement").hide();
 			      	console.log(data.result);
