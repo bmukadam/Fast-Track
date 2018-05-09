@@ -385,8 +385,8 @@
 	//starts tutor
 
 	function starttutorial() {
-		
-	  introJs().setOptions({
+		var intro = introJs();
+	  intro.setOptions({
 	  steps: [
 	    { 
 	      intro: "Welcome to the FastTrack tutorial!"
@@ -415,7 +415,8 @@
 	      intro: "After using our app, please leave us your anonymous feedback!"
 	    }
 	  ]
-	  }).start();
+	  });
+		intro.start();
 	};	
 </script>
 
