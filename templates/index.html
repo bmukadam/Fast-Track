@@ -50,6 +50,20 @@
 			background-color: grey;
 		}
 		
+		#legend {
+			font-family: Arial, sans-serif;
+			background: #fff;
+			padding: 10px;
+			margin: 10px;
+			border: 3px solid #000;
+		}
+		#legend h3 {
+			margin-top: 0;
+		}
+		#legend img {
+			vertical-align: middle;
+		}
+		
 		#results_body {
 			height: 500px;
 		    max-height: 500px;
@@ -465,6 +479,7 @@
             </div>
 			<div class="col-sm-10">
 				<div id="map"></div>
+				<div id="legend"><h3>Legend</h3></div>
 
 				
 				
@@ -477,7 +492,25 @@
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
-			      }
+						
+						var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+						var icons = {
+							parking: {
+								name: 'Parking',
+								icon: iconBase + 'parking_lot_maps.png'
+							},
+							library: {
+								name: 'Library',
+								icon: iconBase + 'library_maps.png'
+							},
+							info: {
+								name: 'Info',
+								icon: iconBase + 'info-i_maps.png'
+							}
+						};
+					}
+					
+					
 
 			    </script>
 			    <script async defer
