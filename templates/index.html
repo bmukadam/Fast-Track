@@ -385,36 +385,43 @@
 	//starts tutor
 
 	function starttutorial() {
-		introJs().setOptions({
--	  	steps: [
--	    	{ 
--	      	intro: "Welcome to the FastTrack tutorial!"
--	    	},
--	    	{
--	      	element: '#myInput',
--	      	intro: "If you want to use your current location, leave this field blank. Otherwise, type where you would like your trip to begin (tip: use arrow keys to interact with autocomplete",
--	      	position: 'right'
--	    	},
--	    	{
--	      	element: '#myInput2',
--	      	intro: "Type the location you want your trip to end.",
--	      	position: 'right'
--	    	},
--	    	{
--	      	element: '#results_body',
--	      	intro: 'Results will show you up to four possible routes that will be ordered in increasing trip-completion time. Click on each route to get more info. The best route is plotted by default',
--	      	position: 'right'
--	    	},
--	    	{
--	      	element: '#map',
--	      	intro: "The routes will be displayed here!"
--	    	},
--	    	{
--	      	element: '#feedbackform',
--	      	intro: "After using our app, please leave us your anonymous feedback!"
--	    	}
--	  	]
--	  }).start();
+		
+	  introJs().setOptions({
+	  steps: [
+	    { 
+	      intro: "Welcome to the FastTrack tutorial!"
+	    },
+	    {
+	      element: '#myInput',
+	      intro: "If you want to use your current location, leave this field blank. Otherwise, type where you would like your trip to begin (tip: use arrow keys to interact with autocomplete",
+	      position: 'right'
+	    },
+	    {
+	      element: '#myInput2',
+	      intro: "Type the location you want your trip to end.",
+	      position: 'right'
+	    },
+	    {
+	      element: '#results_body',
+	      intro: 'Results will show you up to four possible routes that will be ordered in increasing trip-completion time. Click on each route to get more info. The best route is plotted by default',
+	      position: 'right'
+	    },
+	    {
+	      element: '#map',
+	      intro: "The routes will be displayed here!"
+	    },
+	    {
+	      element: '#feedbackform',
+	      intro: "After using our app, please leave us your anonymous feedback!"
+	    }
+	  ]
+	  }).onchange(function(){
+	    console.log(this, arguments, 'onchange');
+	  }).onexit(function(){
+	    console.log(this, arguments, 'onexit');
+	  }).oncomplete(function(){
+	    console.log(this, arguments, 'oncomplete');
+	  }).start();
 	};	
 </script>
 
@@ -455,7 +462,7 @@
 
 				<div class="panel panel-default">
 					<div class="panel-heading" overflow: hidden;>Results:</div>
-					<div class="panel-body" id = "results_body" max-height: 6; overflow-y: scroll; >
+					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
 					</div>
 				</div>
