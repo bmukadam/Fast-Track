@@ -221,6 +221,14 @@ def hello():
 
 				# walktimesrc + walktimedest + sourcetime + desttime > totalwalktime
 				if sourcetime is not None and desttime is not None and walktimesrc + walktimedest + desttime < besttime:
+					secondbesttime = besttime
+					secondbestroute = bestroute
+					secondbestsrc = bestsrc
+					secondbestdst = bestdst
+					returnedcontent[1][0] = returnedcontent[0][0]
+					returnedcontent[1][1] = returnedcontent[0][1]
+					returnedcontent[1][2] = returnedcontent[0][2]
+
 					besttime = walktimesrc+ walktimedest + desttime
 					bestroute = str(activeroutetoroutename[route])
 					bestsrc = str(sourcename)
