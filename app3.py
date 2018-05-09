@@ -321,7 +321,7 @@ def hello():
 	returnedcontent[0].append(str(bestdst)  + " Stop")
 	returnedcontent[0].append(str(besttime))
 
-	if (!returnedcontent[1][0].startswith("Sorry there are no busses")):
+	if (not returnedcontent[1][0].startswith("Sorry there are no busses")):
 		finalhash = ''
 		rownum = 0
 		allcoords = []
