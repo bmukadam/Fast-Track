@@ -56,12 +56,16 @@
 			padding: 10px;
 			margin: 10px;
 			border: 3px solid #000;
+			height: 25%;
+			width: 25%;
 		}
 		#legend h3 {
 			margin-top: 0;
 		}
 		#legend img {
 			vertical-align: middle;
+			height: 50%;
+			width: 50%;
 		}
 		
 		#results_body {
@@ -760,7 +764,7 @@
 
 					function initMap() {
 						var uluru = {lat: 40.346481, lng: -74.658138};
-				        map = new google.maps.Map(document.getElementById('map'), {
+				        	map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
 				          	center: uluru
 				        });
@@ -787,19 +791,14 @@
 
 
 						
-						var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 						var icons = {
 							parking: {
-								name: 'Parking',
-								icon: iconBase + 'parking_lot_maps.png'
-							},
-							library: {
-								name: 'Library',
-								icon: iconBase + 'library_maps.png'
+								name: 'Bus Route',
+								icon: 'https://www.freeiconspng.com/uploads/blue-line-png-1.png'
 							},
 							info: {
-								name: 'Info',
-								icon: iconBase + 'info-i_maps.png'
+								name: 'Walking Route',
+								icon: 'http://www.kirbyscovers.com/wp-content/uploads/2017/03/dotted-line-png-30-487x300.png'
 							}
 						};
 						
@@ -812,7 +811,7 @@
 							div.innerHTML = '<img src="' + icon + '"> ' + name;
 							legend.appendChild(div);
 						}
-						map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+						map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 					}
 					
 					
