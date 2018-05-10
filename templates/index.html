@@ -46,8 +46,11 @@
 		}
 		#map {
 			width: 100%;
-			height: 667px;
+			height: 646px;
 			background-color: grey;
+			border-style: solid;
+    		border-width: 5px;
+    		border-color: orange;
 		}
 		
 		#legend {
@@ -57,7 +60,7 @@
 			margin: 10px;
 			border: 3px solid #000;
 			height: 16%;
-			width: 15.5%;
+			width: 15.9%;
 		}
 		#legend h3 {
 			margin-top: 0;
@@ -71,8 +74,8 @@
 		}
 		
 		#results_body {
-			height: 500px;
-		    max-height: 500px;
+			height: 484px;
+		    max-height: 484px;
 		    overflow-y: scroll;
 		}
 
@@ -85,6 +88,10 @@
 		  position: relative;
 		  display: inline-block;
 		}
+		#panelmain {
+			border-color: orange;
+			color: orange;
+		}
 		input {
 		  border: 1px solid transparent;
 		  background-color: #f1f1f1;
@@ -95,6 +102,25 @@
 		  background-color: #f1f1f1;
 		  width: 100%;
 		}
+
+		#calculate {
+			width: 100%;
+			margin: 10px;
+		}
+
+		/*#calculate {
+			border-style: solid;
+    		border-width: 5px;
+    		border-color: orange;
+		}
+
+		#myinput2 {
+			width: 100%;
+			padding: 10px;
+			border-style: solid;
+    		border-width: 5px;
+    		border-color: orange;
+		}*/
 
 		.autocomplete-items {
 		  position: absolute;
@@ -908,13 +934,13 @@
 				  <div class="autocomplete" style="width:200px;">
 				    <input id="myInput" type="text" name="src" placeholder="Use My Location">
 				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination">
-				    <button id=calculate>Submit</button>
-				    
+				    <!--<button id="calculate">Submit</button>-->
+				    <button id = "calculate" type="button" class="btn btn-warning">Submit</button>
 				  </div>			  
 				</form>
 
-				<div class="panel panel-default">
-					<div class="panel-heading" overflow: hidden;>Results:</div>
+				<div class="panel  panel-warning" id = "panelmain">
+					<div class="panel-heading" overflow: hidden;>Results (Fastest to Slowest) :</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
 						<button type="button" class="btn btn-primary btn-block" href="#collapseExample0" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
