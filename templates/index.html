@@ -147,9 +147,9 @@
 		var markers = [];
 		var googlemapsgeneratedplots = [];
 		var resultsids = [
-			["resultsbtn1", "resultsbtn1li1", "resultsbtn1li2", "resultsbtn1li3"],
-			["resultsbtn2", "resultsbtn2li1", "resultsbtn2li2", "resultsbtn2li3"], 
-			["resultsbtn3", "resultsbtn3li1", "resultsbtn3li2", "resultsbtn3li3"]
+			["resultsbtn1", "resultsbtn1li1", "resultsbtn1li2", "resultsbtn1li3", "collapseExample0"],
+			["resultsbtn2", "resultsbtn2li1", "resultsbtn2li2", "resultsbtn2li3", "collapseExample1"], 
+			["resultsbtn3", "resultsbtn3li1", "resultsbtn3li2", "resultsbtn3li3", "collapseExample2"]
 		];
 
 		var lineSymbol;
@@ -199,7 +199,7 @@
 		var busroute2exists = false;
 
 		var order = [];
-
+		var firstresultsblockisdisplayed = false;
 		$(document).ready(function(){
 
 			
@@ -231,6 +231,7 @@
 			    //div.innerHTML = ""
 		    	//alert("Mouse down over p1!");
 		    order = [];
+		    firstresultsblockisdisplayed = false;
 		    document.getElementById("results_body").innerHTML = origloaderhtml;
 
 		    	/*if (hasline == 1) {
@@ -456,6 +457,8 @@
 	      				document.getElementById(resultsids[0][0]).style.display = "block";
 	      				document.getElementById(resultsids[0][1]).style.display = "block";
 
+	      				$('#'+resultsids[0][4]).collapse('show');
+
 						walkingdirectionsDisplay.setMap(map);
 
 						var org = new google.maps.LatLng (userlat, userlong);
@@ -489,6 +492,7 @@
 						});
 						walkingrouteexists = true;
 						order.push("W");
+						firstresultsblockisdisplayed = true;
 						//var arr = [[marker, marker2], [directionsDisplay], []];
 						//googlemapsgeneratedplots.push(arr);
 			      	}
@@ -513,6 +517,13 @@
 
 								var org = new google.maps.LatLng (userlat, userlong);
 								var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
+
+								if (!firstresultsblockisdisplayed)
+								{
+									$('#'+resultsids[i][4]).collapse('show');
+									firstresultsblockisdisplayed = true;
+								}
+								
 
 								directionsService5.route({
 								    origin: org,
@@ -543,6 +554,7 @@
 
 								walkingrouteexists = true;
 								order.push("W");
+								firstresultsblockisdisplayed = true;
 								//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
 			      			}
 			      			else
@@ -570,7 +582,12 @@
 			      				document.getElementById(resultsids[i][3]).style.display = "block";
 
 							
-
+			      				if (!firstresultsblockisdisplayed)
+								{
+									$('#'+resultsids[i][4]).collapse('show');
+									firstresultsblockisdisplayed = true;
+								}
+								
 								/*console.log("routeplottingindex: " + routeplottingindex);
 								directionsServicefirst = alldirectionsServices[routeplottingindex];
 								directionsdisplayfirst = alldirectionsDisplay[routeplottingindex++];
