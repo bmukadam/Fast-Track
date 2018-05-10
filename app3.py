@@ -37,11 +37,11 @@ def hello():
 	returnedcontent = []
 	#returnedcontent.append(["walking route", 8, "40.3505454,-74.652204"])
 
-	vals = ["1. Walk along yellow route for 2 mins to reach Woodrow Wilson School stop. Bus will arrive to stop in 4 mins.<br>", "2. Take Evening Circulator bus along blue route for 4 mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "koguF~btfMcBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.348329,-74.6553", "40.350619,-74.652013", "40.3505454,-74.652204", "Woodrow Wilson School Stop", "Friend Center Stop", "11"]
+	vals1 = ["1. Walk along yellow route for 2 mins to reach Woodrow Wilson School stop. Bus will arrive to stop in 4 mins.<br>", "2. Take Evening Circulator bus along blue route for 4 mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "koguF~btfMcBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.348329,-74.6553", "40.350619,-74.652013", "40.3505454,-74.652204", "Woodrow Wilson School Stop", "Friend Center Stop", "11"]
 
 	vals2 = ["1. Walk along yellow route for 5 mins to reach Jadwin Hall stop. Bus will arrive to stop in 3 mins.<br>", "2. Take Evening Circulator bus along blue route for 5 mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "_}fuFztsfM}CvBeGfEgDbC??cBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.345256,-74.652915", "40.350619,-74.652013", "40.3505454,-74.652204", "Jadwin Hall Stop", "Friend Center Stop", "14"]
 
-	returnedcontent.append(vals)
+	returnedcontent.append(vals1)
 	returnedcontent.append(vals2)
 
 	#--------------------------------------------------------------------
