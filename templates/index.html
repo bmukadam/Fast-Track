@@ -145,7 +145,7 @@
 		var hasline = 0;
 		var line;
 		var markers = [];
-		var googlemapsgeneratedplots = [[]];
+		var googlemapsgeneratedplots = [];
 		var resultsids = [
 			["resultsbtn1", "resultsbtn1li1", "resultsbtn1li2", "resultsbtn1li3"],
 			["resultsbtn2", "resultsbtn2li1", "resultsbtn2li2", "resultsbtn2li3"], 
@@ -177,6 +177,23 @@
 		var directionsDisplay3;
 		var directionsDisplay4;
 		var walkingdirectionsDisplay;
+
+		var walkingmarker1;
+		var walkingmarker2;
+
+		var bus1marker1;
+		var bus1marker2;
+		var bus1marker3;
+		var bus1marker4;
+
+		var bus2marker1;
+		var bus2marker2;
+		var bus2marker3;
+		var bus2marker4;
+
+		var walkingrouteexists = false;
+		var busroute1exists = false;
+		var busroute2exists = false;
 
 		$(document).ready(function(){
 
@@ -414,19 +431,20 @@
 						    }
 						  });
 
-						var marker = new google.maps.Marker({
+						walkingmarker1 = new google.maps.Marker({
 						    position: new google.maps.LatLng(userlat, userlong),
 						    label: 'Current Location',
 						    title: 'Current Location',
 						    map:map
 						});
 
-						var marker2 = new google.maps.Marker({
+						walkingmarker2 = new google.maps.Marker({
 						    position: new google.maps.LatLng(parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1])),
 						    label: $('input[name="dst"]').val(),
 						    title: $('input[name="dst"]').val(),
 						    map:map
 						});
+						walkingrouteexists = true;
 						var arr = [[marker, marker2], [directionsDisplay], []];
 						googlemapsgeneratedplots.push(arr);
 			      	}
@@ -465,19 +483,21 @@
 								    }
 								  });
 
-								var marker = new google.maps.Marker({
+								walkingmarker1 = new google.maps.Marker({
 								    position: new google.maps.LatLng(userlat, userlong),
 								    label: 'Current Location',
 								    title: 'Current Location',
 								    map:map
 								});
 
-								var marker2 = new google.maps.Marker({
+								walkingmarker2 = new google.maps.Marker({
 								    position: new google.maps.LatLng(parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1])),
 								    label: $('input[name="dst"]').val(),
 								    title: $('input[name="dst"]').val(),
 								    map:map
 								});
+
+								walkingrouteexists = true;
 
 								googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
 			      			}
@@ -566,6 +586,37 @@
 									
 								 	});
 
+									bus1marker1 = new google.maps.Marker({
+									    position: new google.maps.LatLng(userlat, userlong),
+									    label: 'Current Location',
+									    title: 'Current Location',
+									    map:map
+									});
+
+									bus1marker2 = new google.maps.Marker({
+									    position: new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1])),
+									    label: srcstopname,
+									    title: srcstopname,
+									    map:map
+									});
+
+
+									bus1marker3 = new google.maps.Marker({
+									  position: new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1])),
+									  label: dststopname,
+									  title: dststopname,
+									  map:map
+									});		
+
+									bus1marker4 = new google.maps.Marker({
+									  position: new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1])),
+									  label: document.getElementById('myInput2').value,
+									  title: document.getElementById('myInput2').value,
+									  map:map
+									});
+
+									busroute1exists = true;
+
 								 	directionsdisplaysarray.push(directionsDisplay);
 								 	directionsdisplaysarray.push(directionsDisplay2);
 
@@ -608,12 +659,43 @@
 									
 								 	});
 
+								 	bus2marker1 = new google.maps.Marker({
+									    position: new google.maps.LatLng(userlat, userlong),
+									    label: 'Current Location',
+									    title: 'Current Location',
+									    map:map
+									});
+
+									bus2marker2 = new google.maps.Marker({
+									    position: new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1])),
+									    label: srcstopname,
+									    title: srcstopname,
+									    map:map
+									});
+
+
+									bus2marker3 = new google.maps.Marker({
+									  position: new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1])),
+									  label: dststopname,
+									  title: dststopname,
+									  map:map
+									});		
+
+									bus2marker4 = new google.maps.Marker({
+									  position: new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1])),
+									  label: document.getElementById('myInput2').value,
+									  title: document.getElementById('myInput2').value,
+									  map:map
+									});
+
+									busroute2exists = true;
+
 								 	directionsdisplaysarray.push(directionsDisplay3);
 								 	directionsdisplaysarray.push(directionsDisplay4);
 								}
 
 
-							 	var marker = new google.maps.Marker({
+							 	/*var marker = new google.maps.Marker({
 								    position: new google.maps.LatLng(userlat, userlong),
 								    label: 'Current Location',
 								    title: 'Current Location',
@@ -640,7 +722,7 @@
 								  label: document.getElementById('myInput2').value,
 								  title: document.getElementById('myInput2').value,
 								  map:map
-								});
+								});*/
 
 
 								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
