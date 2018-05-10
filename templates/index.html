@@ -662,6 +662,57 @@
 	};	
 </script>
 
+<script type="text/javascript">
+	function resultsbtnfunction(buttonnum)
+	{
+		//plot elements in buttonnum subarray of googlemapsgeneratedplots
+		var firstsubarray = googlemapsgeneratedplots[buttonnum];
+		var elemname = "#collapseExample"+buttonnum;
+		if ($(elemname).hasClass('in'))
+		{
+			//hide markers:
+			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
+			{
+				firstsubarray[0][i].setVisible(false);	
+			}
+
+			//hide directions display:
+			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
+			{
+				firstsubarray[1][i].setMap(null);	
+			}
+
+			//hide polyline:
+			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
+			{
+				firstsubarray[2][i].setMap(null);	
+			}
+			//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+			//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
+		}
+		else
+		{
+			//plot markers:
+			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
+			{
+				firstsubarray[0][i].setVisible(true);	
+			}
+
+			//plot directions display:
+			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
+			{
+				firstsubarray[1][i].setMap(map);	
+			}
+
+			//plot polyline:
+			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
+			{
+				firstsubarray[2][i].setMap(map);	
+			}
+		}
+	}
+</script>
+
 	<div class="container-fluid">
 		<div class="row">
 			<nav class="navbar navbar-inverse" role="navigation">
