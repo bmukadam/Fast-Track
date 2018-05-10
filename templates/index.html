@@ -27,7 +27,10 @@
 	<style >
 		#myInput {
 			width: 100%;
-			margin: 2px;
+			margin-left: 5px;
+			margin-right: 5px;
+			margin-top: 2px;
+			margin-bottom: 2px;
 			border-style: solid;
     		border-width: 2px;
     		border-color: orange;
@@ -35,7 +38,10 @@
 
 		#myInput2 {
 			width: 100%;
-			margin: 2px;
+			margin-left: 5px;
+			margin-right: 5px;
+			margin-top: 2px;
+			margin-bottom: 2px;
 			border-style: solid;
     		border-width: 2px;
     		border-color: orange;
@@ -93,6 +99,7 @@
 			height: 484px;
 		    max-height: 484px;
 		    overflow-y: scroll;
+		    width: 100%;
 		}
 
 		#resultsbtn1, #resultsbtn1li1, #resultsbtn1li2, #resultsbtn1li3, #resultsbtn2, #resultsbtn2li1, #resultsbtn2li2, #resultsbtn2li3, #resultsbtn3, #resultsbtn3li1, #resultsbtn3li2, #resultsbtn3li3 {
@@ -818,17 +825,17 @@
 	    },
 	    {
 	      element: '#myInput',
-	      intro: "If you want to use your current location, leave this field blank. Otherwise, type where you would like your trip to begin (tip: use arrow keys to interact with autocomplete",
+	      intro: "If you want to use your current location, leave this field blank. Otherwise, type where you would like your trip to begin (tip: use arrow keys to interact with autocomplete, and tab to \"select\")",
 	      position: 'right'
 	    },
 	    {
 	      element: '#myInput2',
-	      intro: "Type the location you want your trip to end.",
+	      intro: "Enter where you would like to end your trip.",
 	      position: 'right'
 	    },
 	    {
 	      element: '#results_body',
-	      intro: 'Results will show you up to four possible routes that will be ordered in increasing trip-completion time. Click on each route to get more info. The best route is plotted by default',
+	      intro: 'Results will show you up to three possible routes that will be ordered in increasing trip-completion time. Click on each heading to get more info and to display the corresponding plotted route. The best route is plotted by default',
 	      position: 'right'
 	    },
 	    {
@@ -967,7 +974,7 @@
 				</form>
 
 				<div class="panel  panel-warning" id = "panelmain">
-					<div class="panel-heading" overflow: hidden;>Results (Fastest to Slowest) :</div>
+					<div class="panel-heading" overflow: hidden;> <b>Results Fastest to Slowest:</b></div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
 						<button type="button" class="btn btn-primary btn-block" href="#collapseExample0" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
