@@ -378,25 +378,29 @@
 					rendererOptions = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual
+					    polylineOptions: polylineOptionsActual,
+					    preserveViewport: true
 					};
 
 					rendererOptions2 = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual2
+					    polylineOptions: polylineOptionsActual2,
+					    preserveViewport: true
 					};
 
 					rendererOptions3 = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual4
+					    polylineOptions: polylineOptionsActual4,
+					    preserveViewport: true
 					};
 
 					rendererOptions4 = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual5
+					    polylineOptions: polylineOptionsActual5,
+					    preserveViewport: true
 					};
 
 					polylineOptionsActual3 = new google.maps.Polyline({
@@ -412,7 +416,8 @@
 					rendererOptionswalk = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual3
+					    polylineOptions: polylineOptionsActual3,
+					    preserveViewport: true
 					};
 
 					directionsService = new google.maps.DirectionsService;
@@ -1058,7 +1063,7 @@
 				        	map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
 				          	center: uluru,
-						mapTypeControl: false
+							mapTypeControl: false
 				        });
 
 				        var opt = { minZoom: 15, maxZoom: 19};
