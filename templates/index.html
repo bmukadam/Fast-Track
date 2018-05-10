@@ -312,12 +312,12 @@
 	    		}
 	    		else
 	    		{
-	    			srcval = document.getElementById('myInput2').value
+	    			srcval = document.getElementById('myInput').value
 	    		}
 		    	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
 
 			        src: srcval,
-			        dst: $('input[name="dst"]').val()
+			        dst: document.getElementById('myInput2').value
 			      }, function(data) {
 
 			      	console.log(data.result);
