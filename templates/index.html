@@ -25,6 +25,21 @@
  	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
 	<style >
+		#myInput {
+			width: 100%;
+			margin: 2px;
+			border-style: solid;
+    		border-width: 2px;
+    		border-color: orange;
+		}
+
+		#myInput2 {
+			width: 100%;
+			margin: 2px;
+			border-style: solid;
+    		border-width: 2px;
+    		border-color: orange;
+		}
 		#feedbackform {
 		    color: white;
 		    font-size: 20px;
@@ -105,7 +120,7 @@
 
 		#calculate {
 			width: 100%;
-			margin: 10px;
+			margin: 5px;
 		}
 
 		/*#calculate {
@@ -935,13 +950,13 @@
 				  	<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					  </div>
-					  <input type="text" id="myInput" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+					  <input type="text" id="myInput" class="form-control" placeholder="Use My Location" aria-label="Use My Location" aria-describedby="basic-addon1">
 					</div>
 
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					  </div>
-					  <input type="text" id="myInput2" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+					  <input type="text" id="myInput2" class="form-control" placeholder="Enter Destination" aria-label="Enter Destination" aria-describedby="basic-addon1">
 					</div>
 				    <!--<input id="myInput" type="text" name="src" placeholder="Use My Location">
 				    <input id="myInput2" type="text" name="dst" placeholder="Enter Destination"> -->
