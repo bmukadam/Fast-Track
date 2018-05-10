@@ -143,7 +143,7 @@
 
 	<script type="text/javascript">
 		var hasline = 0;
-		var line;
+		
 		var markers = [];
 		var googlemapsgeneratedplots = [];
 		var resultsids = [
@@ -190,6 +190,9 @@
 		var bus2marker2;
 		var bus2marker3;
 		var bus2marker4;
+
+		var line1;
+		var line2;
 
 		var walkingrouteexists = false;
 		var busroute1exists = false;
@@ -248,11 +251,34 @@
 		    		walkingdirectionsDisplay.setMap(null);
 		    		walkingmarker1.setVisible(false);
 		    		walkingmarker2.setVisible(false);
+		    		walkingrouteexists = false;
+		    	}
+		    	if (busroute1exists)
+		    	{
+		    		directionsDisplay.setMap(null);
+		    		directionsDisplay2.setMap(null);
+		    		bus1marker1.setVisible(false);
+		    		bus1marker2.setVisible(false);
+		    		bus1marker3.setVisible(false);
+		    		bus1marker4.setVisible(false);
+		    		line1.setMap(null);
+		    		busroute1exists = false;
+		    	}
+		    	if (busroute2exists)
+		    	{
+		    		directionsDisplay3.setMap(null);
+		    		directionsDisplay4.setMap(null);
+		    		bus2marker1.setVisible(false);
+		    		bus2marker2.setVisible(false);
+		    		bus2marker3.setVisible(false);
+		    		bus2marker4.setVisible(false);
+		    		line2.setMap(null);
+		    		busroute2exists = false;
 		    	}
 		    	//console.log(googlemapsgeneratedplots);
 		    	//console.log(googlemapsgeneratedplots.length);
 
-		    	for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
+		    	/*for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
 		    	{
 		    		var currgenplots = googlemapsgeneratedplots[i];
 		    		console.log(currgenplots);
@@ -275,7 +301,7 @@
 			    		console.log(currgenplots[2][j]);
 			    		currgenplots[2][j].setMap(null);
 			    	}
-		    	}
+		    	}*/
 		    	
 		    	$("#loaderelement").show();
 
@@ -532,16 +558,7 @@
 			      				document.getElementById(resultsids[i][2]).style.display = "block";
 			      				document.getElementById(resultsids[i][3]).style.display = "block";
 
-			      				/*PLOTS THE BUS POLYLINE*/
-			      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
-						        line = new google.maps.Polyline({
-							        path: decode,
-							        strokeColor: '#00008B',
-							        strokeOpacity: 1.0,
-							        strokeWeight: 4,
-							        zIndex: 3
-							    });
-							    line.setMap(map);								
+							
 
 								/*console.log("routeplottingindex: " + routeplottingindex);
 								directionsServicefirst = alldirectionsServices[routeplottingindex];
@@ -557,6 +574,17 @@
 
 								if (busroutecounter == 1)
 								{
+				      				/*PLOTS THE BUS POLYLINE*/
+				      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
+							        line1 = new google.maps.Polyline({
+								        path: decode,
+								        strokeColor: '#00008B',
+								        strokeOpacity: 1.0,
+								        strokeWeight: 4,
+								        zIndex: 3
+								    });
+								    line1.setMap(map);	
+
 									directionsDisplay.setMap(map);
 								  	
 								  	var org = new google.maps.LatLng (userlat, userlong);
@@ -630,6 +658,17 @@
 								}
 								else if (busroutecounter == 2)
 								{
+									/*PLOTS THE BUS POLYLINE*/
+				      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
+							        line2 = new google.maps.Polyline({
+								        path: decode,
+								        strokeColor: '#00008B',
+								        strokeOpacity: 1.0,
+								        strokeWeight: 4,
+								        zIndex: 3
+								    });
+								    line2.setMap(map);
+
 									directionsDisplay3.setMap(map);
 								  	
 								  	var org = new google.maps.LatLng (userlat, userlong);
