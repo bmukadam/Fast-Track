@@ -900,9 +900,11 @@
 <script type="text/javascript">
 	function resultsbtnfunction(buttonnum)
 	{
+		console.log("entered resultsbtnfunction from button with id: " + buttonnum);
 		var elemname = "#collapseExample"+buttonnum;
 		if ($(elemname).hasClass('in'))
 		{
+			console.log(buttonnum + " thing was previously collapsed");
 			if (order[buttonnum] == 'W')
 			{
 				//hide walking stuff
@@ -935,6 +937,7 @@
 		}
 		else
 		{
+			console.log(buttonnum + " thing was previously open");
 			if (order[buttonnum] == 'W')
 			{
 				//open walking stuff
@@ -1008,7 +1011,7 @@
 					<div class="panel-heading" overflow: hidden;>Results:</div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample0" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
 						<div class="collapse" id="collapseExample0">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn1li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
@@ -1018,7 +1021,7 @@
 							</ul>
 						</div>
 
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)">Block level button</button>
 						<div class="collapse" id="collapseExample1">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn2li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
@@ -1028,7 +1031,7 @@
 							</ul>
 						</div>
 
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample3" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)">Block level button</button>
 						<div class="collapse" id="collapseExample2">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn3li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
