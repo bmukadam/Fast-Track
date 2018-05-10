@@ -151,15 +151,15 @@
 		var lineSymbol;
 
 		var polylineOptionsActual;
+		var polylineOptionsActual2;
+		var polylineOptionsActual3;
+		var polylineOptionsActual4;
+		var polylineOptionsActual5;
 
 		var rendererOptions;
-
-		var polylineOptionsActual2;
-
 		var rendererOptions2;
-
-		var polylineOptionsActual3;
-
+		var rendererOptions3;
+		var rendererOptions4;	
 		var rendererOptionswalk;
 
 		var directionsService;
@@ -253,7 +253,7 @@
 
 					
 
-					polylineOptionsActual4 = new google.maps.Polyline({
+					polylineOptionsActual2 = new google.maps.Polyline({
 					    strokeColor: 'green',
 					    strokeOpacity: 0,
 					    icons: [{
@@ -263,7 +263,7 @@
 					    }]
 					});
 
-					polylineOptionsActual5 = new google.maps.Polyline({
+					polylineOptionsActual4 = new google.maps.Polyline({
 					    strokeColor: 'orange',
 					    strokeOpacity: 0,
 					    icons: [{
@@ -275,7 +275,7 @@
 
 					
 
-					polylineOptionsActual4 = new google.maps.Polyline({
+					polylineOptionsActual5 = new google.maps.Polyline({
 					    strokeColor: 'green',
 					    strokeOpacity: 0,
 					    icons: [{
@@ -552,6 +552,7 @@
 
 								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
 								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], [directionsdisplayfirst, directionsdisplaysec], [line]]);
+								return;
 
 			      			}
 			      		}
