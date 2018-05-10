@@ -198,6 +198,8 @@
 		var busroute1exists = false;
 		var busroute2exists = false;
 
+		var order = [];
+
 		$(document).ready(function(){
 
 			
@@ -228,6 +230,7 @@
 		    	var div = document.getElementById('results_body');
 			    //div.innerHTML = ""
 		    	//alert("Mouse down over p1!");
+		    order = [];
 		    document.getElementById("results_body").innerHTML = origloaderhtml;
 
 		    	/*if (hasline == 1) {
@@ -480,6 +483,7 @@
 						    map:map
 						});
 						walkingrouteexists = true;
+						order.append("W");
 						//var arr = [[marker, marker2], [directionsDisplay], []];
 						//googlemapsgeneratedplots.push(arr);
 			      	}
@@ -533,7 +537,7 @@
 								});
 
 								walkingrouteexists = true;
-
+								order.append("W");
 								//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
 			      			}
 			      			else
@@ -656,6 +660,7 @@
 
 								 	directionsdisplaysarray.push(directionsDisplay);
 								 	directionsdisplaysarray.push(directionsDisplay2);
+								 	order.append("B");
 
 								}
 								else if (busroutecounter == 2)
@@ -740,8 +745,9 @@
 
 								 	directionsdisplaysarray.push(directionsDisplay3);
 								 	directionsdisplaysarray.push(directionsDisplay4);
+								 	order.append("B2");
 								}
-
+								
 
 							 	/*var marker = new google.maps.Marker({
 								    position: new google.maps.LatLng(userlat, userlong),
@@ -840,7 +846,7 @@
 </script>
 
 <script type="text/javascript">
-	function resultsbtnfunction(buttonnum)
+	/*function resultsbtnfunction(buttonnum)
 	{
 		//plot elements in buttonnum subarray of googlemapsgeneratedplots
 		var firstsubarray = googlemapsgeneratedplots[buttonnum];
@@ -887,6 +893,79 @@
 				firstsubarray[2][i].setMap(map);	
 			}
 		}
+	}*/
+</script>
+
+
+<script type="text/javascript">
+	function resultsbtnfunction(buttonnum)
+	{
+		var elemname = "#collapseExample"+buttonnum;
+		if ($(elemname).hasClass('in'))
+		{
+			if (order[buttonnum] == 'W')
+			{
+				//hide walking stuff
+				walkingdirectionsDisplay.setMap(null);
+	    		walkingmarker1.setVisible(false);
+	    		walkingmarker2.setVisible(false);
+			}
+			else if (order[buttonnum] == 'B')
+			{
+				//hide first bus stuff
+				directionsDisplay.setMap(null);
+	    		directionsDisplay2.setMap(null);
+	    		bus1marker1.setVisible(false);
+	    		bus1marker2.setVisible(false);
+	    		bus1marker3.setVisible(false);
+	    		bus1marker4.setVisible(false);
+	    		line1.setMap(null);
+			}
+			else if (order[buttonnum] == 'B2')
+			{
+				//hide sec bus stuff
+				directionsDisplay3.setMap(null);
+	    		directionsDisplay4.setMap(null);
+	    		bus2marker1.setVisible(false);
+	    		bus2marker2.setVisible(false);
+	    		bus2marker3.setVisible(false);
+	    		bus2marker4.setVisible(false);
+	    		line2.setMap(null);
+			}
+		}
+		else
+		{
+			if (order[buttonnum] == 'W')
+			{
+				//open walking stuff
+				walkingdirectionsDisplay.setMap(map);
+	    		walkingmarker1.setVisible(true);
+	    		walkingmarker2.setVisible(true);
+			}
+			else if (order[buttonnum] == 'B')
+			{
+				//open first bus stuff
+				directionsDisplay.setMap(map);
+	    		directionsDisplay2.setMap(map);
+	    		bus1marker1.setVisible(true);
+	    		bus1marker2.setVisible(true);
+	    		bus1marker3.setVisible(true);
+	    		bus1marker4.setVisible(true);
+	    		line1.setMap(map);
+
+			}
+			else if (order[buttonnum] == 'B2')
+			{
+				//open sec bus stuff
+				directionsDisplay3.setMap(map);
+	    		directionsDisplay4.setMap(map);
+	    		bus2marker1.setVisible(true);
+	    		bus2marker2.setVisible(true);
+	    		bus2marker3.setVisible(true);
+	    		bus2marker4.setVisible(true);
+		    	line2.setMap(map);
+			}
+		}
 	}
 </script>
 
@@ -930,7 +1009,7 @@
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
 						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
-						<div class="collapse" id="collapseExample1">
+						<div class="collapse" id="collapseExample0">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn1li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
 								<li class="list-group-item list-group-item-info" id = "resultsbtn1li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
@@ -940,7 +1019,7 @@
 						</div>
 
 						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)">Block level button</button>
-						<div class="collapse" id="collapseExample2">
+						<div class="collapse" id="collapseExample1">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn2li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
 								<li class="list-group-item list-group-item-info" id = "resultsbtn2li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
@@ -950,7 +1029,7 @@
 						</div>
 
 						<button type="button" class="btn btn-primary btn-block" href="#collapseExample3" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)">Block level button</button>
-						<div class="collapse" id="collapseExample3">
+						<div class="collapse" id="collapseExample2">
 							<ul class="list-group">
 								<li class="list-group-item list-group-item-warning" id = "resultsbtn3li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
 								<li class="list-group-item list-group-item-info" id = "resultsbtn3li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
