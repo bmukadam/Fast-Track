@@ -516,14 +516,7 @@
 								walkingdirectionsDisplay.setMap(map);
 
 								var org = new google.maps.LatLng (userlat, userlong);
-								var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
-
-								if (!firstresultsblockisdisplayed)
-								{
-									$('#'+resultsids[i][4]).collapse('show');
-									firstresultsblockisdisplayed = true;
-								}
-								
+								var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));			
 
 								directionsService5.route({
 								    origin: org,
@@ -551,6 +544,18 @@
 								    title: $('input[name="dst"]').val(),
 								    map:map
 								});
+
+								if (!firstresultsblockisdisplayed)
+								{
+									$('#'+resultsids[i][4]).collapse('show');
+									firstresultsblockisdisplayed = true;
+								}
+								else
+								{
+									walkingdirectionsDisplay.setMap(null);
+									walkingmarker1.setVisible(false);
+									walkingmarker2.setVisible(false);
+								}
 
 								walkingrouteexists = true;
 								order.push("W");
@@ -581,13 +586,6 @@
 			      				document.getElementById(resultsids[i][2]).style.display = "block";
 			      				document.getElementById(resultsids[i][3]).style.display = "block";
 
-							
-			      				if (!firstresultsblockisdisplayed)
-								{
-									$('#'+resultsids[i][4]).collapse('show');
-									firstresultsblockisdisplayed = true;
-								}
-								
 								/*console.log("routeplottingindex: " + routeplottingindex);
 								directionsServicefirst = alldirectionsServices[routeplottingindex];
 								directionsdisplayfirst = alldirectionsDisplay[routeplottingindex++];
@@ -685,6 +683,21 @@
 								 	directionsdisplaysarray.push(directionsDisplay2);
 								 	order.push("B");
 
+									if (!firstresultsblockisdisplayed)
+									{
+										$('#'+resultsids[i][4]).collapse('show');
+										firstresultsblockisdisplayed = true;
+									}
+									else
+									{
+										directionsDisplay.setMap(null);
+										directionsDisplay2.setMap(null);
+										bus1marker1.setVisible(false);
+										bus1marker2.setVisible(false);
+										bus1marker3.setVisible(false);
+										bus1marker4.setVisible(false);
+									}
+
 								}
 								else if (busroutecounter == 2)
 								{
@@ -771,6 +784,21 @@
 								 	directionsdisplaysarray.push(directionsDisplay3);
 								 	directionsdisplaysarray.push(directionsDisplay4);
 								 	order.push("B2");
+
+								 	if (!firstresultsblockisdisplayed)
+									{
+										$('#'+resultsids[i][4]).collapse('show');
+										firstresultsblockisdisplayed = true;
+									}
+									else
+									{
+										directionsDisplay3.setMap(null);
+										directionsDisplay4.setMap(null);
+										bus2marker1.setVisible(false);
+										bus2marker2.setVisible(false);
+										bus2marker3.setVisible(false);
+										bus2marker4.setVisible(false);
+									}
 								}
 								
 
