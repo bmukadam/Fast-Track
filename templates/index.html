@@ -532,25 +532,6 @@
 								 	directionsdisplaysarray.push(directionsDisplay4);
 								}
 
-								/*
-							  	directionsdisplayfirst.setMap(map);
-							  	directionsdisplaysec.setMap(map);
-				
-			  				  	var org = new google.maps.LatLng (userlat, userlong);
-							  	var dst = new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1]));
-
-							  	directionsServicefirst.route({
-							    	origin: org,
-							    	destination: dst,
-							    	travelMode: 'WALKING'
-							 	 }, function(response, status) {
-							  		directionsdisplayfirst.setDirections(response);
-							  	  if (status === 'OK') {
-							  	    directionsdisplayfirst.setDirections(response);
-							  	  } else {
-							   	   window.alert('Directions request failed due to ' + status);
-							   	 }
-							 	});*/
 
 							 	var marker = new google.maps.Marker({
 								    position: new google.maps.LatLng(userlat, userlong),
@@ -566,22 +547,6 @@
 								    map:map
 								});
 
-								/*PLOTS THE WALKING ROUTE FROM THE DST BUS STOP TO THE USER'S FINAL LOCATION*/
-								/*var org2 = new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1]));
-								var dst2 = new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1]));
-
-								directionsServicesec.route({
-								  origin: org2,
-								  destination: dst2,
-								  travelMode: 'WALKING'
-								}, function(response, status) {
-								  	directionsdisplaysec.setDirections(response);
-								  if (status === 'OK') {
-								    directionsdisplaysec.setDirections(response);
-								  } else {
-								    window.alert('Directions request failed due to ' + status);
-								  }
-								});*/
 
 								var marker3 = new google.maps.Marker({
 								  position: new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1])),
@@ -604,7 +569,9 @@
 			      			}
 			      		}
 			      	}
-			      	return;
+
+			      	console.log(googlemapsgeneratedplots);
+			      	//return;
 			      });
 			      return false;
 		    });
