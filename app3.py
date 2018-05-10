@@ -224,7 +224,7 @@ def hello():
 	elif len(activeroutetoroutename) == 0:
 		returnedcontent[0].append("Sorry there are no busses running right now. Time to stretch your legs!")
 	else:
-		returnedcontent[0].append("Sorry there are no busses that connect you to your destination. Try another location!")
+		returnedcontent[0].append("Sorry there are no busses that connect you to your destination. Try another start location!")
 		
 	returnedcontent[0].append("")
 	returnedcontent[0].append("")
