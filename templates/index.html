@@ -228,28 +228,10 @@
 			var random;
 		    $("#calculate").click(function(){
 		    	var div = document.getElementById('results_body');
-			    //div.innerHTML = ""
-		    	//alert("Mouse down over p1!");
 		    order = [];
 		    firstresultsblockisdisplayed = false;
 		    document.getElementById("results_body").innerHTML = origloaderhtml;
 
-		    	/*if (hasline == 1) {
-		    		line.setMap(null);
-		    		directionsDisplay.setMap(null);
-					directionsDisplay2.setMap(null);
-
-					
-					for(i=0; i<markers.length; i++){
-					        markers[i].setMap(null);
-					    }
-		    		//$("#results_body").empty();
-		    	}*/
-
-		    	//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
-
-		    	//remove markers
-		    	console.log(walkingrouteexists)
 		    	if (walkingrouteexists)
 		    	{
 		    		walkingdirectionsDisplay.setMap(null);
@@ -279,33 +261,6 @@
 		    		line2.setMap(null);
 		    		busroute2exists = false;
 		    	}
-		    	//console.log(googlemapsgeneratedplots);
-		    	//console.log(googlemapsgeneratedplots.length);
-
-		    	/*for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
-		    	{
-		    		var currgenplots = googlemapsgeneratedplots[i];
-		    		console.log(currgenplots);
-
-			    	for (var j = 0, size = currgenplots[0].length; j < size ; j++) 
-			    	{
-			    		console.log(currgenplots[0][j]);
-			    		currgenplots[0][j].setMap(null);
-			    	}
-			    	//remove directionsdisplay
-			    	for (var j = 0, size = currgenplots[1].length; j < size ; j++) 
-			    	{
-			    		console.log(currgenplots[1][j]);
-			    		currgenplots[1][j].setMap(null);
-			    	}
-
-			    	//clear polylines
-			    	for (var j = 0, size = currgenplots[2].length; j < size ; j++) 
-			    	{
-			    		console.log(currgenplots[2][j]);
-			    		currgenplots[2][j].setMap(null);
-			    	}
-		    	}*/
 		    	
 		    	$("#loaderelement").show();
 
@@ -440,7 +395,6 @@
 					var routeplottingindex = 0;
 
 			      	$("#loaderelement").hide();
-			      	//console.log(data.result);
 			      	var div = document.getElementById('results_body');
 			      	var busroutecounter = 0;
 
@@ -493,8 +447,6 @@
 						walkingrouteexists = true;
 						order.push("W");
 						firstresultsblockisdisplayed = true;
-						//var arr = [[marker, marker2], [directionsDisplay], []];
-						//googlemapsgeneratedplots.push(arr);
 			      	}
 			      	else
 			      	{
@@ -560,7 +512,6 @@
 								walkingrouteexists = true;
 								order.push("W");
 								firstresultsblockisdisplayed = true;
-								//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
 			      			}
 			      			else
 			      			{
@@ -586,16 +537,6 @@
 			      				document.getElementById(resultsids[i][2]).style.display = "block";
 			      				document.getElementById(resultsids[i][3]).style.display = "block";
 
-								/*console.log("routeplottingindex: " + routeplottingindex);
-								directionsServicefirst = alldirectionsServices[routeplottingindex];
-								directionsdisplayfirst = alldirectionsDisplay[routeplottingindex++];
-								console.log("routeplottingindex: " + routeplottingindex);
-								directionsServicesec = alldirectionsServices[routeplottingindex];
-								directionsdisplaysec = alldirectionsDisplay[routeplottingindex++];
-
-								var alldirectionsServices = [directionsService, directionsService2, directionsService3, directionsService4];
-
-					var alldirectionsDisplay = [directionsDisplay, directionsDisplay2, directionsDisplay3, directionsDisplay4];*/
 								var directionsdisplaysarray = [];
 
 								if (busroutecounter == 1)
@@ -802,47 +743,9 @@
 										bus2marker4.setVisible(false);
 									}
 								}
-								
-
-							 	/*var marker = new google.maps.Marker({
-								    position: new google.maps.LatLng(userlat, userlong),
-								    label: 'Current Location',
-								    title: 'Current Location',
-								    map:map
-								});
-
-								var marker2 = new google.maps.Marker({
-								    position: new google.maps.LatLng (parseFloat(srcstopcoords.split(",")[0]), parseFloat(srcstopcoords.split(",")[1])),
-								    label: srcstopname,
-								    title: srcstopname,
-								    map:map
-								});
-
-
-								var marker3 = new google.maps.Marker({
-								  position: new google.maps.LatLng (parseFloat(dststopcoords.split(",")[0]), parseFloat(dststopcoords.split(",")[1])),
-								  label: dststopname,
-								  title: dststopname,
-								  map:map
-								});		
-
-								var marker4 = new google.maps.Marker({
-								  position: new google.maps.LatLng (parseFloat(finaldststopcoords.split(",")[0]), parseFloat(finaldststopcoords.split(",")[1])),
-								  label: document.getElementById('myInput2').value,
-								  title: document.getElementById('myInput2').value,
-								  map:map
-								});*/
-
-
-								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
-								//googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], directionsdisplaysarray, [line]]);
-
 			      			}
 			      		}
 			      	}
-
-			      	console.log(googlemapsgeneratedplots);
-			      	//return;
 			      });
 			      return false;
 		    });
@@ -899,58 +802,6 @@
 		intro.start();
 	};	
 </script>
-
-<script type="text/javascript">
-	/*function resultsbtnfunction(buttonnum)
-	{
-		//plot elements in buttonnum subarray of googlemapsgeneratedplots
-		var firstsubarray = googlemapsgeneratedplots[buttonnum];
-		var elemname = "#collapseExample"+buttonnum;
-		if ($(elemname).hasClass('in'))
-		{
-			//hide markers:
-			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
-			{
-				firstsubarray[0][i].setVisible(false);	
-			}
-
-			//hide directions display:
-			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
-			{
-				firstsubarray[1][i].setMap(null);	
-			}
-
-			//hide polyline:
-			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
-			{
-				firstsubarray[2][i].setMap(null);	
-			}
-			//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
-			//googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
-		}
-		else
-		{
-			//plot markers:
-			for (var i = 0, size = firstsubarray[0].length; i < size ; i++)
-			{
-				firstsubarray[0][i].setVisible(true);	
-			}
-
-			//plot directions display:
-			for (var i = 0, size = firstsubarray[1].length; i < size ; i++)
-			{
-				firstsubarray[1][i].setMap(map);	
-			}
-
-			//plot polyline:
-			for (var i = 0, size = firstsubarray[2].length; i < size ; i++)
-			{
-				firstsubarray[2][i].setMap(map);	
-			}
-		}
-	}*/
-</script>
-
 
 <script type="text/javascript">
 	function resultsbtnfunction(buttonnum)
