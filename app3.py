@@ -200,10 +200,18 @@ def hello():
 	secondbesttime = 1000
 	returnedcontent.append([])
 	returnedcontent.append([])
-	if len(activeroutetoroutename) == 1:
+	time = arrivalestimates.body["generated_on"]
+	if (int(time[11:13]) - 4) < 0:
+		hourtime = int(time[11:13]) + 20
+	else:
+		hourtime = int(time[11:13]) - 4
+	if hourtime > 21 or hourtime < 3:
+		returnedcontent[0].append("Sorry there are no busses running right now.You can request the On demand bus by calling 609-258-7433 and it will drop you off wherever you want!")
+	elif len(activeroutetoroutename) == 0:
 		returnedcontent[0].append("Sorry there are no busses running right now. Time to stretch your legs!")
 	else:
 		returnedcontent[0].append("Sorry there are no busses that connect you to your destination. Try another location!")
+		
 	returnedcontent[0].append("")
 	returnedcontent[0].append("")
 	returnedcontent[1].append("")
