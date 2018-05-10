@@ -225,23 +225,23 @@
 		    	//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
 
 		    	//remove markers
-		    	for var (i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
+		    	for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
 		    	{
 		    		var currgenplots = googlemapsgeneratedplots[i];
-			    	for (var i = 0, size = currgenplots[0].length; i < size ; i++) 
+			    	for (var j = 0, size = currgenplots[0].length; j < size ; j++) 
 			    	{
-			    		currgenplots[0][i].setMap(null);
+			    		currgenplots[0][j].setMap(null);
 			    	}
 			    	//remove directionsdisplay
-			    	for (var i = 0, size = currgenplots[1].length; i < size ; i++) 
+			    	for (var j = 0, size = currgenplots[1].length; j < size ; j++) 
 			    	{
-			    		currgenplots[1][i].setMap(null);
+			    		currgenplots[1][j].setMap(null);
 			    	}
 
 			    	//clear polylines
-			    	for (var i = 0, size = currgenplots[2].length; i < size ; i++) 
+			    	for (var j = 0, size = currgenplots[2].length; j < size ; j++) 
 			    	{
-			    		currgenplots[2][i].setMap(null);
+			    		currgenplots[2][j].setMap(null);
 			    	}
 		    	}
 		    	
