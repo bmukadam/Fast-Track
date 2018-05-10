@@ -446,6 +446,7 @@
 								var alldirectionsServices = [directionsService, directionsService2, directionsService3, directionsService4];
 
 					var alldirectionsDisplay = [directionsDisplay, directionsDisplay2, directionsDisplay3, directionsDisplay4];*/
+								var directionsdisplaysarray = [];
 
 								if (busroutecounter == 1)
 								{
@@ -485,6 +486,9 @@
 									
 								 	});
 
+								 	directionsdisplaysarray.push(directionsDisplay);
+								 	directionsdisplaysarray.push(directionsDisplay2;
+
 								}
 								else if (busroutecounter == 2)
 								{
@@ -523,6 +527,9 @@
 									  }
 									
 								 	});
+
+								 	directionsdisplaysarray.push(directionsDisplay3);
+								 	directionsdisplaysarray.push(directionsDisplay4;
 								}
 
 								/*
@@ -590,8 +597,9 @@
 								  map:map
 								});
 
+
 								//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
-								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], [directionsdisplayfirst, directionsdisplaysec], [line]]);
+								googlemapsgeneratedplots.push([[marker, marker2, marker3, marker4], directionsdisplaysarray, [line]]);
 
 			      			}
 			      		}
