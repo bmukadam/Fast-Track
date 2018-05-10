@@ -242,8 +242,15 @@
 		    	//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
 
 		    	//remove markers
-		    	console.log(googlemapsgeneratedplots);
-		    	console.log(googlemapsgeneratedplots.length);
+		    	console.log(walkingrouteexists)
+		    	if (walkingrouteexists)
+		    	{
+		    		directionsService5.setMap(null);
+		    		walkingmarker1.setVisible(false);
+		    		walkingmarker2.setVisible(false);
+		    	}
+		    	//console.log(googlemapsgeneratedplots);
+		    	//console.log(googlemapsgeneratedplots.length);
 
 		    	for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
 		    	{
