@@ -273,6 +273,18 @@
 					    polylineOptions: polylineOptionsActual2
 					};
 
+					rendererOptions3 = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual
+					};
+
+					rendererOptions4 = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual2
+					};
+
 					polylineOptionsActual3 = new google.maps.Polyline({
 					    strokeColor: 'grey',
 					    strokeOpacity: 0,
@@ -297,8 +309,8 @@
 
 					directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 					directionsDisplay2 = new google.maps.DirectionsRenderer(rendererOptions2);
-					directionsDisplay3 = new google.maps.DirectionsRenderer(rendererOptions);
-					directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions2);
+					directionsDisplay3 = new google.maps.DirectionsRenderer(rendererOptions3);
+					directionsDisplay4 = new google.maps.DirectionsRenderer(rendererOptions4);
 					walkingdirectionsDisplay = new google.maps.DirectionsRenderer(rendererOptionswalk);
 
 					var alldirectionsServices = [directionsService, directionsService2, directionsService3, directionsService4];
@@ -448,7 +460,7 @@
 								console.log("routeplottingindex: " + routeplottingindex);
 								directionsServicesec = alldirectionsServices[routeplottingindex];
 								directionsdisplaysec = alldirectionsDisplay[routeplottingindex++];
-								
+
 
 							  	directionsdisplayfirst.setMap(map);
 							  	directionsdisplaysec.setMap(map);
