@@ -35,6 +35,11 @@ def calculateTime(route, stop, data, timeSent):
 def hello():
 	
 	returnedcontent = []
+	returnedcontent.append(["walking route", 8, "40.3505454,-74.652204"])
+
+	returnedcontent.append(["1. Walk along yellow route for 2 mins to reach Woodrow Wilson School stop. Bus will arrive to stop in 45 mins.<br>", "2. Take Evening Circulator bus along blue route fo…mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "koguF~btfMcBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.348329,-74.6553", "40.350619,-74.652013", "40.3505454,-74.652204", "Woodrow Wilson School Stop", "Friend Center Stop", "52"])
+	returnedcontent.append(["1. Walk along yellow route for 3 mins to reach Frist / Guyot (Southbound) stop. Bus will arrive to stop in 7 mins.<br>", "2. Take Evening Circulator bus along blue route fo…mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "kdguFrzsfMfIaGpF_E~HqFhDuCy@gB}@gA{@u@aBkAm@g@m@s@…D??}CvBeGfEgDbC??cBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.346324,-74.654067", "40.350619,-74.652013", "40.3505454,-74.652204", "Frist / Guyot (Southbound) Stop", "Friend Center Stop", "53"])
+	return jsonify(result=returnedcontent)
 	# src and dest are received from index.html
 	src = str(request.args.get('src'))
 	dst = str(request.args.get('dst'))
