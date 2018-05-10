@@ -352,7 +352,50 @@
 
 			      	if (data.result[0][0].startsWith("Sorry"))
 			      	{
+			      		div.innerHTML += data.result[0][0];
+			      		var currlist = data.result[1];
+	      				
+	      				var time = currlist[1];
+	      				var destcoords = currlist[2];
+	      				var message = "Walk from your current location to " + document.getElementById('myInput2').value;
+	      				document.getElementById(resultsids[i][0]).innerHTML = "Walking ("+time+" mins)";
+	      				document.getElementById(resultsids[i][1]).innerHTML = message;
+	      				document.getElementById(resultsids[i][0]).style.display = "block";
+	      				document.getElementById(resultsids[i][1]).style.display = "block";
 
+						walkingdirectionsDisplay.setMap(map);
+
+						var org = new google.maps.LatLng (userlat, userlong);
+						var dst = new google.maps.LatLng (parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1]));
+
+						directionsService5.route({
+						    origin: org,
+						    destination: dst,
+						    travelMode: 'WALKING'
+						  }, function(response, status) {
+						  	walkingdirectionsDisplay.setDirections(response);
+						    if (status === 'OK') {
+						      walkingdirectionsDisplay.setDirections(response);
+						    } else {
+						      window.alert('Directions request failed due to ' + status);
+						    }
+						  });
+
+						var marker = new google.maps.Marker({
+						    position: new google.maps.LatLng(userlat, userlong),
+						    label: 'Current Location',
+						    title: 'Current Location',
+						    map:map
+						});
+
+						var marker2 = new google.maps.Marker({
+						    position: new google.maps.LatLng(parseFloat(destcoords.split(",")[0]), parseFloat(destcoords.split(",")[1])),
+						    label: $('input[name="dst"]').val(),
+						    title: $('input[name="dst"]').val(),
+						    map:map
+						});
+
+						googlemapsgeneratedplots.push([[marker, marker2], [directionsDisplay], []]);
 			      	}
 			      	else
 			      	{
