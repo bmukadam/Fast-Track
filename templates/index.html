@@ -226,22 +226,29 @@
 
 		    	//remove markers
 		    	console.log(googlemapsgeneratedplots);
+		    	console.log(googlemapsgeneratedplots.length);
+
 		    	for (var i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
 		    	{
 		    		var currgenplots = googlemapsgeneratedplots[i];
+		    		console.log(currgenplots);
+
 			    	for (var j = 0, size = currgenplots[0].length; j < size ; j++) 
 			    	{
+			    		console.log(currgenplots[0][j]);
 			    		currgenplots[0][j].setMap(null);
 			    	}
 			    	//remove directionsdisplay
 			    	for (var j = 0, size = currgenplots[1].length; j < size ; j++) 
 			    	{
+			    		console.log(currgenplots[1][j]);
 			    		currgenplots[1][j].setMap(null);
 			    	}
 
 			    	//clear polylines
 			    	for (var j = 0, size = currgenplots[2].length; j < size ; j++) 
 			    	{
+			    		console.log(currgenplots[2][j]);
 			    		currgenplots[2][j].setMap(null);
 			    	}
 		    	}
