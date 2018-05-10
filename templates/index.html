@@ -251,11 +251,7 @@
 					    }]
 					});
 
-					rendererOptions = {
-					    map: map,
-					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual
-					};
+					
 
 					polylineOptionsActual2 = new google.maps.Polyline({
 					    strokeColor: 'green',
@@ -267,6 +263,34 @@
 					    }]
 					});
 
+					polylineOptionsActual3 = new google.maps.Polyline({
+					    strokeColor: 'orange',
+					    strokeOpacity: 0,
+					    icons: [{
+					      icon: lineSymbol,
+					      offset: '0',
+					      repeat: '10px'
+					    }]
+					});
+
+					
+
+					polylineOptionsActual4 = new google.maps.Polyline({
+					    strokeColor: 'green',
+					    strokeOpacity: 0,
+					    icons: [{
+					      icon: lineSymbol,
+					      offset: '0',
+					      repeat: '10px'
+					    }]
+					});
+
+					rendererOptions = {
+					    map: map,
+					    suppressMarkers: true,
+					    polylineOptions: polylineOptionsActual
+					};
+
 					rendererOptions2 = {
 					    map: map,
 					    suppressMarkers: true,
@@ -276,13 +300,13 @@
 					rendererOptions3 = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual
+					    polylineOptions: polylineOptionsActual3
 					};
 
 					rendererOptions4 = {
 					    map: map,
 					    suppressMarkers: true,
-					    polylineOptions: polylineOptionsActual2
+					    polylineOptions: polylineOptionsActual4
 					};
 
 					polylineOptionsActual3 = new google.maps.Polyline({
