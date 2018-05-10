@@ -321,7 +321,7 @@ def hello():
 	returnedcontent[0].append(str(bestdst)  + " Stop")
 	returnedcontent[0].append(str(besttime))
 
-	if (not returnedcontent[1][0].startswith("Sorry there are no busses")):
+	if (not returnedcontent[1][0].startswith("Sorry")):
 		finalhash = ''
 		rownum = 0
 		allcoords = []
@@ -345,9 +345,9 @@ def hello():
 				if rownum == 0:
 					rownum = 1
 				else:
-					if row[0] == bestsrc and startindex == -1:
+					if row[0] == secondbestsrc and startindex == -1:
 						startindex = currindex
-					if row[1] == bestdst and endindex == -1:
+					if row[1] == secondbestdst and endindex == -1:
 						endindex = currindex
 					currcoords = polyline.decode(row[2])
 					if firstrowofcoords == 1:
