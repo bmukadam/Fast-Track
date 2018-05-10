@@ -560,7 +560,7 @@
 			      				var srcstopname =currlist[7];
 			      				var dststopname =currlist[8];
 			      				var total_time = currlist[9];
-			      				document.getElementById(resultsids[i][0]).innerHTML = "Bus Time: ("+total_time+" mins)";
+			      				
 			      				document.getElementById(resultsids[i][1]).innerHTML = msg1;
 			      				document.getElementById(resultsids[i][2]).innerHTML = msg2;
 			      				document.getElementById(resultsids[i][3]).innerHTML = msg3;
@@ -585,6 +585,7 @@
 
 								if (busroutecounter == 1)
 								{
+									document.getElementById(resultsids[i][0]).innerHTML = "Bus 1 Time: ("+total_time+" mins)";
 				      				/*PLOTS THE BUS POLYLINE*/
 				      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
 							        line1 = new google.maps.Polyline({
@@ -670,6 +671,8 @@
 								}
 								else if (busroutecounter == 2)
 								{
+									document.getElementById(resultsids[i][0]).innerHTML = "Bus 2 Time: ("+total_time+" mins)";
+
 									/*PLOTS THE BUS POLYLINE*/
 				      				var decode = google.maps.geometry.encoding.decodePath(hashedpolyline);
 							        line2 = new google.maps.Polyline({
