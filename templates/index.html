@@ -56,11 +56,13 @@
 			padding: 10px;
 			margin: 10px;
 			border: 3px solid #000;
-			height: 25%;
-			width: 25%;
+			height: 16%;
+			width: 15.5%;
 		}
 		#legend h3 {
 			margin-top: 0;
+			font-size: 15px;
+			font-weight: bold;
 		}
 		#legend img {
 			vertical-align: middle;
@@ -809,7 +811,8 @@
 						var uluru = {lat: 40.346481, lng: -74.658138};
 				        	map = new google.maps.Map(document.getElementById('map'), {
 				        	zoom: 16.2,
-				          	center: uluru
+				          	center: uluru,
+						mapTypeControl: false
 				        });
 
 				        var opt = { minZoom: 15, maxZoom: 19};
@@ -835,14 +838,23 @@
 
 						
 						var icons = {
-							parking: {
-								name: 'Bus Route',
-								icon: 'https://www.freeiconspng.com/uploads/blue-line-png-1.png'
+							Route1: {
+								name: 'Walk Only Route',
+								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/GreyDotted.PNG'
 							},
-							info: {
-								name: 'Walking Route',
-								icon: 'http://www.kirbyscovers.com/wp-content/uploads/2017/03/dotted-line-png-30-487x300.png'
+							Route2: {
+								name: 'Walk Route to Pickup',
+								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/YellowDotted.PNG'
+							},
+							Route3: {
+								name: 'Bus Route',
+								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/BlueSolid.PNG'
+							},
+							Route4: {
+								name: 'Walk Route from Dropoff',
+								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/GreenDotted.PNG'
 							}
+							
 						};
 						
 						var legend = document.getElementById('legend');
@@ -854,7 +866,7 @@
 							div.innerHTML = '<img src="' + icon + '"> ' + name;
 							legend.appendChild(div);
 						}
-						map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
+						map.controls[google.maps.ControlPosition.TOP_LEFT].push(legend);
 					}
 					
 					
