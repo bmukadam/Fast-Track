@@ -222,6 +222,29 @@
 		    		//$("#results_body").empty();
 		    	}*/
 
+		    	//put a 2nd array into googlemapsgeneratedplots [[markers], [directionsdisplay], [polyline]]
+
+		    	//remove markers
+		    	for var (i = 0, size = googlemapsgeneratedplots.length; i < size; i++)
+		    	{
+		    		var currgenplots = googlemapsgeneratedplots[i];
+			    	for (var i = 0, size = currgenplots[0].length; i < size ; i++) 
+			    	{
+			    		currgenplots[0][i].setMap(null);
+			    	}
+			    	//remove directionsdisplay
+			    	for (var i = 0, size = currgenplots[1].length; i < size ; i++) 
+			    	{
+			    		currgenplots[1][i].setMap(null);
+			    	}
+
+			    	//clear polylines
+			    	for (var i = 0, size = currgenplots[2].length; i < size ; i++) 
+			    	{
+			    		currgenplots[2][i].setMap(null);
+			    	}
+		    	}
+		    	
 		    	$("#loaderelement").show();
 
 		    	var srcval;
