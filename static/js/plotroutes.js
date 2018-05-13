@@ -93,8 +93,8 @@ $(document).ready(function(){
     }
 
 	function showPosition(position) {
-	    userlat = pos.coords.latitude;
-	  	userlong = pos.coords.longitude;
+	    userlat = position.coords.latitude;
+	  	userlong = position.coords.longitude;
 	}
 
 	//stores the original html present in the results field to reinitialize
