@@ -83,7 +83,6 @@ def hello():
 		if point2.within(circle_buffer):
 			sourcenametoidtable[names["name"]] = names["stop_id"]
 			sourcenametolatlongtable[names["name"]] = str(names["location"]["lat"]) + "," + str(names["location"]["lng"])
-			sourcenametoroutes[names["name"]] = names["routes"]
 			sourceidtonametable[names["stop_id"]] = names["name"]
 
 	# string used in API call
@@ -170,7 +169,8 @@ def hello():
 	for route in activeroutestostops:
 		for stop in activeroutestostops[route]:
 			for sourcestop in destidtonametable:
-				if stop == sourcestop and route in activeroutetodestname.keys():	
+				if stop == sourcestop and route in activeroutetodestname.keys():
+					activeroutetodestname[route].append(destidtonametable[stop])	
 
 	# source stop to walking time from source to source stop
 	walkingtimeSource = {}
