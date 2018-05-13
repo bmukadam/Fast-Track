@@ -33,23 +33,9 @@ def calculateTime(route, stop, data, timeSent):
 
 @app.route('/FastTrackPython', methods=['GET', 'POST'])
 def hello():
-	
+	# returned content is a 2D array that contains information about the top 3 routes and is returned to the front end at the end
 	returnedcontent = []
-	#returnedcontent.append(["walking route", 8, "40.3505454,-74.652204"])
-
-	#vals1 = ["1. Walk along yellow route for 2 mins to reach Woodrow Wilson School stop. Bus will arrive to stop in 4 mins.<br>", "2. Take Evening Circulator bus along blue route for 4 mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "koguF~btfMcBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.348329,-74.6553", "40.350619,-74.652013", "40.3505454,-74.652204", "Woodrow Wilson School Stop", "Friend Center Stop", "11"]
-
-	#vals2 = ["1. Walk along yellow route for 5 mins to reach Jadwin Hall stop. Bus will arrive to stop in 3 mins.<br>", "2. Take Evening Circulator bus along blue route for 5 mins and will drop you off at Friend Center stop.", "3. Walk along green route for 1 mins to reach your final destination", "_}fuFztsfM}CvBeGfEgDbC??cBjA{CzBwAjAwAfAsDkPoBmJjBq@fC_A", "40.345256,-74.652915", "40.350619,-74.652013", "40.3505454,-74.652204", "Jadwin Hall Stop", "Friend Center Stop", "14"]
-
-	#returnedcontent.append(vals1)
-	#returnedcontent.append(vals2)
-
-	#--------------------------------------------------------------------
-	#returnedcontent.append(["Sorry there are no busses running right now. Time to stretch your legs!", "", ""])
-	#returnedcontent.append(["walking route", 8, "40.3505454,-74.652204"])
-
-	#return jsonify(result=returnedcontent)
-	# src and dest are received from index.html
+	
 	src = str(request.args.get('src'))
 	dst = str(request.args.get('dst'))
 	
@@ -58,7 +44,7 @@ def hello():
 	#a: get lat and long of user
 	lat = ''
 	longitude = ''
-	
+	# Condition to deal with if user decides to use own location or inputs a source
 	if src.startswith("usercoordsused"):
 		coords = src[14:]
 		lat, longitude = coords.split(',')
@@ -74,23 +60,24 @@ def hello():
 	longitudesource = str(longitude)[:10]
 
 
+	# import static files stop.json and routes.json
 	with open("stops.json") as json_file:
 	 	stops = json.load(json_file)
 
 	with open("routes.json") as json_file:
 	 	routes = json.load(json_file)
 
+	# name of stop around user to stop_id
 	sourcenametoidtable = {}
+	# name of stop around user to lat and long
 	sourcenametolatlongtable = {}
-	sourcenametoroutes = {}
+	# stop id to name 
 	sourceidtonametable = {}
-	sourceroutetoarrival = {}
-	destroutetoarrival = {}
 
 	point1 = geometry.Point(float(lat), float(longitude))
 	circle_buffer = point1.buffer(0.003)
 
-	# build some useful tables
+	# build some useful tables based on stops around user location
 	for names in stops["data"]:
 		point2 = geometry.Point(float(names["location"]["lat"]), float(names["location"]["lng"]))
 		if point2.within(circle_buffer):
@@ -99,16 +86,11 @@ def hello():
 			sourcenametoroutes[names["name"]] = names["routes"]
 			sourceidtonametable[names["stop_id"]] = names["name"]
 
-
+	# string used in API call
 	inputString = ""
 	for name in sourcenametoidtable:
 		inputString += sourcenametoidtable[name] + "%2c"
 		
-		
-	
-
-
-
 	# get stops around user destination
 	location = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + dst + "+Princeton+NJ&key=" + mapskey)
 	lat = location.body["results"][0]["geometry"]["location"]["lat"]
@@ -120,6 +102,7 @@ def hello():
 	point3 = geometry.Point(float(lat), float(longitude))
 	circle_buffer = point3.buffer(0.003)
 
+	# doing same thing here to build useful tables around user destination
 	destidtonametable = {}
 	destnametoidtable = {}
 	destnametolatlongtable = {}
@@ -136,23 +119,24 @@ def hello():
 		inputStringDest += destnametoidtable[name] + "%2c"
 		
 
-	routestostops = {}
-	activeroutes = {}
+	# active route to stops along that route
+	activeroutestostops = {}
+	# active route to stops around source
 	activeroutetosourcename = {}
+	# acrive route to stops around dest
 	activeroutetodestname = {}
+	# active route to name of route
 	activeroutetoroutename = {}
 
-
-					
-
-
+	# Note: Could have combined both API calls into one but it took more time to fetch and parse results
+	# API call to get arrival estimates of buses to stops around source
 	arrivalestimates = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputString[:-3],
 		headers={
 		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
 		"Accept": "application/json"
 		}
 	)
-
+	# API call to get arrival estimates of byses to stops around dest
 	arrivalestimatesDest = unirest.get("https://transloc-api-1-2.p.mashape.com/arrival-estimates.json?agencies=84&callback=call&stops=" + inputStringDest[:-3],
 		headers={
 		"X-Mashape-Key": "ru3kH1sHwXmsh30DK5Si5rtDGblOp1tcBfHjsnxSwtKVjwYvLp",
@@ -161,38 +145,38 @@ def hello():
 	)
 
 
-	
 	for arrivals in arrivalestimates.body["data"]:
 		for allroutes in routes["data"]["84"]:
-			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in routestostops.keys():
-				routestostops[allroutes["route_id"]] = allroutes["stops"]
+			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in activeroutestostops.keys():
+				activeroutestostops[allroutes["route_id"]] = allroutes["stops"]
 				activeroutetoroutename[allroutes["route_id"]] = allroutes["long_name"]
 				activeroutetosourcename[allroutes["route_id"]] = []
 				activeroutetodestname[allroutes["route_id"]] = []
 
 	for arrivals in arrivalestimatesDest.body["data"]:
 		for allroutes in routes["data"]["84"]:
-			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in routestostops.keys():
-				routestostops[allroutes["route_id"]] = allroutes["stops"]
+			if allroutes["route_id"] == arrivals["arrivals"][0]["route_id"] and allroutes["route_id"] not in activeroutestostops.keys():
+				activeroutestostops[allroutes["route_id"]] = allroutes["stops"]
 				activeroutetoroutename[allroutes["route_id"]] = allroutes["long_name"]
 				activeroutetodestname[allroutes["route_id"]] = []
 				activeroutetosourcename[allroutes["route_id"]] = []
 
-	for route in routestostops:
-		for stop in routestostops[route]:
+	for route in activeroutestostops:
+		for stop in activeroutestostops[route]:
 			for sourcestop in sourceidtonametable:
 				if stop == sourcestop and route in activeroutetosourcename.keys():
 					activeroutetosourcename[route].append(sourceidtonametable[stop])
 
-	for route in routestostops:
-		for stop in routestostops[route]:
+	for route in activeroutestostops:
+		for stop in activeroutestostops[route]:
 			for sourcestop in destidtonametable:
-				if stop == sourcestop and route in activeroutetodestname.keys():					
-					activeroutetodestname[route].append(destidtonametable[stop])
+				if stop == sourcestop and route in activeroutetodestname.keys():	
 
+	# source stop to walking time from source to source stop
 	walkingtimeSource = {}
+	# Destination stop to walking time from destination to destination stop
 	walkingtimeDest = {}
-
+	# for every possible source stop find how long it would take to walk from source to stop
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + sourcenametolatlongtable[sourcename] + "&destinations=" + latsource +"," + longitudesource + 
@@ -207,14 +191,15 @@ def hello():
 
 	googlewalking = unirest.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + latsource +"," + longitudesource + "&destinations=" + latdest +"," + longitudedest + 
 					"&mode=walking&key=" + mapskey)
+	# total walking time used to compare v.s bus times
 	walkingtotal = int (googlewalking.body["rows"][0]["elements"][0]["duration"]["text"].split(" ")[0])
 
-	#orange then blue then green
 	besttime = 1000
 	secondbesttime = 1000
 	returnedcontent.append([])
 	returnedcontent.append([])
 	time = arrivalestimates.body["generated_on"]
+	# dealing with case when its night time and on demand bus is running
 	if (int(time[11:13]) - 4) < 0:
 		hourtime = int(time[11:13]) + 20
 	else:
@@ -235,6 +220,8 @@ def hello():
 	bestroute = ""
 	bestsrc = ""
 	bestdst = ""
+	# doing calculations to find optimal bus time. Algorithm is as follow: For every route in active route source look at every source stop along the route and 
+	# calculate the time it takes to get to every destination stop a long that route based on arrival estimate times.
 	for route in activeroutetosourcename:
 		for sourcename in activeroutetosourcename[route]:
 			sourcetime =    calculateTime(route,sourcenametoidtable[sourcename], arrivalestimates, 0)
@@ -272,7 +259,8 @@ def hello():
 					returnedcontent[1][0] =  "1. Walk along yellow route for " +  str(walktimesrc) + " mins to reach "+ str(sourcename) + " stop. Bus will arrive to stop in " + str(sourcetime) + " mins." + '<br>'
 					returnedcontent[1][1] =  "2. Take " + str(activeroutetoroutename[route]) + " bus along blue route for " + str(desttime - sourcetime) + " mins and will drop you off at " + str(destname) + " stop."
 					returnedcontent[1][2] =  "3. Walk along green route for " + str(walktimedest) + " mins to reach your final destination"
-						
+	
+	# dealing with case when there are no buses						
 	if returnedcontent[0][0].split(" ")[0] == "Sorry":
 		del returnedcontent[1]
 		returnedcontent.append(["walking route"])
@@ -293,13 +281,10 @@ def hello():
 	bestroute = bestroute.replace('/', ' ')
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
-	#returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
-	#return jsonify(result=returnedcontent)
-
+	
+	# Accessing polyline file and concatenating polyline encodings based on source and dest stop
 	with open(fileroute) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
-		#returnedcontent[0] = returnedcontent[0] + "    reached hererererer"
-		#return jsonify(result=returnedcontent)
 		for row in readCSV:
 			if rownum == 0:
 				rownum = 1
@@ -333,16 +318,13 @@ def hello():
 	returnedcontent[0].append(polyline.encode(aggregated))  #adding aggregated bus hashed poyline
 
 
-	returnedcontent[0].append(sourcenametolatlongtable[bestsrc])  #addiing location of src stop
-	returnedcontent[0].append(destnametolatlongtable[bestdst])  #addiing location of dst stop
-	# editeddst = dst.replace(' ', '+')
-	# destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
-	# destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
-	returnedcontent[0].append(latdest +"," + longitudedest )
-	returnedcontent[0].append(str(bestsrc) + " Stop")
-	returnedcontent[0].append(str(bestdst)  + " Stop")
-	returnedcontent[0].append(str(besttime))
-
+	returnedcontent[0].append(sourcenametolatlongtable[bestsrc])  # addiing location of src stop
+	returnedcontent[0].append(destnametolatlongtable[bestdst])  # addiing location of dst stop
+	returnedcontent[0].append(latdest +"," + longitudedest ) # adding lat and long of destination
+	returnedcontent[0].append(str(bestsrc) + " Stop") # adding name of source stop
+	returnedcontent[0].append(str(bestdst)  + " Stop") # adding name of destination stop
+	returnedcontent[0].append(str(besttime)) # adding total trip time
+	# if there is a second bus route do the following
 	if (not returnedcontent[1][0].startswith("Sorry")):
 		finalhash = ''
 		rownum = 0
@@ -356,8 +338,6 @@ def hello():
 		secondbestroute = secondbestroute.replace('/', ' ')
 		filename = secondbestroute + ".csv"
 		fileroute = os.path.join('.', 'New Polylines/' + filename)
-		#returnedcontent[0] = returnedcontent[0] + "    fileroute: " + str(fileroute) + " filename: " + str(filename)
-		#return jsonify(result=returnedcontent)
 
 		with open(fileroute) as csvfile:
 			readCSV = csv.reader(csvfile, delimiter=',')
@@ -398,13 +378,13 @@ def hello():
 
 		returnedcontent[1].append(sourcenametolatlongtable[secondbestsrc])  #addiing location of src stop
 		returnedcontent[1].append(destnametolatlongtable[secondbestdst])  #addiing location of dst stop
-		# editeddst = dst.replace(' ', '+')
-		# destinfo = unirest.get("https://maps.googleapis.com/maps/api/geocode/json?address="+editeddst+",+Princeton,+NJ&key=" + mapskey)
-		# destcoords = str(destinfo.body["results"][0]["geometry"]["location"]["lat"]) + "," + str(destinfo.body["results"][0]["geometry"]["location"]["lng"]) #location of ultimate dest
-		returnedcontent[1].append(latdest +"," + longitudedest)
-		returnedcontent[1].append(str(secondbestsrc) + " Stop")
-		returnedcontent[1].append(str(secondbestdst)  + " Stop")
-		returnedcontent[1].append(str(secondbesttime))
+		returnedcontent[1].append(latdest +"," + longitudedest) # adding lat and long of destination
+		returnedcontent[1].append(str(secondbestsrc) + " Stop") # adding name of source stop
+		returnedcontent[1].append(str(secondbestdst)  + " Stop") # adding name of dest stop
+		returnedcontent[1].append(str(secondbesttime)) # adding best time
+
+		returnedcontent.append(["walking route"]) # adding walking route signifier
+		returnedcontent[2].append(walkingtotal) # adding walking route time
 
 		returnedcontent.append(["walking route"])
 		returnedcontent[2].append(walkingtotal)
