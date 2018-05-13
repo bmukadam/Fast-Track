@@ -23,7 +23,7 @@ function initMap() {
 	     new google.maps.LatLng(40.3805075,-74.6361918)
 	);
 	var lastValidCenter = map.getCenter();
-	map.setBounds(allowedBounds);
+	map.fitBounds(allowedBounds);
 
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    if (allowedBounds.contains(map.getCenter())) {
