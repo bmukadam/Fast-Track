@@ -147,11 +147,11 @@ $(document).ready(function(){
     	console.log("something")
     	console.log("Value is: " + document.getElementById('myInput').value);
    		console.log("Value length is: " + String(document.getElementById('myInput').value).length); 	
-		if (document.getElementById('myInput').value == null || document.getElementById('myInput').value == "")
+		if (String(document.getElementById('myInput').value).length == 0)
 		{
 			console.log("in using your location");
-			console.log("userlocation: "  + str(userlat) + "," +str(userlong));
-			srcval = "usercoordsused" + str(userlat) + "," +str(userlong);
+			console.log("userlocation: "  + String(userlat) + "," + String(userlong));
+			srcval = "usercoordsused" + String(userlat) + "," + String(userlong);
 		}
 		else
 		{
