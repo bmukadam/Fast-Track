@@ -105,7 +105,7 @@ $(document).ready(function(){
 
     	var v1 = document.getElementById('myInput').value;
     	var v2 = document.getElementById('myInput2').value;
-    	if (String(v1).trim() == String(v2).trim())
+    	if (v1 === v2)
     	{
     		alert("Your origin and destination can't be the same location!");
     		return;
