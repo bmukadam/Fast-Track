@@ -144,7 +144,7 @@ $(document).ready(function(){
 
     	//sets srcval appropriately depending on whether user specified their location or otherwise
     	var srcval;
-    	console.log(document.getElementById('myInput').value);
+    	console.log("Value is: " + document.getElementById('myInput').value);
 		if (document.getElementById('myInput').value == "")
 		{
 			console.log("in using your location");
