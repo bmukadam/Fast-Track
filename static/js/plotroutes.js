@@ -86,16 +86,17 @@ $(document).ready(function(){
 	  maximumAge: 0
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 
-	function error(err) {
-	  console.warn(`ERROR(${err.code}): ${err.message}`);
+	function showPosition(position) {
+	    userlat = pos.coords.latitude;
+	  	userlong = pos.coords.longitude;
 	}
 
-	function success(pos) {
-	  userlat = pos.coords.latitude;
-	  userlong = pos.coords.longitude;
-	}
 	//stores the original html present in the results field to reinitialize
 	//the results field every time the submit button is clicked
 	var origloaderhtml = document.getElementById("results_body").innerHTML;
