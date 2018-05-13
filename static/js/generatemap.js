@@ -67,5 +67,5 @@ function initMap() {
 		div.innerHTML = '<img src="' + icon + '"> ' + name;
 		legend.appendChild(div);
 	}
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(legend);
+	map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 }
