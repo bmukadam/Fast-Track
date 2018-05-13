@@ -112,7 +112,7 @@ $(document).ready(function(){
     	}
     	else if (String(v2).length == 0)
     	{
-    		alert("Your must specify a destination!");
+    		alert("You must specify a destination!");
     		return;
     	}
 	    order = [];
