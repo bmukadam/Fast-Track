@@ -19,13 +19,34 @@ function initMap() {
 	map.setOptions(opt);
 	
 	var allowedBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(40.176717, -74.712781), 
-	     new google.maps.LatLng(40.3805075,-74.6361918)
+	     new google.maps.LatLng(40.275357, -74.685564), 
+	     new google.maps.LatLng(40.388385, -74.625705)
 	);
-	var lastValidCenter = map.getCenter();
+
+    // Listen for the dragend event
+    google.maps.event.addListener(map, 'dragend', function() {
+        if (allowedBounds.contains(map.getCenter())) return;
+
+        // We're out of bounds - Move the map back within the bounds
+        var c = map.getCenter(),
+        x = c.lng(),
+        y = c.lat(),
+        maxX = allowedBounds.getNorthEast().lng(),
+        maxY = allowedBounds.getNorthEast().lat(),
+        minX = allowedBounds.getSouthWest().lng(),
+        minY = allowedBounds.getSouthWest().lat();
+
+        if (x < minX) x = minX;
+        if (x > maxX) x = maxX;
+        if (y < minY) y = minY;
+        if (y > maxY) y = maxY;
+
+        map.setCenter(new google.maps.LatLng(y, x));
+    });
+	//var lastValidCenter = map.getCenter();
 	// map.fitBounds(allowedBounds);
 
-	google.maps.event.addListener(map, 'center_changed', function() {
+	/*google.maps.event.addListener(map, 'center_changed', function() {
 	    if (allowedBounds.contains(map.getCenter())) {
 	        // still within valid bounds, so save the last valid position
 	        lastValidCenter = map.getCenter();
@@ -34,7 +55,7 @@ function initMap() {
 
 	    // not valid anymore => return to last valid position
 	    map.panTo(lastValidCenter);
-	});
+	});*/
 
 	//setups up icons for legend
 	var icons = {
