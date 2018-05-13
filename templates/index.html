@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
 	<link rel="icon" href="../favicon.ico" type="image/x-icon" />
 	<!--including introjs.css" -->
 	<link href="/static/css/introjs.css" rel="stylesheet" type="text/css">
-	<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+	<link href="../static/css/index.css" rel="stylesheet" type="text/css">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118567294-1"></script>
 	<script>
@@ -27,6 +29,76 @@
 	<script type=text/javascript>
  	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
+
+	<style type="text/css">
+	/*.navbar-inverse {
+	   	background-color: #77C9D4;
+	    border-color: #015249;
+	}*/
+	.navbar-default {
+	  background: rgb(0,10,0, 0.7);
+	  border-color: #000a00;	
+	}
+	.navbar-default .navbar-brand {
+	  color: #dfdce3;
+	}
+	.navbar-inner {
+    	background:transparent;
+	}
+	.navbar-default .navbar-brand:hover,
+	.navbar-default .navbar-brand:focus {
+	  color: #fc4a1a;
+	}
+	.navbar-default .navbar-text {
+	  color: #dfdce3;
+	}
+	.navbar-default .navbar-nav > li > a {
+	  color: #dfdce3;
+	}
+	.navbar-default .navbar-nav > li > a:hover,
+	.navbar-default .navbar-nav > li > a:focus {
+	  color: #fc4a1a;
+	}
+	.navbar-default .navbar-nav > .active > a,
+	.navbar-default .navbar-nav > .active > a:hover,
+	.navbar-default .navbar-nav > .active > a:focus {
+	  color: #fc4a1a;
+	  background-color: #4abdac;
+	}
+	.navbar-default .navbar-nav > .open > a,
+	.navbar-default .navbar-nav > .open > a:hover,
+	.navbar-default .navbar-nav > .open > a:focus {
+	  color: #fc4a1a;
+	  background-color: #4abdac;
+	}
+	.navbar-default .navbar-toggle {
+	  border-color: #4abdac;
+	}
+	.navbar-default .navbar-toggle:hover,
+	.navbar-default .navbar-toggle:focus {
+	  background-color: #4abdac;
+	}
+	.navbar-default .navbar-toggle .icon-bar {
+	  background-color: #dfdce3;
+	}
+	.navbar-default .navbar-collapse,
+	.navbar-default .navbar-form {
+	  border-color: #dfdce3;
+	}
+	.navbar-default .navbar-link {
+	  color: #dfdce3;
+	}
+	.navbar-default .navbar-link:hover {
+	  color: #fc4a1a;
+	}
+	.navbar-default{
+    border-radius: 0;
+	} 
+
+	body {
+    	background-image:  url("https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2017/03/20131101_CL_Fall%20Break_AH072%20%282%29.jpg?itok=RpKlfBtV");
+	}
+	</style>
 </head>
 <body>
 	<script src="/static/js/plotroutes.js"></script>
@@ -39,7 +111,7 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="navbar navbar-inverse" role="navigation">
+			<nav class="navbar navbar-default" role="navigation">
 			  <div class="navbar-header">
 			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			      <span class="icon-bar"></span>
@@ -49,14 +121,12 @@
 			  </div>
 			  <div class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
-			        <li><a id = "step1" href="https://princetonfasttrack.herokuapp.com/">FastTrack</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-center">
-			        <li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2" id = "feedbackform">Click to leave your anonymous feedback!</a></li>
+			        <li><a id = "step1" href="https://princetonfasttrack.herokuapp.com/"><i>FastTrack</i></a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			    	<li><a href="#" onclick=starttutorial();>FastTrack Tutorial</a></li>
 					<li><a href="https://bidotair.github.io/Fast-Track/">About FastTrack</a></li>
+					<li><a href="https://goo.gl/forms/zsNMoEaVVvpxOM1l2">Leave us some feedback</a></li>
 				</ul>
 			  </div>
 			</nav>
