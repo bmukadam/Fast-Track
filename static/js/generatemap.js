@@ -17,12 +17,13 @@ function initMap() {
     /*limits zoom and panning*/
     var opt = { minZoom: 15, maxZoom: 19};
 	map.setOptions(opt);
-
+	
 	var allowedBounds = new google.maps.LatLngBounds(
 	     new google.maps.LatLng(40.278923,-74.655545), 
 	     new google.maps.LatLng(40.3805075,-74.6361918)
 	);
 	var lastValidCenter = map.getCenter();
+	map.setBounds(allowedBounds);
 
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    if (allowedBounds.contains(map.getCenter())) {
