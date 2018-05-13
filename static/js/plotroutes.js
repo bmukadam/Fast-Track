@@ -146,6 +146,8 @@ $(document).ready(function(){
     	var srcval;
 		if (document.getElementById('myInput').value == "Using your location")
 		{
+			console.log("in using your location");
+			console.log("userlocation: "  + str(userlat) + "," +str(userlong));
 			srcval = "usercoordsused" + str(userlat) + "," +str(userlong);
 		}
 		else
