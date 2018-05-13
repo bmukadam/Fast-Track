@@ -102,10 +102,21 @@ $(document).ready(function(){
 	var origloaderhtml = document.getElementById("results_body").innerHTML;
     $("#calculate").click(function(){
     	var div = document.getElementById('results_body');
-    order = [];
-    firstresultsblockisdisplayed = false;
-    // clears/reinitializes the results field
-    document.getElementById("results_body").innerHTML = origloaderhtml;
+
+    	if (String(document.getElementById('myInput').value).trim() == String(document.getElementById('myInput2').value).trim())
+    	{
+    		alert("Your origin and destination can't be the same location!");
+    		return;
+    	}
+    	else if (String(document.getElementById('myInput2').value).length == 0)
+    	{
+    		alert("Your must specify a destination!");
+    		return;
+    	}
+	    order = [];
+	    firstresultsblockisdisplayed = false;
+	    // clears/reinitializes the results field
+	    document.getElementById("results_body").innerHTML = origloaderhtml;
 
     	//clears an existing walking route plot along with its markers
     	if (walkingrouteexists)
