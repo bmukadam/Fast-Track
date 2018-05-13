@@ -19,11 +19,11 @@ function initMap() {
 	map.setOptions(opt);
 	
 	var allowedBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(40.178923,-74.655545), 
+	     new google.maps.LatLng(40.3149695,-74.6752898), 
 	     new google.maps.LatLng(40.3805075,-74.6361918)
 	);
 	var lastValidCenter = map.getCenter();
-	map.fitBounds(allowedBounds);
+	// map.fitBounds(allowedBounds);
 
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    if (allowedBounds.contains(map.getCenter())) {
