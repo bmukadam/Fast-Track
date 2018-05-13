@@ -27,9 +27,6 @@
 	<script type=text/javascript>
  	 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
-	<style >
-		
-	</style>
 </head>
 <body>
 	<script src="/static/js/plotroutes.js"></script>
@@ -38,80 +35,7 @@
 
 	<script src="/static/js/starttutorial.js"></script>
 
-<script type="text/javascript">
-	function resultsbtnfunction(buttonnum)
-	{
-		console.log("entered resultsbtnfunction from button with id: " + buttonnum);
-		var elemname = "#collapseExample"+buttonnum;
-		if ($(elemname).hasClass('in'))
-		{
-			console.log(buttonnum + " thing was previously collapsed");
-			if (order[buttonnum] == 'W')
-			{
-				//hide walking stuff
-				walkingdirectionsDisplay.setMap(null);
-	    		walkingmarker1.setVisible(false);
-	    		walkingmarker2.setVisible(false);
-			}
-			else if (order[buttonnum] == 'B')
-			{
-				//hide first bus stuff
-				directionsDisplay.setMap(null);
-	    		directionsDisplay2.setMap(null);
-	    		bus1marker1.setVisible(false);
-	    		bus1marker2.setVisible(false);
-	    		bus1marker3.setVisible(false);
-	    		bus1marker4.setVisible(false);
-	    		line1.setMap(null);
-			}
-			else if (order[buttonnum] == 'B2')
-			{
-				//hide sec bus stuff
-				directionsDisplay3.setMap(null);
-	    		directionsDisplay4.setMap(null);
-	    		bus2marker1.setVisible(false);
-	    		bus2marker2.setVisible(false);
-	    		bus2marker3.setVisible(false);
-	    		bus2marker4.setVisible(false);
-	    		line2.setMap(null);
-			}
-		}
-		else
-		{
-			console.log(buttonnum + " thing was previously open");
-			if (order[buttonnum] == 'W')
-			{
-				//open walking stuff
-				walkingdirectionsDisplay.setMap(map);
-	    		walkingmarker1.setVisible(true);
-	    		walkingmarker2.setVisible(true);
-			}
-			else if (order[buttonnum] == 'B')
-			{
-				//open first bus stuff
-				directionsDisplay.setMap(map);
-	    		directionsDisplay2.setMap(map);
-	    		bus1marker1.setVisible(true);
-	    		bus1marker2.setVisible(true);
-	    		bus1marker3.setVisible(true);
-	    		bus1marker4.setVisible(true);
-	    		line1.setMap(map);
-
-			}
-			else if (order[buttonnum] == 'B2')
-			{
-				//open sec bus stuff
-				directionsDisplay3.setMap(map);
-	    		directionsDisplay4.setMap(map);
-	    		bus2marker1.setVisible(true);
-	    		bus2marker2.setVisible(true);
-	    		bus2marker3.setVisible(true);
-	    		bus2marker4.setVisible(true);
-		    	line2.setMap(map);
-			}
-		}
-	}
-</script>
+	<script src="/static/js/resultsbuttons.js"></script>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -160,33 +84,32 @@
 					<div class="panel-heading" overflow: hidden;> <u><b>Results Fastest to Slowest:</b></u></div>
 					<div class="panel-body" id = "results_body" max-height: 6;overflow-y: scroll;>
 						<div class="loader" id = "loaderelement"></div>
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample0" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample0" data-toggle="collapse" id = "resultsbtn1"  onclick="resultsbtnfunction(0)"></button>
 						<div class="collapse" id="collapseExample0">
 							<ul class="list-group">
-								<li class="list-group-item list-group-item-warning" id = "resultsbtn1li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
-								<li class="list-group-item list-group-item-info" id = "resultsbtn1li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
-								<li class="list-group-item list-group-item-success" id = "resultsbtn1li3">d squid. Nihil anim keffiyeh helvetica, craft</li>
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn1li1"></li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn1li2"></li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn1li3"></li>
 								
 							</ul>
 						</div>
 
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample1" data-toggle="collapse" id = "resultsbtn2"  onclick="resultsbtnfunction(1)"></button>
 						<div class="collapse" id="collapseExample1">
 							<ul class="list-group">
-								<li class="list-group-item list-group-item-warning" id = "resultsbtn2li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
-								<li class="list-group-item list-group-item-info" id = "resultsbtn2li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
-								<li class="list-group-item list-group-item-success" id = "resultsbtn2li3">d squid. Nihil anim keffiyeh helvetica, craft</li>
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn2li1"></li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn2li2"></li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn2li3"></li>
 								
 							</ul>
 						</div>
 
-						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)">Block level button</button>
+						<button type="button" class="btn btn-primary btn-block" href="#collapseExample2" data-toggle="collapse" id = "resultsbtn3"  onclick="resultsbtnfunction(2)"></button>
 						<div class="collapse" id="collapseExample2">
 							<ul class="list-group">
-								<li class="list-group-item list-group-item-warning" id = "resultsbtn3li1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson</li>
-								<li class="list-group-item list-group-item-info" id = "resultsbtn3li2">a beer labore wes anderson cred nesciunt sapiente ea proident.</li>
-								<li class="list-group-item list-group-item-success" id = "resultsbtn3li3">d squid. Nihil anim keffiyeh helvetica, craft</li>
-								
+								<li class="list-group-item list-group-item-warning" id = "resultsbtn3li1"></li>
+								<li class="list-group-item list-group-item-info" id = "resultsbtn3li2"></li>
+								<li class="list-group-item list-group-item-success" id = "resultsbtn3li3"></li>
 							</ul>
 						</div>
 					</div>
@@ -197,76 +120,8 @@
 				<div id="map"></div>
 				<div id="legend"><h3>Legend</h3></div>
 
+				<script src="/static/js/generatemap.js"></script>
 				
-				
-				<script>
-					var map;
-
-					function initMap() {
-						var uluru = {lat: 40.346481, lng: -74.658138};
-				        	map = new google.maps.Map(document.getElementById('map'), {
-				        	zoom: 16.2,
-				          	center: uluru,
-							mapTypeControl: false
-				        });
-
-				        var opt = { minZoom: 15, maxZoom: 19};
-						map.setOptions(opt);
-
-						var allowedBounds = new google.maps.LatLngBounds(
-						     new google.maps.LatLng(40.3149695,-74.6752898), 
-						     new google.maps.LatLng(40.3805075,-74.6361918)
-						);
-						var lastValidCenter = map.getCenter();
-
-						google.maps.event.addListener(map, 'center_changed', function() {
-						    if (allowedBounds.contains(map.getCenter())) {
-						        // still within valid bounds, so save the last valid position
-						        lastValidCenter = map.getCenter();
-						        return; 
-						    }
-
-						    // not valid anymore => return to last valid position
-						    map.panTo(lastValidCenter);
-						});
-
-
-						
-						var icons = {
-							Route1: {
-								name: 'Walk Only Route',
-								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/GreyDotted.PNG'
-							},
-							Route2: {
-								name: 'Walk Route to Pickup',
-								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/YellowDotted.PNG'
-							},
-							Route3: {
-								name: 'Bus Route',
-								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/BlueSolid.PNG'
-							},
-							Route4: {
-								name: 'Walk Route from Dropoff',
-								icon: 'https://raw.githubusercontent.com/bmukadam/Fast-Track/master/PNG%20for%20Legend/GreenDotted.PNG'
-							}
-							
-						};
-						
-						var legend = document.getElementById('legend');
-						for (var key in icons) {
-							var type = icons[key];
-							var name = type.name;
-							var icon = type.icon;
-							var div = document.createElement('div');
-							div.innerHTML = '<img src="' + icon + '"> ' + name;
-							legend.appendChild(div);
-						}
-						map.controls[google.maps.ControlPosition.TOP_LEFT].push(legend);
-					}
-					
-					
-
-			    </script>
 			    <script async defer
 			    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpp8voCHf0PvvD46oNJUQCj4xxhvXcN9U&libraries=geometry&callback=initMap">
 			    </script>
