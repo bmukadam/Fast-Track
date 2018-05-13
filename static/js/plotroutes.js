@@ -103,12 +103,14 @@ $(document).ready(function(){
     $("#calculate").click(function(){
     	var div = document.getElementById('results_body');
 
-    	if (String(document.getElementById('myInput').value).trim() == String(document.getElementById('myInput2').value).trim())
+    	var v1 = document.getElementById('myInput').value;
+    	var v2 = document.getElementById('myInput2').value;
+    	if (String(v1).trim() == String(v2).trim())
     	{
     		alert("Your origin and destination can't be the same location!");
     		return;
     	}
-    	else if (String(document.getElementById('myInput2').value).length == 0)
+    	else if (String(v2).length == 0)
     	{
     		alert("Your must specify a destination!");
     		return;
