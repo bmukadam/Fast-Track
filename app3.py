@@ -278,7 +278,7 @@ def hello():
 	currindex = 0
 	startindex = -1
 	endindex = -1
-	bestroute = bestroute.replace('/', ' ')
+	bestroute = bestroute.replace('/', '_')
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
 	
@@ -335,7 +335,7 @@ def hello():
 		currindex = 0
 		startindex = -1
 		endindex = -1
-		secondbestroute = secondbestroute.replace('/', ' ')
+		secondbestroute = secondbestroute.replace('/', '_')
 		filename = secondbestroute + ".csv"
 		fileroute = os.path.join('.', 'New Polylines/' + filename)
 

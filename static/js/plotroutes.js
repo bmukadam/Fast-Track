@@ -86,16 +86,17 @@ $(document).ready(function(){
 	  maximumAge: 0
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+    }
 
-	function error(err) {
-	  console.warn(`ERROR(${err.code}): ${err.message}`);
+	function showPosition(position) {
+	    userlat = position.coords.latitude;
+	  	userlong = position.coords.longitude;
 	}
 
-	function success(pos) {
-	  userlat = pos.coords.latitude;
-	  userlong = pos.coords.longitude;
-	}
 	//stores the original html present in the results field to reinitialize
 	//the results field every time the submit button is clicked
 	var origloaderhtml = document.getElementById("results_body").innerHTML;
@@ -144,16 +145,20 @@ $(document).ready(function(){
 
     	//sets srcval appropriately depending on whether user specified their location or otherwise
     	var srcval;
-		if (document.getElementById('myInput').value == "Using your location")
+    	console.log("something")
+    	console.log("Value is: " + document.getElementById('myInput').value);
+   		console.log("Value length is: " + String(document.getElementById('myInput').value).length); 	
+		if (String(document.getElementById('myInput').value).length == 0)
 		{
 			console.log("in using your location");
-			console.log("userlocation: "  + str(userlat) + "," +str(userlong));
-			srcval = "usercoordsused" + str(userlat) + "," +str(userlong);
+			console.log("userlocation: "  + String(userlat) + "," + String(userlong));
+			srcval = "usercoordsused" + String(userlat) + "," + String(userlong);
 		}
 		else
 		{
 			srcval = document.getElementById('myInput').value
 		}
+		//srcval = document.getElementById('myInput').value
 		//sends src and dest values to the backend code 
     	$.getJSON($SCRIPT_ROOT + '/FastTrackPython', {
 

@@ -17,12 +17,13 @@ function initMap() {
     /*limits zoom and panning*/
     var opt = { minZoom: 15, maxZoom: 19};
 	map.setOptions(opt);
-
+	
 	var allowedBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(40.3149695,-74.6752898), 
+	     new google.maps.LatLng(40.176717, -74.712781), 
 	     new google.maps.LatLng(40.3805075,-74.6361918)
 	);
 	var lastValidCenter = map.getCenter();
+	// map.fitBounds(allowedBounds);
 
 	google.maps.event.addListener(map, 'center_changed', function() {
 	    if (allowedBounds.contains(map.getCenter())) {
@@ -66,5 +67,5 @@ function initMap() {
 		div.innerHTML = '<img src="' + icon + '"> ' + name;
 		legend.appendChild(div);
 	}
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(legend);
+	map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 }
