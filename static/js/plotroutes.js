@@ -146,7 +146,7 @@ $(document).ready(function(){
     	var srcval;
     	console.log("something")
     	console.log("Value is: " + document.getElementById('myInput').value);
-		if (document.getElementById('myInput').value == "")
+		if (document.getElementById('myInput').value == null || document.getElementById('myInput').value == "")
 		{
 			console.log("in using your location");
 			console.log("userlocation: "  + str(userlat) + "," +str(userlong));
