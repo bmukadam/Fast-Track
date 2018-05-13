@@ -28,10 +28,6 @@ function starttutorial() {
     {
       element: '#map',
       intro: "The routes will be displayed here!"
-    },
-    {
-      element: '#feedbackform',
-      intro: "After using our app, please leave us your anonymous feedback!"
     }
   ]
   });
