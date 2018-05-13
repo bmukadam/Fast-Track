@@ -1,3 +1,10 @@
+/***************************************************************************
+ * This code enable user interactivity with all the route result fields.
+ * If a route result is clicked when its closed, it will expand to show
+ * details and will generate its corresponding route plot. Otherwise, if it
+ * was open, it will contract, and its corresponding route plot will disappear.
+ ***************************************************************************/
+
 function resultsbtnfunction(buttonnum)
 {
 	console.log("entered resultsbtnfunction from button with id: " + buttonnum);
@@ -7,14 +14,14 @@ function resultsbtnfunction(buttonnum)
 		console.log(buttonnum + " thing was previously collapsed");
 		if (order[buttonnum] == 'W')
 		{
-			//hide walking stuff
+			//close walking route result field and hide walking route
 			walkingdirectionsDisplay.setMap(null);
     		walkingmarker1.setVisible(false);
     		walkingmarker2.setVisible(false);
 		}
 		else if (order[buttonnum] == 'B')
 		{
-			//hide first bus stuff
+			//close 1st bus route result field and hide 1st bus route
 			directionsDisplay.setMap(null);
     		directionsDisplay2.setMap(null);
     		bus1marker1.setVisible(false);
@@ -25,7 +32,7 @@ function resultsbtnfunction(buttonnum)
 		}
 		else if (order[buttonnum] == 'B2')
 		{
-			//hide sec bus stuff
+			//close 2nd bus route result field and hide 2nd bus route
 			directionsDisplay3.setMap(null);
     		directionsDisplay4.setMap(null);
     		bus2marker1.setVisible(false);
@@ -40,14 +47,14 @@ function resultsbtnfunction(buttonnum)
 		console.log(buttonnum + " thing was previously open");
 		if (order[buttonnum] == 'W')
 		{
-			//open walking stuff
+			//open walking route result field and plot walking route
 			walkingdirectionsDisplay.setMap(map);
     		walkingmarker1.setVisible(true);
     		walkingmarker2.setVisible(true);
 		}
 		else if (order[buttonnum] == 'B')
 		{
-			//open first bus stuff
+			//open 1st bus route result field and plot 1st bus route
 			directionsDisplay.setMap(map);
     		directionsDisplay2.setMap(map);
     		bus1marker1.setVisible(true);
@@ -59,7 +66,7 @@ function resultsbtnfunction(buttonnum)
 		}
 		else if (order[buttonnum] == 'B2')
 		{
-			//open sec bus stuff
+			//open 2nd bus route result field and plot 2nd bus route
 			directionsDisplay3.setMap(map);
     		directionsDisplay4.setMap(map);
     		bus2marker1.setVisible(true);

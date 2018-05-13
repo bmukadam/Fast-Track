@@ -1,3 +1,8 @@
+/***************************************************************************
+ * This code starts the tutorial and specfies the order of the tutorial, and
+ * the corresponding text that appears during each step of the tutorial.
+ ***************************************************************************/
+
 function starttutorial() {
 	var intro = introJs();
   intro.setOptions({

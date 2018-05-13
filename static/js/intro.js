@@ -1,8 +1,14 @@
-/**
+/***********************************************************************
+ * WE USE THE INTRO.JS LIBRARY TO TAKE THE USER THROUGH A TUTORIAL UPON 
+ *VISITING THE WEBSITE
+ ***********************************************************************/
+
+/*
  * Intro.js v2.9.3
  * https://github.com/usablica/intro.js
  *
  * Copyright (C) 2017 Afshin Mehrabani (@afshinmeh)
+ *
  */
 (function(f) {
     if (typeof exports === "object" && typeof module !== "undefined") {

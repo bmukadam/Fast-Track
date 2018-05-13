@@ -1,6 +1,12 @@
+/*********************************************************************************************
+ * This function creates an initial google map and creates legend to identify routes by color
+ * and symbol for user. Map panning is limited to the princeton area, and zooming levels as well
+ *********************************************************************************************/
+
 var map;
 
 function initMap() {
+	//initializes map
 	var uluru = {lat: 40.346481, lng: -74.658138};
     	map = new google.maps.Map(document.getElementById('map'), {
     	zoom: 16.2,
@@ -8,6 +14,7 @@ function initMap() {
 		mapTypeControl: false
     });
 
+    /*limits zoom and panning*/
     var opt = { minZoom: 15, maxZoom: 19};
 	map.setOptions(opt);
 
@@ -28,8 +35,7 @@ function initMap() {
 	    map.panTo(lastValidCenter);
 	});
 
-
-	
+	//setups up icons for legend
 	var icons = {
 		Route1: {
 			name: 'Walk Only Route',
@@ -50,6 +56,7 @@ function initMap() {
 		
 	};
 	
+	//superimposes legend onto map element
 	var legend = document.getElementById('legend');
 	for (var key in icons) {
 		var type = icons[key];
