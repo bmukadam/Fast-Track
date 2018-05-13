@@ -10,7 +10,7 @@ from shapely import geometry
 app = Flask(__name__)
 
 # Function that is used to calculate arrival estimate when given routename, stopname, jsondata, timesent is used to determine if timeestimate to destination
-# is greater than time estimate to source
+# is greater than time estimate to source.
 def calculateTime(route, stop, data, timeSent):	
 	time = data.body["generated_on"]
 	hourtime = 0;
