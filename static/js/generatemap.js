@@ -19,7 +19,7 @@ function initMap() {
 	map.setOptions(opt);
 	
 	var allowedBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(40.278923,-74.655545), 
+	     new google.maps.LatLng(40.178923,-74.655545), 
 	     new google.maps.LatLng(40.3805075,-74.6361918)
 	);
 	var lastValidCenter = map.getCenter();
