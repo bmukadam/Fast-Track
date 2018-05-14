@@ -10,7 +10,7 @@ from shapely import geometry
 app = Flask(__name__)
 
 # Function that is used to calculate arrival estimate when given routename, stopname, jsondata, timesent is used to determine if timeestimate to destination
-# is greater than time estimate to source.
+# is greater than time estimate to source
 def calculateTime(route, stop, data, timeSent):	
 	time = data.body["generated_on"]
 	hourtime = 0;
@@ -278,7 +278,7 @@ def hello():
 	currindex = 0
 	startindex = -1
 	endindex = -1
-	bestroute = bestroute.replace('/', ' ')
+	bestroute = bestroute.replace('/', '_')
 	filename = bestroute + ".csv"
 	fileroute = os.path.join('.', 'New Polylines/' + filename)
 	
@@ -335,7 +335,7 @@ def hello():
 		currindex = 0
 		startindex = -1
 		endindex = -1
-		secondbestroute = secondbestroute.replace('/', ' ')
+		secondbestroute = secondbestroute.replace('/', '_')
 		filename = secondbestroute + ".csv"
 		fileroute = os.path.join('.', 'New Polylines/' + filename)
 
@@ -383,8 +383,6 @@ def hello():
 		returnedcontent[1].append(str(secondbestdst)  + " Stop") # adding name of dest stop
 		returnedcontent[1].append(str(secondbesttime)) # adding best time
 
-		returnedcontent.append(["walking route"]) # adding walking route signifier
-		returnedcontent[2].append(walkingtotal) # adding walking route time
 
 		returnedcontent.append(["walking route"])
 		returnedcontent[2].append(walkingtotal)
