@@ -19,8 +19,8 @@ function initMap() {
 	map.setOptions(opt);
 	
 	var allowedBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(40.262368, -74.705840), 
-	     new google.maps.LatLng(40.388385, -74.625705)
+	     new google.maps.LatLng(40.285934, -74.697925), 
+	     new google.maps.LatLng(40.398322, -74.612349)
 	);
 
     // Listen for the dragend event
