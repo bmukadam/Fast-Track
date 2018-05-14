@@ -146,7 +146,8 @@ var countries = ['1895 Field Dugout', 'Cannon Dial Elm Club', 'Ivy Club', 'Chart
  '6', 'General Counsel Office', 'New South (Princeton University', 'Forbes College', '4', '1', 'Princeton', 'New GC Common Room', 'Princeton Graduate College', '5', 'Dog Jogz', '2', 'Virtual Board of Advisors', 'LOT 19', 'Sebco Care',
  'Dr. George F. Hutchinson Jr, DO', 'Lawrence Apartments', 'Springdale Golf Club', '3', 'Princeton Canoe Rental', 'Turning Basin Park', 'WRd. DNR Parking', 'D&R Canal Trail Pedestrian Crossing', 'LOT 21', 'Princeton Lot 21', 
  'Finney Field', 'Clarke Field', '8', 'Ferris Thompson Apartments', 'Class of 1926', '25', '27', 'Prospect House & Garden', '28', 'Woodrow Wilson School of Public and International Affairs', '29', '24', '106', 'PJs Pancake House', 
- '157', '20', '43', 'Department of Operations Research and Financial Engineering', '15', 'Information Age Associates', 'Princeton Charter Club']
+ '157', '20', '43', 'Department of Operations Research and Financial Engineering', '15', 'Information Age Associates', 'Princeton Charter Club', 'Equad', 'Wegmans', 'Walmart', 'Tower Eating Club', 'Colonial Eating Club', 'TI Eating Club', 
+ 'Terrace Eating Club']
 
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
